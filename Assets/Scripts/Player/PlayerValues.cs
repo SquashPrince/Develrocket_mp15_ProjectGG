@@ -69,13 +69,32 @@ namespace Player
         /** 소지골드 변경 */
         public void SetGold(int gold)
         {
-            _value.Gold += gold;
+            if (gold < 0 || gold == gold * _value.GoldGainRate)
+            {
+                _value.Gold += gold;
+            }
+            else
+            {
+                _value.Gold += gold * _value.GoldGainRate / 100;
+            }
         }
 
         /** 소지보석 변경 */
         public void SetGem(int gem)
         {
             _value.Gem += gem;
+        }
+        
+        /** 골드 획득량 변경 */
+        public void SetGoldGainRate(int goldGainRate)
+        {
+            _value.GoldGainRate += goldGainRate;
+        }
+
+        /** 쉴드량 변경 */
+        public void SetShield(int shield)
+        {
+            _value.Shield += shield;
         }
         
         // 퍼블릭 메서드

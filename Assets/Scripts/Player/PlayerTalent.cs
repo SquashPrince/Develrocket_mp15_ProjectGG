@@ -1,12 +1,21 @@
+using UnityEngine;
+
 namespace Player
 {
-    public struct PlayerTalent
-    {
-        private bool _hasTalent1;
-        private bool _hasTalent2;
-        private bool _hasTalent3;
-        private bool _hasTalent4;
-        private bool _hasTalent5;
-
+    public abstract class PlayerTalent
+    { 
+        public abstract void SetTalentData(PlayerValues playerValues);
     }
+
+    public class IncreaseGainGold : PlayerTalent
+    {
+        public override void SetTalentData(PlayerValues playerValues)
+        {
+            playerValues.SetGoldGainRate(20);
+        }
+    }
+    
+    
+    
+    
 }

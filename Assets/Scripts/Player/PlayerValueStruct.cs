@@ -1,3 +1,5 @@
+using UnityEngine.Rendering;
+
 namespace Player
 {
     public struct PlayerValueStruct
@@ -13,19 +15,19 @@ namespace Player
         private const float BaseMinDodgeTime = 0.1f; // 최소 회피무적시간
         private const int BaseStartGold = 100; // 시작골드
         private const int BaseStartGem = 0; // 시작보석
+        private const int BaseGoldGainRate = 100; // 골드획득률
+        private const int BaseShield = 0; // 보호막
         
         // 상수 (기본값)
         // ============================================================
         
         private int _currentHealth; // 현재체력
-        private int _maxHealth; // 최대체력
         private int _moveSpeed; // 이동속도
         private float _attackRate; // 공격주기
         private float _damagedDelay; // 피격무적시간
         private float _dodgeTime; // 회피무적시간
-        private int _gold; // 소지골드
-        private int _gem; // 소지보석
-        
+        private bool _isNewChara;
+
         // 변수
         // ============================================================
         
@@ -34,9 +36,9 @@ namespace Player
             get => _currentHealth;
             set
             {
-                if (value > _maxHealth)
+                if (value > MaxHealth)
                 {
-                    _currentHealth = _maxHealth;
+                    _currentHealth = MaxHealth;
                 }
                 else if (value < 0)
                 {
@@ -51,12 +53,8 @@ namespace Player
         
         public int MaxHealth
         {
-            get => _maxHealth;
-            set
-            {
-                if (value <= 0) _maxHealth = 0;
-                else _maxHealth = value;
-            }
+            get;
+            set;
         }
 
         public int MoveSpeed
@@ -123,52 +121,34 @@ namespace Player
             }
         }
 
-        public int Gold
-        {
-            get => _gold;
-            set
-            {
-                if (value < 0)
-                {
-                    _gold = 0;
-                }
-                else
-                {
-                    _gold = value;
-                }
-            }
-        }
+        public int Gold { get; set; }
 
-        public int Gem
-        {
-            get => _gem;
-            set
-            {
-                if (value < 0)
-                {
-                    _gem = 0;
-                }
-                else
-                {
-                    _gem = value;
-                }
-            }
-        }
-        
+        public int Gem { get; set; }
+
+        public int GoldGainRate { get; set; }
+
+        public int Shield { get; set; }
+
         // 프로퍼티
         // ============================================================
         
         /** 기본값 설정 */
         public void SetDefaultValues()
         {
-            _maxHealth = BaseMaxHp;
-            _currentHealth = _maxHealth;
+            MaxHealth = BaseMaxHp;
+            _currentHealth = MaxHealth;
             _moveSpeed = BaseMoveSpeed;
             _attackRate = BaseAttackRate;
             _damagedDelay = BaseDamageDelay;
             _dodgeTime = BaseDodgeTime;
-            _gold = BaseStartGold;
-            _gem = BaseStartGem;
+            Gold = BaseStartGold;
+            GoldGainRate = BaseGoldGainRate;
+            Shield = BaseShield;
+            if (_isNewChara)
+            {
+                Gem = BaseStartGem;
+                _isNewChara = false;
+            }
         }
         
         // 퍼블릭 메서드
