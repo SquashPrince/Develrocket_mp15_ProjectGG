@@ -31,43 +31,43 @@ namespace Player
 
         
         /** 현재체력 변경 */
-        public void SetCurrentHp(int hp)
+        public void AddCurrentHp(int hp)
         {
             _value.CurrentHealth += hp;
         }
         
         /** 최대체력 변경 */
-        public void SetMaxHp(int maxHp)
+        public void AddMaxHp(int maxHp)
         {
             _value.MaxHealth += maxHp;
         }
 
         /** 이동속도 변경 */
-        public void SetMoveSpeed(int moveSpeed)
+        public void AddMoveSpeed(int moveSpeed)
         {
             _value.MoveSpeed += moveSpeed;
         }
 
         /** 공격주기 변경 */
-        public void SetAttackRate(float attackRate)
+        public void AddAttackSpeed(int attackSpeed)
         {
-            _value.AttackRate += attackRate;
+            _value.AttackSpeedRate += attackSpeed;
         }
 
         /** 피격무적시간 변경 */
-        public void SetDamageDelay(float damageDelay)
+        public void AddDamageDelay(float damageDelay)
         {
             _value.DamagedDelay +=  damageDelay;
         }
 
         /** 회피무적시간 변경 */
-        public void SetDodgeTime(float dodgeTime)
+        public void AddDodgeTime(float dodgeTime)
         {
             _value.DodgeTime += dodgeTime;
         }
 
         /** 소지골드 변경 */
-        public void SetGold(int gold)
+        public void AddGold(int gold)
         {
             if (gold < 0 || gold == gold * _value.GoldGainRate)
             {
@@ -80,23 +80,27 @@ namespace Player
         }
 
         /** 소지보석 변경 */
-        public void SetGem(int gem)
+        public void AddGem(int gem)
         {
             _value.Gem += gem;
         }
         
         /** 골드 획득량 변경 */
-        public void SetGoldGainRate(int goldGainRate)
+        public void AddGoldGainRate(int goldGainRate)
         {
             _value.GoldGainRate += goldGainRate;
         }
 
         /** 쉴드량 변경 */
-        public void SetShield(int shield)
+        public void AddShield(int shield)
         {
             _value.Shield += shield;
         }
-        
+
+        public void AddAttackDamage(int damage)
+        {
+            _value.AttackDamage += damage;
+        }
         // 퍼블릭 메서드
         // ==================================================
     }

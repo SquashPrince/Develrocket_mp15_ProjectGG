@@ -4,6 +4,7 @@ namespace Player
 {
     public struct PlayerValueStruct
     {
+        private const int BaseRate = 100; // 백분율 기본값
         private const int BaseMaxHp = 10; // 최대HP
         private const int BaseMoveSpeed = 5; // 이동속도
         private const int BaseMinMoveSpeed = 1; // 최소이동속도
@@ -15,18 +16,19 @@ namespace Player
         private const float BaseMinDodgeTime = 0.1f; // 최소 회피무적시간
         private const int BaseStartGold = 100; // 시작골드
         private const int BaseStartGem = 0; // 시작보석
-        private const int BaseGoldGainRate = 100; // 골드획득률
         private const int BaseShield = 0; // 보호막
+        private const int BaseAttackDamage = 10; // 공격력
         
         // 상수 (기본값)
         // ============================================================
         
         private int _currentHealth; // 현재체력
         private int _moveSpeed; // 이동속도
-        private float _attackRate; // 공격주기
+        private int _attackSpeed; // 공격속도 증가율
+        private float _attackRate; // 실제공격주기
         private float _damagedDelay; // 피격무적시간
         private float _dodgeTime; // 회피무적시간
-        private bool _isNewChara;
+        private bool _isNewChara; // 신규 캐릭터 여부
 
         // 변수
         // ============================================================
@@ -122,12 +124,11 @@ namespace Player
         }
 
         public int Gold { get; set; }
-
         public int Gem { get; set; }
-
         public int GoldGainRate { get; set; }
-
+        public int AttackSpeedRate { get; set; }
         public int Shield { get; set; }
+        public int AttackDamage { get; set; }
 
         // 프로퍼티
         // ============================================================
@@ -142,13 +143,19 @@ namespace Player
             _damagedDelay = BaseDamageDelay;
             _dodgeTime = BaseDodgeTime;
             Gold = BaseStartGold;
-            GoldGainRate = BaseGoldGainRate;
+            AttackSpeedRate = BaseRate;
+            GoldGainRate = BaseRate;
             Shield = BaseShield;
-            if (_isNewChara)
-            {
-                Gem = BaseStartGem;
-                _isNewChara = false;
-            }
+            AttackDamage = BaseAttackDamage;
+            // 신규 캐릭터 설정
+            if (!_isNewChara) return;
+            Gem = BaseStartGem;
+            _isNewChara = false;
+        }
+
+        public void SetAttackSpeed()
+        {
+            
         }
         
         // 퍼블릭 메서드
