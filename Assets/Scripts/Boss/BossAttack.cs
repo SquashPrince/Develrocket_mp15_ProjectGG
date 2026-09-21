@@ -26,9 +26,9 @@ public class BossAttack : MonoBehaviour
             float angle = _startAngle + angleStep * i;
 
             float x = Mathf.Cos(angle * Mathf.Deg2Rad);
-            float y = Mathf.Sin(angle * Mathf.Deg2Rad);
+            float z = Mathf.Sin(angle * Mathf.Deg2Rad);
 
-            Vector2 direction = new Vector2(x, y);
+            Vector3 direction = new Vector3(x, 0f, z);
 
             FireBullet(direction);
         }
@@ -36,7 +36,7 @@ public class BossAttack : MonoBehaviour
         _startAngle += 30f;
     }
 
-    private void FireBullet(Vector2 direction)
+    private void FireBullet(Vector3 direction)
     {
         Bullet bullet = Instantiate(
             _bulletPrefab,

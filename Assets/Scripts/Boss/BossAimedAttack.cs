@@ -23,8 +23,12 @@ public class BossAimedAttack : MonoBehaviour
     {
         for (int i = 0; i < _shotCount; i++)
         {
-            Vector2 direction =
-                (_player.position - transform.position).normalized;
+            Vector3 direction =
+                _player.position - transform.position;
+
+            direction.y = 0f;
+
+            direction.Normalize();
 
             Bullet bullet = Instantiate(
                 _bulletPrefab,
