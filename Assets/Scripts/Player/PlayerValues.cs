@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player
 {
-    
+    // 백분율 기반으로 뜯어고칠 것
     
     public class PlayerValues : MonoBehaviour
     {
