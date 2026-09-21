@@ -11,7 +11,7 @@ public class MoveMonster : MonoBehaviour
 
     // 데미지를 입었냐
     [SerializeField] private bool isDamaged = false;
-    private CircleCollider2D _sphereColider;
+    private SphereCollider _sphereColider;
     private bool _isPlayerInSight = false;
     private bool _isShooting = false;
 
@@ -42,7 +42,10 @@ public class MoveMonster : MonoBehaviour
     private void MoveToPlayer()
     {
         Vector3 direction =
-            (_player.position - transform.position).normalized;
+        _player.position - transform.position;
+
+        direction.y = 0f;
+        direction.Normalize();
 
         transform.position +=
             direction * _monster.MoveSpeed * Time.deltaTime;
@@ -53,8 +56,11 @@ public class MoveMonster : MonoBehaviour
         _isShooting = true;
         while (_isPlayerInSight == true)
         {
-            Vector2 direction =
-                (_player.position - transform.position).normalized;
+            Vector3 direction =
+                _player.position - transform.position;
+
+            direction.y = 0f;
+            direction.Normalize();
 
             Bullet bullet = Instantiate(
                 _bulletPrefab,
@@ -69,7 +75,7 @@ public class MoveMonster : MonoBehaviour
         _isShooting = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -80,6 +86,6 @@ public class MoveMonster : MonoBehaviour
 
     private void CacheComponents()
     {
-        _sphereColider = GetComponent<CircleCollider2D>();
+        _sphereColider = GetComponent<SphereCollider>();
     }
 }
