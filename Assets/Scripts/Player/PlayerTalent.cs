@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerTalent : MonoBehaviour
+namespace Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public struct PlayerTalent
     {
-        
-    }
+        private bool _hasTalent1;
+        private bool _hasTalent2;
+        private bool _hasTalent3;
+        private bool _hasTalent4;
+        private bool _hasTalent5;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

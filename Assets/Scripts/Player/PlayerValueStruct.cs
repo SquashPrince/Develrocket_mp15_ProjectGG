@@ -1,34 +1,32 @@
-using UnityEngine;
-
 namespace Player
 {
     public struct PlayerValueStruct
-        {
-        private const int BaseMaxHp = 10;
-        private const int BaseMoveSpeed = 5;
-        private const int BaseMinMoveSpeed = 1;
-        private const float BaseAttackSpeed = 0.5f;
-        private const float BaseMinAttackSpeed = 0.1f;
-        private const float BaseDamageDelay = 0.3f;
-        private const float BaseMinDamageDelay = 0.1f;
-        private const float BaseDodgeTime = 0.5f;
-        private const float BaseMinDodgeTime = 0.1f;
-        private const int BaseStartGold = 100;
-        private const int BaseStartGem = 0;
-    
-        // 시작 스탯 상수
-        // ============================================================
-
-        private int _currentHealth;
-        private int _maxHealth;
-        private int _moveSpeed;
-        private float _attackSpeed;
-        private float _damagedDelay;
-        private float _dodgeTime;
-        private int _gold;
-        private int _gem;
+    {
+        private const int BaseMaxHp = 10; // 최대HP
+        private const int BaseMoveSpeed = 5; // 이동속도
+        private const int BaseMinMoveSpeed = 1; // 최소이동속도
+        private const float BaseAttackRate = 0.5f; // 공격주기
+        private const float BaseMinAttackRate = 0.1f; // 최소공격주기
+        private const float BaseDamageDelay = 0.3f; // 피격무적시간
+        private const float BaseMinDamageDelay = 0.1f; // 최소 피격무적시간
+        private const float BaseDodgeTime = 0.5f; // 회피무적시간
+        private const float BaseMinDodgeTime = 0.1f; // 최소 회피무적시간
+        private const int BaseStartGold = 100; // 시작골드
+        private const int BaseStartGem = 0; // 시작보석
         
-        // 플레이어 스탯 변수 
+        // 상수 (기본값)
+        // ============================================================
+        
+        private int _currentHealth; // 현재체력
+        private int _maxHealth; // 최대체력
+        private int _moveSpeed; // 이동속도
+        private float _attackRate; // 공격주기
+        private float _damagedDelay; // 피격무적시간
+        private float _dodgeTime; // 회피무적시간
+        private int _gold; // 소지골드
+        private int _gem; // 소지보석
+        
+        // 변수
         // ============================================================
         
         public int CurrentHealth
@@ -77,18 +75,18 @@ namespace Player
             }
         }
 
-        public float AttackSpeed
+        public float AttackRate
         {
-            get => _attackSpeed;
+            get => _attackRate;
             set
             {
-                if (value < BaseMinAttackSpeed)
+                if (value < BaseMinAttackRate)
                 {
-                    _attackSpeed = BaseMinAttackSpeed;
+                    _attackRate = BaseMinAttackRate;
                 }
                 else
                 {
-                    _attackSpeed = value;
+                    _attackRate = value;
                 }
             }
         }
@@ -159,18 +157,21 @@ namespace Player
         
         // 프로퍼티
         // ============================================================
-
-        public void SetValuesDefault()
+        
+        /** 기본값 설정 */
+        public void SetDefaultValues()
         {
             _maxHealth = BaseMaxHp;
             _currentHealth = _maxHealth;
             _moveSpeed = BaseMoveSpeed;
-            _attackSpeed = BaseAttackSpeed;
+            _attackRate = BaseAttackRate;
             _damagedDelay = BaseDamageDelay;
             _dodgeTime = BaseDodgeTime;
             _gold = BaseStartGold;
             _gem = BaseStartGem;
         }
+        
+        // 퍼블릭 메서드
+        // ===========================================================
     }
-    
 }
