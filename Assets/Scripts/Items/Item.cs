@@ -10,10 +10,14 @@ public class Item : MonoBehaviour, IInteractable
     public string Name => _name;
     public string Info => _info;
 
+    /// <summary>
+    /// 상호작용이 가능한 상태인지 확인
+    /// </summary>
     public bool CanInteract = true;
 
-    public virtual void GetItem(IInteracter owner)
-    {
-
-    }
+    /// <summary>
+    /// 각 아이템 별로 아이템 습득 효과구현
+    /// </summary>
+    /// <param name="owner"></param>
+    public virtual void GetItem(IInteracter owner) { }
 }

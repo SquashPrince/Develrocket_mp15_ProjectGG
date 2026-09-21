@@ -19,10 +19,10 @@ public class Weapon : Item, IAttackable
     [SerializeField] protected float _reloadDelay;
 
     private float _elapseTime;
-    private bool _isCanFire => _elapseTime >= _fireTime && _curretMagazine > 0;
+    private bool _isCanFire => _elapseTime >= _fireTime && _currentMagazine > 0;
 
     protected GunBullet[] bullets;
-    protected int _curretMagazine;
+    protected int _currentMagazine;
     protected bool _canReload;
 
     protected virtual void Awake() => CacheComponent();
@@ -47,15 +47,15 @@ public class Weapon : Item, IAttackable
     {
         if (!_isCanFire || !Input.GetMouseButton(0)) return ;
 
-        bullets[_curretMagazine - 1].OnBulletFire();
-        _curretMagazine--;
+        bullets[_currentMagazine - 1].OnBulletFire();
+        _currentMagazine--;
 
         _elapseTime = 0f;
     }
 
     protected virtual void Reload()
     {
-        if (_curretMagazine > 0) return;
+        if (_currentMagazine > 0) return;
 
         if (!_canReload) return;
 
@@ -67,18 +67,18 @@ public class Weapon : Item, IAttackable
 
         yield return new WaitForSeconds(_reloadDelay);
 
-        _curretMagazine = _maxMagazine;
+        _currentMagazine = _maxMagazine;
 
         _canReload = true;
     }
 
     public override void GetItem(IInteracter owner)
     {
-        if (!(owner is PlayerContoller)) return;
+        if (!(owner is TestPlayerContoller)) return;
 
-        PlayerContoller player = (PlayerContoller)owner;
+        TestPlayerContoller player = (TestPlayerContoller)owner;
 
-        // 플레이어 장착 메서드 + 장착 가능한지 판단
+        // 플레이어 장착 메서드 + 장착 가능한지 판단 추가 필요. 추가후 bool isSuccess = true 제거
         // bool isSuccess = player.AddWeapon(this);
         bool isSuccess = true;
         if (!isSuccess) return;
@@ -88,16 +88,19 @@ public class Weapon : Item, IAttackable
         CanInteract = false;
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
 
-        // 이미 장착되어 있으면 해제하는 이벤트
+        // 이미 장착되어 있으면 해제하는 이벤트 임시 구현
         if (player.WeaponTR.childCount != 0)
             player.WeaponTR.GetComponentInChildren<Weapon>().SetUnEquip();
 
+        //player.WeaponTR은 무기가 장착될 Transform
         SetEquip(player.WeaponTR);
     }
 
+    /// <summary>
+    /// 장착 메서드
+    /// </summary>
     public virtual void SetEquip(Transform equipTR)
     {
-        // 장착시 메서드
         Debug.Log($"{Name} 장착됨");
 
         CanInteract = false;
@@ -105,9 +108,11 @@ public class Weapon : Item, IAttackable
         transform.SetParent(equipTR);
     }
 
+    /// <summary>
+    /// 장착 해제 메서드
+    /// </summary>
     public virtual void SetUnEquip()
     {
-        // 장착 해제시 메서드
         Debug.Log($"{Name} 장착해제 됨");
 
         CanInteract = true;
@@ -117,6 +122,9 @@ public class Weapon : Item, IAttackable
 
     private void CacheComponent() { }
 
+    /// <summary>
+    /// 총알 생성 및 초기화
+    /// </summary>
     private void InitBullets()
     {
         bullets = new GunBullet[_maxMagazine];
@@ -128,7 +136,7 @@ public class Weapon : Item, IAttackable
 
         _canReload = true;
 
-        _curretMagazine = _maxMagazine;
+        _currentMagazine = _maxMagazine;
         _elapseTime = _fireTime;
     }
 

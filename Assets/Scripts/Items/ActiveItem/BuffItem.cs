@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RainbowAmulet : PassiveItem
+public class BuffItem : ActiveItem
 {
 
 }

@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerContoller : MonoBehaviour, IInteracter
+/// <summary>
+/// 플레이어 상호작용 확인용 임시 클래스
+/// </summary>
+public class TestPlayerContoller : MonoBehaviour, IInteracter
 {
     [SerializeField] private MonoBehaviour _testItem;
     [SerializeField] private Transform _waeponTr;
@@ -20,6 +23,9 @@ public class PlayerContoller : MonoBehaviour, IInteracter
         }
     }
 
+    /// <summary>
+    /// 부적 아이템 습득시 인터렉션 해제용
+    /// </summary>
     public void UnlinkItem()
     {
         _testItem = null;
