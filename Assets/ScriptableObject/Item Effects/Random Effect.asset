@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af7fecbec69f964cbc2e7a70ffa3c27, type: 3}
+  m_Name: Random Effect
+  m_EditorClassIdentifier: 
+  _randomEffects:
+  - {fileID: 11400000, guid: 0e58988d6325a994ba70fa7b26a0e48f, type: 2}
+  - {fileID: 11400000, guid: ef590e40fad8a4b4ea0bb14e65dade3c, type: 2}
