@@ -26,7 +26,7 @@ public class ChargeMonster : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && _isCharge == false)
         {
@@ -38,10 +38,13 @@ public class ChargeMonster : MonoBehaviour
 
     public IEnumerator Charge()
     {
-        Vector2 direction =
-            (_player.position - transform.position).normalized;
-        float distance =
-            Vector2.Distance(transform.position, _player.position);
+        Vector3 direction =
+            _player.position - transform.position;
+
+        direction.y = 0f;
+
+        float distance = direction.magnitude;
+        direction.Normalize();
 
         SetWarning(direction, distance);
 
@@ -51,14 +54,14 @@ public class ChargeMonster : MonoBehaviour
 
         _chargeWarning.SetActive(false);
 
-        Vector2 startPosition = transform.position;
+        Vector3 startPosition = transform.position;
 
-        Vector2 targetPosition =
+        Vector3 targetPosition =
             startPosition + direction * distance;
 
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
-            transform.position = Vector2.MoveTowards(
+            transform.position = Vector3.MoveTowards(
                 transform.position,
                 targetPosition,
                 _chargeSpeed * Time.deltaTime
@@ -72,18 +75,22 @@ public class ChargeMonster : MonoBehaviour
         _isCharge = false;
     }
 
-    private void SetWarning(Vector2 direction, float distance)
+    private void SetWarning(Vector3 direction, float distance)
     {
         float angle =
-            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
 
         _chargeWarning.transform.rotation =
-            Quaternion.Euler(0f, 0f, angle);
+            Quaternion.Euler(0f, -angle, 0f);
 
         _chargeWarning.transform.localScale =
-            new Vector3(distance, 1f, 1f);
+            new Vector3(distance, 0.05f, 0.5f);
 
-        _chargeWarning.transform.position =
+        Vector3 warningPosition =
             (transform.position + _player.position) / 2f;
+
+        warningPosition.y = transform.position.y;
+
+        _chargeWarning.transform.position = warningPosition;
     }
 }
