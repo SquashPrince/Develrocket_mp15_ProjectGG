@@ -13,11 +13,29 @@ public class BossMapAttack : MonoBehaviour
     // 범위 지정 콜라이더
     // public Collider2D spawnArea;    // 범위를 지정할 2D 트리거 콜라이더
 
+    [SerializeField] private BossControl _bossControl;
+    [SerializeField] private float _cooldown = 5f;
+
+    private void Start()
+    {
+        StartCoroutine(Cooldown());
+    }
+
+    private IEnumerator Cooldown()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(_cooldown);
+
+            _bossControl.AddPattern(MapAttack());
+        }
+    }
+
     [SerializeField] private Monster _monster;
 
     private void Update()
     {
-        // �׽�Ʈ��
+        // 테스트용
         if (Input.GetKeyDown(KeyCode.M))
         {
             StartCoroutine(MapAttack());

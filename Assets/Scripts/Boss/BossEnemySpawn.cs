@@ -9,12 +9,47 @@ public class BossEnemySpawn : MonoBehaviour
 
     // [SerializeField] private Collider2D spawnArea;
 
+    [SerializeField] private BossControl _bossControl;
+    [SerializeField] private float _cooldown = 5f;
+
+    private void Start()
+    {
+        StartCoroutine(Cooldown());
+    }
+
+    private IEnumerator Cooldown()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(_cooldown);
+
+            _bossControl.AddPattern(SpawnMonster());
+        }
+    }
+
+    public IEnumerator SpawnMonster()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            int randommosnterindex = Random.Range(0, _monsters.Length);
+            int randomspawnindex = Random.Range(0, _spawnPoints.Length);
+
+            Instantiate(
+                _monsters[randommosnterindex],
+                _spawnPoints[randomspawnindex].transform.position,
+                _spawnPoints[randomspawnindex].transform.rotation
+            );
+        }
+        yield return null;
+    }
+
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        /*if (Input.GetKeyDown(KeyCode.G))
         {
             Spawn();
-        }
+        }*/
     }
 
     private void Spawn()
