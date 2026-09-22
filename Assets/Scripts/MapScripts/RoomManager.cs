@@ -28,10 +28,7 @@ public class RoomManager : MonoBehaviour
         }
     };
 
-    private void Start()
-    {
-        GenerateMap();
-    }
+    private void Start() => GenerateMap();
 
     private void GenerateMap()
     {
@@ -48,15 +45,15 @@ public class RoomManager : MonoBehaviour
         SetupDoors();
     }
 
-    private void CreateRoom(Vector2Int position, RoomType roomType)
+    private void CreateRoom(Vector2Int grid, RoomType roomType)
     {
-        Vector3 grid = GetGrid(position);
+        Vector3 worldPosition = GetWorldPosition(grid);
 
-        Room room = Instantiate(_roomPrefab, grid, _roomRoot.rotation, _roomRoot);
+        Room room = Instantiate(_roomPrefab, worldPosition, _roomRoot.rotation, _roomRoot);
 
-        room.Initialize(position, roomType);
+        room.Initialize(grid, roomType);
 
-        _rooms.Add(position, room);
+        _rooms.Add(grid, room);
     }
 
     private void SetupDoors()
@@ -73,9 +70,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void SetupDoor(Room room, Vector2Int position, DoorDirection direction, Vector2Int offset)
+    private void SetupDoor(Room room, Vector2Int grid, DoorDirection direction, Vector2Int offset)
     {
-        Vector2Int nearRoom = position + offset;
+        Vector2Int nearRoom = grid + offset;
 
         bool isActive = _rooms.ContainsKey(nearRoom);
 
@@ -84,15 +81,15 @@ public class RoomManager : MonoBehaviour
         if (!isActive) return;
 
         DoorController doorController = room.GetDoor(direction).GetComponent<DoorController>();
-        doorController.Initialize(this, position, direction);
+        doorController.Initialize(this, grid, direction);
     }
 
-    public void EnterRoom(Vector2Int currentPosition, DoorDirection direction, Transform player)
+    public void EnterRoom(Vector2Int currentGrid, DoorDirection direction, Transform player)
     {
-        Vector2Int nextPosition = currentPosition + GetDirection(direction);
-        Debug.Log(nextPosition);
+        Vector2Int nextGrid = currentGrid + GetDirection(direction);
+        Debug.Log(nextGrid);
 
-        if (!_rooms.TryGetValue(nextPosition, out Room nextRoom)) return;
+        if (!_rooms.TryGetValue(nextGrid, out Room nextRoom)) return;
 
         DoorDirection opposite = GetOpposite(direction);
         Debug.Log(opposite);
@@ -128,7 +125,7 @@ public class RoomManager : MonoBehaviour
         };
     }
 
-    private Vector3 GetGrid(Vector2Int position)
+    private Vector3 GetWorldPosition(Vector2Int position)
     {
         return new Vector3(position.x * _roomSizeOffset, 0, position.y * _roomSizeOffset);
     }
