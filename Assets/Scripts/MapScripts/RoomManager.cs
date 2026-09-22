@@ -7,8 +7,11 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private Transform _roomRoot;
     [SerializeField] private float _roomSizeOffset = 15f;
 
+    //TODO: 싱글톤 패턴으로 구현하여 플레이어가 자신을 참조시킬 수 있도록 한다.
+
     private Dictionary<Vector2Int, Room> _rooms = new();
 
+    // 하드 코딩하여 작성한 맵입니다.
     private RoomType[, ] map =
     {
         {
