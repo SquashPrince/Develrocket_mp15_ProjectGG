@@ -2,9 +2,12 @@ using UnityEngine;
 
 namespace Player
 {
-    // 백분율 기반으로 뜯어고칠 것
+    public interface IInteracter
+    {
+        // 임시 인터페이스, PR시 삭제
+    }
     
-    public class PlayerValues : MonoBehaviour
+    public class PlayerValues : MonoBehaviour, IInteracter
     {
         private PlayerValueStruct _value;
         

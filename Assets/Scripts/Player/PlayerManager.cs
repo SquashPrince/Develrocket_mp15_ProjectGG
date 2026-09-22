@@ -4,9 +4,9 @@ namespace Player
 {
     public class PlayerManager : MonoBehaviour
     {
-        private PlayerManager _instance;
+        private static PlayerManager _instance;
         
-        public PlayerManager Instance
+        public static PlayerManager Instance
         {
             get
             {
