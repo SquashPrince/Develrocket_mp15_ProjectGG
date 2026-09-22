@@ -9,6 +9,7 @@ namespace Player
     
     public class PlayerValues : MonoBehaviour, IInteracter
     {
+        private PlayerInteractor _interactor;
         private PlayerValueStruct _value;
         
         // 인스턴스 & 변수
@@ -24,9 +25,15 @@ namespace Player
 
         private void CacheComponents()
         {
+            SetValue();
+            _interactor = GetComponent<PlayerInteractor>();
+            // 델리게이트로 특성 불러오기
+        }
+
+        private void SetValue()
+        {
             _value = new PlayerValueStruct();
             _value.SetDefaultValues();
-            // 델리게이트로 특성 불러오기
         }
         
         // 내부 함수
