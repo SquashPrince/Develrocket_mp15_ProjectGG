@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] private Room roomPrefab;
-    [SerializeField] private Transform roomRoot;
+    [SerializeField] private Room _roomPrefab;
+    [SerializeField] private Transform _roomRoot;
+    [SerializeField] private float _roomSizeOffset = 15f;
 
-    [SerializeField] private float roomWidth = 20f;
-    [SerializeField] private float roomDepth = 12f;
-
-    private readonly Dictionary<Vector2Int, Room> rooms = new();
+    private Dictionary<Vector2Int, Room> _rooms = new();
 
     private RoomType[,] map =
     {
@@ -37,17 +35,14 @@ public class RoomManager : MonoBehaviour
 
     private void GenerateMap()
     {
-        for (int y = 0; y < map.GetLength(0); y++)
+        for (int width = 0; width < map.GetLength(0); width++)
         {
-            for (int x = 0; x < map.GetLength(1); x++)
+            for (int height = 0; height < map.GetLength(1); height++)
             {
-                if (map[y, x] == RoomType.NONE)
+                if (map[width, height] == RoomType.NONE)
                     continue;
 
-                CreateRoom(
-                    new Vector2Int(x, y),
-                    map[y, x]
-                );
+                CreateRoom(new Vector2Int(width, height), map[width, height]);
             }
         }
 
@@ -56,18 +51,18 @@ public class RoomManager : MonoBehaviour
 
     private void CreateRoom(Vector2Int position, RoomType roomType)
     {
-        Vector3 Position = GetGrid(position);
+        Vector3 grid = GetGrid(position);
 
-        Room room = Instantiate(roomPrefab, Position, Quaternion.identity, roomRoot);
+        Room room = Instantiate(_roomPrefab, grid, _roomRoot.rotation, _roomRoot);
 
         room.Initialize(position, roomType);
 
-        rooms.Add(position, room);
+        _rooms.Add(position, room);
     }
 
     private void SetupDoors()
     {
-        foreach (KeyValuePair<Vector2Int, Room> pair in rooms)
+        foreach (KeyValuePair<Vector2Int, Room> pair in _rooms)
         {
             Vector2Int position = pair.Key;
             Room room = pair.Value;
@@ -79,15 +74,11 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void SetupDoor(
-        Room room,
-        Vector2Int position,
-        DoorDirection direction,
-        Vector2Int offset)
+    private void SetupDoor(Room room, Vector2Int position, DoorDirection direction, Vector2Int offset)
     {
         Vector2Int nextPosition = position + offset;
 
-        bool hasNextRoom = rooms.ContainsKey(nextPosition);
+        bool hasNextRoom = _rooms.ContainsKey(nextPosition);
 
         room.SetDoor(direction, hasNextRoom);
 
@@ -105,17 +96,16 @@ public class RoomManager : MonoBehaviour
         Vector2Int nextPosition = currentPosition + GetDirection(direction);
         Debug.Log(nextPosition);
 
-        if (!rooms.TryGetValue(nextPosition, out Room nextRoom)) return;
+        if (!_rooms.TryGetValue(nextPosition, out Room nextRoom)) return;
 
         DoorDirection opposite = GetOpposite(direction);
+        Debug.Log(opposite);
 
         Transform targetDoor = nextRoom.GetDoor(opposite);
 
         if (targetDoor == null) return;
 
-        Debug.Log(player.name);
-
-        player.Translate(targetDoor.position + targetDoor.forward * 5);
+        player.transform.position = (targetDoor.transform.position + targetDoor.forward * 2f + targetDoor.up);
     }
 
     private Vector2Int GetDirection(DoorDirection direction)
@@ -144,10 +134,6 @@ public class RoomManager : MonoBehaviour
 
     private Vector3 GetGrid(Vector2Int position)
     {
-        return new Vector3(
-            position.x * roomWidth,
-            0f,
-            position.y * roomDepth
-        );
+        return new Vector3(position.x * _roomSizeOffset, 0, position.y * _roomSizeOffset);
     }
 }
