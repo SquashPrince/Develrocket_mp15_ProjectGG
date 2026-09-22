@@ -5,16 +5,20 @@ namespace Player
 {
     public class PlayerInputManager : MonoBehaviour
     {
+        // ========================================
+        
         private KeyCode _interactKey = KeyCode.E;
         private KeyCode _dodgeKey = KeyCode.Space;
         private KeyCode _reLoadKey = KeyCode.R;
         private KeyCode _shotKey = KeyCode.Mouse0;
         
         public event Action OnInteract;
-        public event Action OnDodge;
         public event Action OnReload;
         public event Action OnShot;
         public event Action<Vector2> OnMove;
+        public event Action<Vector2> OnDodge;
+        
+        // ========================================
         
         private static PlayerInputManager _instance;
         
@@ -38,6 +42,7 @@ namespace Player
         private void Update() => ReadInput();
         
         // ========================================
+
         
         private void SetSingleTon()
         {
@@ -52,14 +57,16 @@ namespace Player
                 DontDestroyOnLoad(gameObject);
             }
         }
+        
+        // ========================================
 
         private void ReadInput()
         {
             if (Input.GetKeyDown(_interactKey)) OnInteract?.Invoke();
-            if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke();
             if (Input.GetKeyDown(_shotKey)) OnShot?.Invoke();
             if (Input.GetKeyDown(_reLoadKey)) OnReload?.Invoke();
             OnMove?.Invoke(GetMovement());
+            if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke(GetMovement());
         }
 
         private Vector2 GetMovement()
@@ -68,13 +75,6 @@ namespace Player
             float z = Input.GetAxis("Vertical");
             return (new Vector2(x, z)).normalized;
         }
-
         
-        
-        
-
-
-
-
     }
 }

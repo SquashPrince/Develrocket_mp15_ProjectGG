@@ -6,11 +6,22 @@ namespace Player
     {
         // 임시 인터페이스, PR시 삭제
     }
+    public interface IInteractable
+    {
+        // 임시 인터페이스, PR시 삭제
+    }
+    public class Weapon
+    {
+        // 임시 클래스, PR시 삭제
+    }
     
     public class PlayerValues : MonoBehaviour, IInteracter
     {
-        private PlayerInteractor _interactor;
         private PlayerValueStruct _value;
+        private IInteractable _interactable;
+        private Transform _weaponTransform;
+        private Weapon _weaponEquip;
+        
         
         // 인스턴스 & 변수
         // ==================================================
@@ -26,7 +37,6 @@ namespace Player
         private void CacheComponents()
         {
             SetValue();
-            _interactor = GetComponent<PlayerInteractor>();
             // 델리게이트로 특성 불러오기
         }
 
@@ -37,6 +47,10 @@ namespace Player
         }
         
         // 내부 함수
+        // ==================================================
+        
+        
+        
         // ==================================================
 
         
