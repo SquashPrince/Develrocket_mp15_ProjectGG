@@ -45,7 +45,6 @@ public class RoomManager : MonoBehaviour
                 CreateRoom(new Vector2Int(width, height), map[width, height]);
             }
         }
-
         SetupDoors();
     }
 
@@ -62,10 +61,10 @@ public class RoomManager : MonoBehaviour
 
     private void SetupDoors()
     {
-        foreach (KeyValuePair<Vector2Int, Room> pair in _rooms)
+        foreach (KeyValuePair<Vector2Int, Room> roomData in _rooms)
         {
-            Vector2Int position = pair.Key;
-            Room room = pair.Value;
+            Vector2Int position = roomData.Key;
+            Room room = roomData.Value;
 
             SetupDoor(room, position, DoorDirection.UP, Vector2Int.up);
             SetupDoor(room, position, DoorDirection.RIGHT, Vector2Int.right);
@@ -76,18 +75,15 @@ public class RoomManager : MonoBehaviour
 
     private void SetupDoor(Room room, Vector2Int position, DoorDirection direction, Vector2Int offset)
     {
-        Vector2Int nextPosition = position + offset;
+        Vector2Int nearRoom = position + offset;
 
-        bool hasNextRoom = _rooms.ContainsKey(nextPosition);
+        bool isActive = _rooms.ContainsKey(nearRoom);
 
-        room.SetDoor(direction, hasNextRoom);
+        room.SetDoor(direction, isActive);
 
-        if (!hasNextRoom) return;
+        if (!isActive) return;
 
-        DoorController doorController = room.GetDoor(direction).GetComponentInChildren<DoorController>();
-
-        if (doorController == null) return;
-
+        DoorController doorController = room.GetDoor(direction).GetComponent<DoorController>();
         doorController.Initialize(this, position, direction);
     }
 
@@ -103,8 +99,8 @@ public class RoomManager : MonoBehaviour
 
         Transform targetDoor = nextRoom.GetDoor(opposite);
 
-        if (targetDoor == null) return;
-
+        //TODO: 땅에 끼는 것을 방지하기 위해 targetDoor.up을 사용하고 있는데, 추후 플레이어의 콜라이더를 잘 옮겨
+        //수정하면 될 것 같습니다.
         player.transform.position = (targetDoor.transform.position + targetDoor.forward * 2f + targetDoor.up);
     }
 
