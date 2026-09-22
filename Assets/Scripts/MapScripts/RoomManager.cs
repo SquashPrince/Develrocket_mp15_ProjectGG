@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviour
 
     private Dictionary<Vector2Int, Room> _rooms = new();
 
-    private RoomType[,] map =
+    private RoomType[, ] map =
     {
         {
             RoomType.NONE, RoomType.BASIC, RoomType.START, RoomType.NONE, RoomType.NONE
