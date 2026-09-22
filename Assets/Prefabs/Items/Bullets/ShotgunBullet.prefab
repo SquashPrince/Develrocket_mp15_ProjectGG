@@ -51,6 +51,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _radius: 0
-  _gauge: 8
+  _damage: 0
+  _range: 0
+  _bulletSpeed: 0
+  _gauge: 12
   bullet: {fileID: 2862554771222924387, guid: b1b3663410fbb34418568326a8904fc2, type: 3}
   _fireRadius: 2

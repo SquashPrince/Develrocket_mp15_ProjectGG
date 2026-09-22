@@ -9,34 +9,39 @@ public class ShotgunBullet : GunBullet
     [SerializeField] private GunBullet bullet;
     [SerializeField] private float _fireRadius;
 
+    [SerializeField] protected ObjectPool<GunBullet> _gunbullet;
     private GunBullet[] _bullets;
 
-    private void Init()
+    private void InitGauge()
     {
-        _bullets = new GunBullet[_gauge];
+        _gunbullet = new ObjectPool<GunBullet>(
+            bullet,
+            _gauge,
+            transform,
+            _bullet => _bullet.SetData(_damage / _gauge, _range, _bulletSpeed)
+            );
 
-        for (int i = 0; i < _bullets.Length; i++)
-        {
-            GunBullet b = Instantiate(bullet, transform);
-            b.SetData(_damage / _gauge, _bulletSpeed, _range);
-            _bullets[i] = b;
-        }
+        //_bullets = new GunBullet[_gauge];
+        //for (int i = 0; i < _bullets.Length; i++)
+        //{
+        //    GunBullet b = Instantiate(bullet, transform);
+        //    b.SetData(_damage / _gauge, _bulletSpeed, _range);
+        //    _bullets[i] = b;
+        //}
 
-        gameObject.SetActive(false);
+        ReturnToPool();
     }
 
-    public void SetData(int damage, float range, float bulletSpeed)
+    public override void SetData(int damage, float range, float bulletSpeed)
     {
-        _damage = damage;
-        _range = range;
-        _bulletSpeed = bulletSpeed;
+        base.SetData(damage, range, bulletSpeed);
 
-        Init();
+        InitGauge();
     }
 
     private void ShotToRadious()
     {
-        for (int i = 0; i < _bullets.Length; i++)
+        for (int i = 0; i < _gauge; i++)
         {
             Vector3 randomDirection = Random.insideUnitCircle * _fireRadius;
             Vector3 targetPosition = transform.position
@@ -44,12 +49,12 @@ public class ShotgunBullet : GunBullet
                 + transform.right * randomDirection.x
                 + transform.up * randomDirection.y;
 
-            _bullets[i].transform.LookAt(targetPosition, transform.forward);
-            _bullets[i].gameObject.SetActive(true);
-            _bullets[i].transform.SetParent(null);
+            _gunbullet.ObjectList[i].transform.LookAt(targetPosition, transform.forward);
         }
 
-        gameObject.SetActive(false);
+        _gunbullet.PopAll();
+
+        ReturnToPool();
     }
 
     public override void OnBulletFire()
@@ -59,10 +64,6 @@ public class ShotgunBullet : GunBullet
         gameObject.SetActive(false);
     }
 
-    public override void OnBulletDest()
-    {
-        gameObject.SetActive(false);
-    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()

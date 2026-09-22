@@ -1,22 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class GunBullet : MonoBehaviour
+public class GunBullet : PoolObject, IPoolable
 {
     [SerializeField] protected LayerMask _damagableMask;
     [SerializeField] private LayerMask _destroyMask;
     [SerializeField] private float _radius;
 
-    protected int _damage;
-    protected float _range;
-    protected float _bulletSpeed;
-    private Transform _tr;
+    [SerializeField] protected int _damage;
+    [SerializeField] protected float _range;
+    [SerializeField] protected float _bulletSpeed;
+    [SerializeField] private Transform _tr;
 
     private Vector3 _startPos;
 
-    public void SetData(int damage, float range, float bulletSpeed)
+    public virtual void SetData(int damage, float range, float bulletSpeed)
     {
         _damage = damage;
         _range = range;
@@ -25,13 +26,10 @@ public class GunBullet : MonoBehaviour
         _tr = transform.parent;
     }
 
-    private void OnEnable() => ResetState();
+    //private void OnEnable() => ResetState();
     private void FixedUpdate() => MoveFoward();
-
-    private void ResetState()
-    {
-        _startPos = transform.position;
-    }
+    public override void WakeUp() => OnBulletFire();
+    public override void Sleep() => OnBulletDest();
 
     private void MoveFoward()
     {
@@ -54,7 +52,7 @@ public class GunBullet : MonoBehaviour
         Vector3 diff = _startPos - transform.position;
         if (diff.sqrMagnitude >= _range * _range)
         {
-            OnBulletDest();
+            ReturnToPool();
         }
     }
 
@@ -65,7 +63,7 @@ public class GunBullet : MonoBehaviour
             Hit(damageable);
         }
 
-        OnBulletDest();
+        ReturnToPool();
     }
 
     protected void Hit(IDamagable damageable)
@@ -76,6 +74,9 @@ public class GunBullet : MonoBehaviour
     public virtual void OnBulletFire() 
     {
         gameObject.SetActive(true);
+        
+        _startPos = transform.position;
+
         transform.parent = null;
     }
 
