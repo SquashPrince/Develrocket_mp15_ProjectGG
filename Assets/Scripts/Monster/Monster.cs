@@ -33,14 +33,28 @@ public class Monster : MonoBehaviour
 
     public int MaxHealth => _maxHealth;
     public int CurrentHealth => _currentHealth;
-    public float MoveSpeed => _moveSpeed;
+    public float MoveSpeed
+    {
+        get
+        {
+            return _moveSpeed;
+        }
+        set
+        {
+            _moveSpeed = value;
+        }
+    }
+
     public float AttackCooldown => _attackCooldown;
     public int DropGold => _dropGold;
     public bool HasDeathEffect => _hasDeathEffect;
 
+    private float _initSpeed;
+
     private void Awake()
     {
         _currentHealth = _maxHealth;
+        _initSpeed = _moveSpeed;
     }
 
     public void TakeDamage(int damage)
@@ -67,5 +81,10 @@ public class Monster : MonoBehaviour
     {
         Debug.Log("몬스터 사망");
         Destroy(gameObject);
+    }
+
+    public void InitSpeed()
+    {
+        _moveSpeed = _initSpeed;
     }
 }
