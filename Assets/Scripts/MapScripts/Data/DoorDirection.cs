@@ -1,4 +1,4 @@
-public enum DoorType
+public enum DoorDirection
 {
     UP,
     DOWN,

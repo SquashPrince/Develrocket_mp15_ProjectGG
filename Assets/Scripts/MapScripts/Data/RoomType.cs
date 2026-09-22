@@ -1,9 +1,10 @@
 public enum RoomType
 {
+    NONE = -1,
     START,
     BASIC,
+    BATTLE,
     STORE,
     TREASURE,
-    BATTLE,
     BOSS
 }
