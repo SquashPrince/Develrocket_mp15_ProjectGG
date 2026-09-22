@@ -1,8 +1,8 @@
-using UnityEngine.Rendering;
+using UnityEngine;
 
 namespace Player
 {
-    public partial class PlayerValues
+    public class PlayerValues : MonoBehaviour, IInteracter
     {
         
         private const float DefaultHitTime = 0.3f; // 피격무적시간
@@ -127,5 +127,77 @@ namespace Player
 
         // 프로퍼티 (연산O)
         // ============================================================
+        
+        // ============================================================
+        
+        
+        
+        private IInteractable _interactable;
+        private Transform _weaponTransform;
+        private Weapon _weaponEquip;
+
+        private bool _isNewChara = true;
+        
+        // 인스턴스 & 변수
+        // ==================================================
+        
+        private void Awake()
+        {
+            CacheComponents();
+        }
+
+        private void Start()
+        {
+            SetDefault(); 
+        }
+        
+        // 이벤트 함수
+        // ==================================================
+        
+        private void CacheComponents()
+        {
+        }
+
+        /** 시작시 플레이어 데이터를 초기화 하는 함수 */
+        private void SetDefault()
+        {
+            SetToStartValues();
+            SetToStartRate();
+            if (_isNewChara) SetNewChara();
+            // 델리게이트로 특성 불러오기
+        }
+        
+        /** 플레이어 데이터 - 값 초기화 */
+        public void SetToStartValues()
+        {
+            BaseMaxHp = DefaultMaxHp;
+            BaseHp = MaxHp;
+            BaseMoveSpeed = DefaultMoveSpeed;
+            BaseAttackSpeed = DefaultAttackSpeed;
+            BaseHitTime = DefaultHitTime;
+            BaseDodgeTime = DefaultDodgeTime;
+            BaseGold = DefaultStartGold;
+            BaseShield = DefaultShield;
+        }
+
+        /** 플레이어 데이터 - 배율 초기화 */
+        public void SetToStartRate()
+        {
+            rateHitTime = 100;
+            rateDodgeTime = 100;
+            rateAttackSpeed = 100;
+            rateMoveSpeed = 100;
+            rateHpIncrease = 100;
+            rateMaxHp = 100;
+            rateGainGold = 100;
+            rateGainGem = 100;
+        }
+        
+        /** 신규 캐릭터 함수 */
+        public void SetNewChara()
+        {
+            Gem = DefaultStartGem;
+            _isNewChara = false;
+        }
     }
 }
