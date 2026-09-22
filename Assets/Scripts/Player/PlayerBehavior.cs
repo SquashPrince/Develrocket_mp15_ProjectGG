@@ -7,7 +7,7 @@ namespace Player
     {
         private static PlayerInputManager PlayerInput => PlayerInputManager.Instance;
         private PlayerValues _playerValues; 
-        private List<IInteractable> _fieldItemList;
+        private List<IInteractable> _interactableList;
         private IInteractable _targetInteractable;
         private Rigidbody _rigidbody;
         
@@ -37,13 +37,13 @@ namespace Player
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)) return;
-            _fieldItemList.Add(inter);
+            _interactableList.Add(inter);
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)) return;
-            _fieldItemList.Remove(inter);
+            _interactableList.Remove(inter);
         }
         
         // ========================================
@@ -58,21 +58,28 @@ namespace Player
 
         private void OnInteract()
         {
+            if (_interactableList.Count == 0) return;
             TargetInteractable();
-        }
-
-        private void OnMove(Vector3 direction)
-        {
-            SetDirection(direction);
         }
 
         private void TargetInteractable()
         {
-            if (_fieldItemList.Count == 0) return;
-            _targetInteractable = _fieldItemList[0];
+            _targetInteractable = _interactableList[0];
+        }
+
+        private void Interact()
+        {
+            // 인터랙터블 인터페이스의 상호작용 메서드를 실행
+            // _targetInteractable.Interact();
         }
         
+        // 상호작용
         // ========================================
+        
+        private void OnMove(Vector3 direction)
+        {
+            SetDirection(direction);
+        }
 
         private void PlayerMove()
         {
@@ -84,6 +91,9 @@ namespace Player
         {
             _direction = direction;
         }
+        
+        // 이동
+        // ========================================
     
     
     }

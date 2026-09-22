@@ -4,27 +4,19 @@ namespace Player
 {
     public class PlayerValues : MonoBehaviour, IInteracter
     {
-        
         private const float DefaultHitTime = 0.3f; // 피격무적시간
-        
         private const float DefaultDodgeTime = 0.5f; // 회피무적시간
-        
         private const float DefaultAttackSpeed = 0.5f; // 공격속도
         private const float DefaultMinAttackSpeed = 0.1f; // 최소공격속도
-        
         private const int DefaultMoveSpeed = 5; // 이동속도
         private const int DefaultMinMoveSpeed = 1; // 최소이동속도
-        
         private const int DefaultMaxHp = 10; // 최대HP
-        
         private const int DefaultStartGold = 100; // 시작골드
         private const int DefaultStartGem = 0; // 시작보석
-        
         private const int DefaultShield = 0; // 보호막
         
         // 상수 (기본값)
         // ============================================================
-
         public float BaseHitTime { get; set; }
         public float BaseDodgeTime { get; set; }
         public float BaseAttackSpeed { get; set; }
@@ -35,10 +27,8 @@ namespace Player
         public int BaseHp { get; set; }
         public int BaseShield { get; set; }
         
-
         // 프로퍼티 (연산X)
         // ============================================================
-
         public int rateHitTime; // 무적시간 배율
         public int rateDodgeTime; // 회피무적 배율
         public int rateAttackSpeed; // 공격속도 배율
@@ -50,7 +40,6 @@ namespace Player
         
         // 변수 (배율)
         // ============================================================
-
         public int Hp
         {
             get => BaseHp;
@@ -65,10 +54,7 @@ namespace Player
                 else BaseHp = hp;
             }
         }
-        
         public int MaxHp => (BaseMaxHp * rateMaxHp)/100;
-        
-
         public int MoveSpeed
         {
             get
@@ -77,7 +63,6 @@ namespace Player
                 return (moveSpeed < DefaultMinMoveSpeed)? DefaultMinMoveSpeed : moveSpeed;
             }
         }
-
         public float AttackSpeed
         {
             get
@@ -86,7 +71,6 @@ namespace Player
                 return (attackSpeed < DefaultMinAttackSpeed) ? DefaultMinAttackSpeed : attackSpeed;
             }
         }
-
         public float DodgeTime
         {
             get
@@ -95,7 +79,6 @@ namespace Player
                 return dodgeTime;
             }
         }
-
         public float HitTime
         {
             get
@@ -104,7 +87,6 @@ namespace Player
                 return hitTime;
             }
         }
-
         public int Gold
         {
             get => BaseGold;
@@ -114,7 +96,6 @@ namespace Player
                 BaseGold = amount > 0 ? BaseGold + (amount*rateGainGold)/100 : value;
             }
         }
-
         public int Gem
         {
             get => BaseGem;
@@ -127,37 +108,21 @@ namespace Player
 
         // 프로퍼티 (연산O)
         // ============================================================
-        
-        // ============================================================
-        
-        
-        
         private IInteractable _interactable;
         private Transform _weaponTransform;
         private Weapon _weaponEquip;
-
+        
         private bool _isNewChara = true;
         
         // 인스턴스 & 변수
         // ==================================================
-        
-        private void Awake()
-        {
-            CacheComponents();
-        }
-
         private void Start()
         {
             SetDefault(); 
         }
-        
         // 이벤트 함수
         // ==================================================
         
-        private void CacheComponents()
-        {
-        }
-
         /** 시작시 플레이어 데이터를 초기화 하는 함수 */
         private void SetDefault()
         {
@@ -168,7 +133,7 @@ namespace Player
         }
         
         /** 플레이어 데이터 - 값 초기화 */
-        public void SetToStartValues()
+        private void SetToStartValues()
         {
             BaseMaxHp = DefaultMaxHp;
             BaseHp = MaxHp;
@@ -181,7 +146,7 @@ namespace Player
         }
 
         /** 플레이어 데이터 - 배율 초기화 */
-        public void SetToStartRate()
+        private void SetToStartRate()
         {
             rateHitTime = 100;
             rateDodgeTime = 100;
@@ -194,7 +159,7 @@ namespace Player
         }
         
         /** 신규 캐릭터 함수 */
-        public void SetNewChara()
+        private void SetNewChara()
         {
             Gem = DefaultStartGem;
             _isNewChara = false;
