@@ -7,17 +7,24 @@ namespace Player
     {
         // ========================================
         
+        private const string AXIS_HORIZONTAL = "Horizontal";
+        private const string AXIS_VERTICAL = "Vertical";
+        
         private KeyCode _interactKey = KeyCode.E;
         private KeyCode _dodgeKey = KeyCode.Space;
         private KeyCode _reLoadKey = KeyCode.R;
         private KeyCode _shotKey = KeyCode.Mouse0;
         
+        // 필드
+        // ========================================
+        
         public event Action OnInteract;
         public event Action OnReload;
         public event Action OnShot;
-        public event Action<Vector2> OnMove;
-        public event Action<Vector2> OnDodge;
+        public event Action<Vector3> OnMove;
+        public event Action<Vector3> OnDodge;
         
+        // 이벤트
         // ========================================
         
         private static PlayerInputManager _instance;
@@ -43,7 +50,7 @@ namespace Player
         
         // ========================================
 
-        
+        /** 싱글톤 설정 */
         private void SetSingleTon()
         {
             if (_instance != null && _instance != this)
@@ -60,20 +67,22 @@ namespace Player
         
         // ========================================
 
+        /** 인풋 확인 후 이벤트 알림 */
         private void ReadInput()
         {
             if (Input.GetKeyDown(_interactKey)) OnInteract?.Invoke();
             if (Input.GetKeyDown(_shotKey)) OnShot?.Invoke();
             if (Input.GetKeyDown(_reLoadKey)) OnReload?.Invoke();
-            OnMove?.Invoke(GetMovement());
-            if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke(GetMovement());
+            OnMove?.Invoke(GetDirection());
+            if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke(GetDirection());
         }
 
-        private Vector2 GetMovement()
+        
+        private Vector3 GetDirection()
         {
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-            return (new Vector2(x, z)).normalized;
+            float horizontal = Input.GetAxisRaw(AXIS_HORIZONTAL);
+            float vertical = Input.GetAxisRaw(AXIS_VERTICAL);
+            return new Vector3(horizontal, 0f, vertical).normalized;
         }
         
     }

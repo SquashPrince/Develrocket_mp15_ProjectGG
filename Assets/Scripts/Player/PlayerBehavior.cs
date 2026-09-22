@@ -5,24 +5,33 @@ namespace Player
 {
     public class PlayerBehavior : MonoBehaviour
     {
-        public PlayerInputManager PlayerInput => PlayerInputManager.Instance;
-        
+        private static PlayerInputManager PlayerInput => PlayerInputManager.Instance;
         private PlayerValues _playerValues; 
         private List<IInteractable> _fieldItemList;
         private IInteractable _targetInteractable;
+        private Rigidbody _rigidbody;
+        
+        private Vector3 _direction;
         
         // ========================================
         
         private void Awake() => CacheComponents();
 
+        private void Update()
+        {
+            PlayerMove();
+        }
+
         private void OnEnable()
         {
-            PlayerInputManager.Instance.OnInteract += OnInteract;
+            PlayerInput.OnInteract += OnInteract;
+            PlayerInput.OnMove += OnMove;
         }
 
         private void OnDisable()
         {
-            PlayerInputManager.Instance.OnInteract -= OnInteract;
+            PlayerInput.OnInteract -= OnInteract;
+            PlayerInput.OnMove -= OnMove;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -42,6 +51,7 @@ namespace Player
         private void CacheComponents()
         {
             _playerValues = GetComponent<PlayerValues>();
+            _rigidbody = GetComponentInChildren<Rigidbody>();
         }
         
         // ========================================
@@ -49,6 +59,11 @@ namespace Player
         private void OnInteract()
         {
             TargetInteractable();
+        }
+
+        private void OnMove(Vector3 direction)
+        {
+            SetDirection(direction);
         }
 
         private void TargetInteractable()
@@ -59,10 +74,15 @@ namespace Player
         
         // ========================================
 
-        private void PlayerMovement(Vector2 input)
+        private void PlayerMove()
         {
-            Vector3 velocity = new Vector3(
-                input.x * _playerValues.GetMo);
+            transform.position += _direction * _playerValues.MoveSpeed * Time.deltaTime;
+        }
+        
+
+        private void SetDirection(Vector3 direction)
+        {
+            _direction = direction;
         }
     
     
