@@ -9,7 +9,7 @@ namespace Player
         private PlayerValues _playerValues; 
         private List<IInteractable> _interactableList;
         private IInteractable _targetInteractable;
-        private Rigidbody _rigidbody;
+        private bool _hasDetectInteractable => _interactableList.Count > 0;
         
         private Vector3 _direction;
         
@@ -51,26 +51,16 @@ namespace Player
         private void CacheComponents()
         {
             _playerValues = GetComponent<PlayerValues>();
-            _rigidbody = GetComponentInChildren<Rigidbody>();
         }
         
         // ========================================
 
         private void OnInteract()
         {
-            if (_interactableList.Count == 0) return;
-            TargetInteractable();
-        }
-
-        private void TargetInteractable()
-        {
+            if (!_hasDetectInteractable) return;
             _targetInteractable = _interactableList[0];
-        }
-
-        private void Interact()
-        {
-            // 인터랙터블 인터페이스의 상호작용 메서드를 실행
-            // _targetInteractable.Interact();
+            _targetInteractable.GetItem(_playerValues);
+            _targetInteractable = null;
         }
         
         // 상호작용
@@ -93,6 +83,9 @@ namespace Player
         }
         
         // 이동
+        // ========================================
+        
+        // 회피
         // ========================================
     
     

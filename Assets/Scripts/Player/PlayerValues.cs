@@ -110,9 +110,10 @@ namespace Player
         // ============================================================
         private IInteractable _interactable;
         private Transform _weaponTransform;
-        private Weapon _weaponEquip;
+        private Weapon _Equipweapon;
         
         private bool _isNewChara = true;
+        private bool _hasWeapon => _Equipweapon != null;
         
         // 인스턴스 & 변수
         // ==================================================
@@ -164,5 +165,11 @@ namespace Player
             Gem = DefaultStartGem;
             _isNewChara = false;
         }
+
+        public void SetWeapon(Weapon weapon)
+        {
+            _Equipweapon = weapon;
+        }
+        
     }
 }
