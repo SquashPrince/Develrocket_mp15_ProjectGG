@@ -2,15 +2,16 @@ using UnityEngine;
 
 namespace Player
 {
-    public abstract class PlayerTalent
-    { 
-        public abstract void SetTalentData(PlayerValues playerValues);
+
+    public class PlayerTalent
+    {
+        
     }
     
     // 특성 상속클래스
     // ==================================================
 
-    public class IncreaseGainGold : PlayerTalent
+    /*public class IncreaseGainGold : PlayerTalent
     {
         public override void SetTalentData(PlayerValues playerValues)
         {
@@ -45,5 +46,5 @@ namespace Player
             playerValues.AddAttackSpeed(20);
         }
     }
-    // 특성
+    // 특성*/
 }
