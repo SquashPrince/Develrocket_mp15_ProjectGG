@@ -51,8 +51,11 @@ MonoBehaviour:
   _destroyMask:
     serializedVersion: 2
     m_Bits: 512
-  _radius: 0.5
+  _radius: 0.25
+  _damage: 0
   _range: 0
+  _bulletSpeed: 0
+  _tr: {fileID: 0}
   _explotionEffect: {fileID: 6113533478792916986, guid: 3253bf69527af49468f797c6279b5dcb, type: 3}
   _explosionRange: 1
 --- !u!1 &5710823610460316475
@@ -83,7 +86,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3193125869816663230}

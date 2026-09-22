@@ -4,11 +4,11 @@ using UnityEngine;
 public class RandomEffect : ItemEffect
 {
     [SerializeField] private ItemEffect[] _randomEffects;
-    public override void Apply(IInteracter interacter)
+    public override void Apply(IInteractor interacter, float amount, float time)
     {
-        // µî·ÏµÈ ÀÌº¥Æ®Áß ·£´ı ÇÏ°Ô ¹ßµ¿
+        // ë“±ë¡ëœ ì´ë²¤íŠ¸ì¤‘ ëœë¤ í•˜ê²Œ ë°œë™
         int rand = Random.Range(0, _randomEffects.Length);
 
-        _randomEffects[rand].Apply(interacter);
+        _randomEffects[rand].Apply(interacter, amount, time);
     }
 }

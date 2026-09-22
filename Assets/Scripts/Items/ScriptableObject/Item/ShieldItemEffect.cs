@@ -3,10 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/itemEffect/Shield Item")]
 public class ShieldItemEffect : ItemEffect
 {
-    [SerializeField] private int _amount;
-    public override void Apply(IInteracter interacter)
+    public override void Apply(IInteractor interacter, float amount, float time)
     {
-        // �÷��̾� ��ȿȭ
-        Debug.Log($"{_amount} ��ŭ �÷��̾� ��ȿȭ");
+        // TODO: 무효화 효과 구현. 전용 프리팹을 생성하고 피격 전까지 유지.
+        Debug.Log("무효화 효과 구현 필요: 쉴드 아이템 사용");
     }
 }

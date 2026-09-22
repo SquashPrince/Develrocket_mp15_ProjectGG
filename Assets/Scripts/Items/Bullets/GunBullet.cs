@@ -16,6 +16,14 @@ public class GunBullet : PoolObject, IPoolable
     [SerializeField] private Transform _tr;
 
     private Vector3 _startPos;
+    private Func<int> _damageSource;
+
+    public void SetDamageSource(Func<int> damageSource) => _damageSource = damageSource;
+
+    protected void RefreshDamage()
+    {
+        if (_damageSource != null) _damage = _damageSource();
+    }
 
     public virtual void SetData(int damage, float range, float bulletSpeed)
     {
@@ -73,6 +81,7 @@ public class GunBullet : PoolObject, IPoolable
 
     public virtual void OnBulletFire() 
     {
+        RefreshDamage();
         gameObject.SetActive(true);
         
         _startPos = transform.position;

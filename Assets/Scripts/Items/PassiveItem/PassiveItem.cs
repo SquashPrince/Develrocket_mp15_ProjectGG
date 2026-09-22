@@ -1,28 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PassiveItem : Item, IPassivable
 {
+    [SerializeField] private float _amount;
     [SerializeField] private AmuletEffect[] _effects;
 
-    public override void GetItem(IInteracter owner)
+    public override void Interact(IInteractor owner)
     {
-        if (!(owner is TestPlayerContoller player)) return;
-
-        if (!CanInteract) return;
-
+        if (!CanInteract || owner == null || owner.Transform == null) return;
         CanInteract = false;
-
-        transform.SetParent(player.AmuletTR);
-        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+        transform.SetParent(owner.Transform, false);
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
         foreach (AmuletEffect effect in _effects)
         {
-            effect.Apply(player);
+            if (effect != null) effect.Apply(owner, _amount);
         }
-        // ½Àµæ »óÈ£ÀÛ¿ëÈÄ »óÈ£ÀÛ¿ë Å¸°Ù »óÅÂ ÇØÁ¦
-        // Player ±¸Çö ÂÊ¿¡¼­ ¸®ÆÑÅä¸µ ÈÄ Àç¼±¾ğ ÇÊ¿ä
-        player.UnlinkItem();
+        // TODO: PlayerBehaviorì—ì„œ íšë“í–ˆê±°ë‚˜ ìƒí˜¸ì‘ìš©í•  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì„ ëŒ€ìƒ ëª©ë¡ì—ì„œ ì œê±°.
     }
 }

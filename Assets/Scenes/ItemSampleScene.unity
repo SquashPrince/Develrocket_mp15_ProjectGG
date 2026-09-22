@@ -162,7 +162,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 121714710}
-  - component: {fileID: 121714709}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -170,21 +169,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &121714709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121714708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7bbb0bfafd7be843a57baa17dfe1fdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _testItem: {fileID: 0}
-  _waeponTr: {fileID: 2005483295}
-  _amuletTr: {fileID: 1943408197}
 --- !u!4 &121714710
 Transform:
   m_ObjectHideFlags: 0
@@ -280,19 +264,19 @@ PrefabInstance:
       value: "\uCCB4\uB825 \uD68C\uBCF5\uC57D"
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _barrierValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _shieldlValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
       propertyPath: _effects.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _effects.Array.data[0]
+      propertyPath: _effects.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].effect
       value: 
       objectReference: {fileID: 11400000, guid: 0e58988d6325a994ba70fa7b26a0e48f, type: 2}
     - target: {fileID: 7212643101963703921, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
@@ -464,19 +448,19 @@ PrefabInstance:
       value: "\uC544\uB4DC\uB808\uB0A0\uB9B0 \uCEA1\uC290"
       objectReference: {fileID: 0}
     - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
-      propertyPath: _buffActor
-      value: 
-      objectReference: {fileID: 457803087906991765, guid: 10ebb139127d5224eb9d175a6d36beb1, type: 3}
-    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
-      propertyPath: _increaseSpdValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
       propertyPath: _effects.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
-      propertyPath: _effects.Array.data[0]
+      propertyPath: _effects.Array.data[0].time
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
+      propertyPath: _effects.Array.data[0].amount
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
+      propertyPath: _effects.Array.data[0].effect
       value: 
       objectReference: {fileID: 11400000, guid: 97c7a74c3a16418429454a70f7ed13a6, type: 2}
     - target: {fileID: 1702877297260699577, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
@@ -546,23 +530,19 @@ PrefabInstance:
       value: "\uC2E0\uC18D\uC758 \uCEA1\uC290"
       objectReference: {fileID: 0}
     - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
-      propertyPath: _time
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
-      propertyPath: _buffActor
-      value: 
-      objectReference: {fileID: 457803087906991765, guid: 10ebb139127d5224eb9d175a6d36beb1, type: 3}
-    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
-      propertyPath: _increaseDmgValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
       propertyPath: _effects.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
-      propertyPath: _effects.Array.data[0]
+      propertyPath: _effects.Array.data[0].time
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
+      propertyPath: _effects.Array.data[0].amount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
+      propertyPath: _effects.Array.data[0].effect
       value: 
       objectReference: {fileID: 11400000, guid: 2705b9d4217766b4e9f9a4aa8bfba7bb, type: 2}
     - target: {fileID: 1702877297260699577, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
@@ -636,19 +616,19 @@ PrefabInstance:
       value: "\uBC18\uBC18 \uACE0\uAE30"
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _healValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _barrierValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
       propertyPath: _effects.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _effects.Array.data[0]
+      propertyPath: _effects.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].effect
       value: 
       objectReference: {fileID: 11400000, guid: b1902b6ac1232be44bc085e2dc330a87, type: 2}
     - target: {fileID: 7212643101963703921, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
@@ -774,19 +754,19 @@ PrefabInstance:
       value: "\uBCF4\uD638\uB9C9 \uD68C\uBCF5\uC57D"
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _healValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _shieldlValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
       propertyPath: _effects.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _effects.Array.data[0]
+      propertyPath: _effects.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].amount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].effect
       value: 
       objectReference: {fileID: 11400000, guid: 0973ca58d5da4a746adc0816e008980e, type: 2}
     - target: {fileID: 7212643101963703921, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
@@ -1764,19 +1744,19 @@ PrefabInstance:
       value: "\uBB34\uD6A8\uD654 \uCEA1\uC290"
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _healValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _barrierValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
       propertyPath: _effects.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
-      propertyPath: _effects.Array.data[0]
+      propertyPath: _effects.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+      propertyPath: _effects.Array.data[0].effect
       value: 
       objectReference: {fileID: 11400000, guid: fe85525493ffe0147b7fee814f1fb7d2, type: 2}
     - target: {fileID: 7212643101963703921, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}

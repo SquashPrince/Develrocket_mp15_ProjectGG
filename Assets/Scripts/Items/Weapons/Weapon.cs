@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +18,7 @@ public class Weapon : Item, IAttackable
     [SerializeField] protected float _bulletSpeed;
     [SerializeField] protected float _reloadDelay;
 
+    private int _shotDamage;
     private float _elapseTime;
     private bool _isCanFire => _elapseTime >= _fireTime && _currentMagazine > 0;
 
@@ -33,7 +33,6 @@ public class Weapon : Item, IAttackable
         if (CanInteract) return;
 
         Tick();
-        Fire();
         Reload();
     }
 
@@ -44,14 +43,16 @@ public class Weapon : Item, IAttackable
         _elapseTime += Time.deltaTime;
     }
 
-    protected void Fire()
+    // TODO: 플레이어가 클릭 입력을 읽고 장착 무기의 Fire(DamageMultiplier)를 호출.
+    // 연사는 버튼을 누르는 동안 호출하며, 발사 간격과 탄창 검사는 무기에서 처리.
+    public void Fire(float damageMultiplier)
     {
-        if (!_isCanFire || !Input.GetMouseButton(0)) return ;
+        if (CanInteract || _gunbullet == null || !_isCanFire) return;
 
+        // 풀에서 꺼낼 때 즉시 발사되므로, 먼저 이번 탄환의 피해량을 확정.
+        _shotDamage = Mathf.Max(0, Mathf.RoundToInt(_damage * damageMultiplier));
         _bullet = _gunbullet.Pop();
-        //bullets[_currentMagazine - 1].OnBulletFire();
         _currentMagazine--;
-
         _elapseTime = 0f;
     }
 
@@ -74,28 +75,12 @@ public class Weapon : Item, IAttackable
         _canReload = true;
     }
 
-    public override void GetItem(IInteracter owner)
+    public override void Interact(IInteractor owner)
     {
-        if (!(owner is TestPlayerContoller)) return;
-
-        TestPlayerContoller player = (TestPlayerContoller)owner;
-
-        // 플레이어 장착 메서드 + 장착 가능한지 판단 추가 필요. 추가후 bool isSuccess = true 제거
-        // bool isSuccess = player.AddWeapon(this);
-        bool isSuccess = true;
-        if (!isSuccess) return;
-
-        Debug.Log("Player 장착 이벤트");
-
+        if (!CanInteract || owner == null) return;
+        if (!owner.TrySetWeapon(this)) return;
+        owner.SetWeapon(this);
         CanInteract = false;
-        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
-
-        // 이미 장착되어 있으면 해제하는 이벤트 임시 구현
-        if (player.WeaponTR.childCount != 0)
-            player.WeaponTR.GetComponentInChildren<Weapon>().SetUnEquip();
-
-        //player.WeaponTR은 무기가 장착될 Transform
-        SetEquip(player.WeaponTR);
     }
 
     /// <summary>
@@ -107,7 +92,8 @@ public class Weapon : Item, IAttackable
 
         CanInteract = false;
 
-        transform.SetParent(equipTR);
+        transform.SetParent(equipTR, false);
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
     /// <summary>
@@ -133,7 +119,11 @@ public class Weapon : Item, IAttackable
             _bullet,
             _maxMagazine,
             _muzzle,
-            _bullet => _bullet.SetData(_damage, _attackRange, _bulletSpeed)
+            bullet =>
+            {
+                SetBulletData(bullet);
+                bullet.SetDamageSource(() => _shotDamage);
+            }
             );
 
         //bullets = new GunBullet[_maxMagazine];

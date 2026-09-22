@@ -122,6 +122,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: "\uD68C\uBCF5\uC57D"
   _info: "\uD22D\uC815 \uC2A4\uD0EF\uC744 \uD68C\uBCF5"
-  _healValue: 1
-  _barrierValue: 2
-  _shieldlValue: 1
+  _effects:
+  - effect: {fileID: 11400000, guid: 0e58988d6325a994ba70fa7b26a0e48f, type: 2}
+    amount: 1
+    time: 0
+  - effect: {fileID: 11400000, guid: 0973ca58d5da4a746adc0816e008980e, type: 2}
+    amount: 2
+    time: 0
+  - effect: {fileID: 11400000, guid: fe85525493ffe0147b7fee814f1fb7d2, type: 2}
+    amount: 1
+    time: 0
