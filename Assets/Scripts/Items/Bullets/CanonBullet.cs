@@ -19,7 +19,7 @@ public class CanonBullet : GunBullet
 
         ExplosionOverlapSphere();
 
-        OnBulletDest();
+        ReturnToPool();
     }
 
     private void ExplosionOverlapSphere()

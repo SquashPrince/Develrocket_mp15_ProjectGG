@@ -17,4 +17,7 @@ public interface IInteractable
     /// </summary>
     /// <param name="owner"></param>
     public virtual void GetItem(IInteracter owner) { }
+
+    public virtual void SetEquip(Transform transform) { }
+    public virtual void SetUnEquip() { }
 }

@@ -9,6 +9,7 @@ public class Weapon : Item, IAttackable
 {
     [Header("무기 설정")]
     [SerializeField] protected GunBullet _bullet;
+    [SerializeField] protected ObjectPool<GunBullet> _gunbullet;
     [SerializeField] protected Transform _muzzle;
 
     [SerializeField] protected int _damage;
@@ -47,7 +48,8 @@ public class Weapon : Item, IAttackable
     {
         if (!_isCanFire || !Input.GetMouseButton(0)) return ;
 
-        bullets[_currentMagazine - 1].OnBulletFire();
+        _bullet = _gunbullet.Pop();
+        //bullets[_currentMagazine - 1].OnBulletFire();
         _currentMagazine--;
 
         _elapseTime = 0f;
@@ -127,12 +129,18 @@ public class Weapon : Item, IAttackable
     /// </summary>
     private void InitBullets()
     {
-        bullets = new GunBullet[_maxMagazine];
+        _gunbullet = new ObjectPool<GunBullet>(
+            _bullet,
+            _maxMagazine,
+            _muzzle,
+            _bullet => _bullet.SetData(_damage, _attackRange, _bulletSpeed)
+            );
 
-        for (int i = 0; i < bullets.Length; i++)
-        {
-            SpawnBullet(i);
-        }
+        //bullets = new GunBullet[_maxMagazine];
+        //for (int i = 0; i < bullets.Length; i++)
+        //{
+        //    SpawnBullet(i);
+        //}
 
         _canReload = true;
 
