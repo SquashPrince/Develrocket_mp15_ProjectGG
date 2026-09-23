@@ -7,9 +7,10 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private Transform _roomRoot;
     [SerializeField] private float _roomSizeOffset = 15f;
 
-    //TODO: 싱글톤 패턴으로 구현하여 플레이어가 자신을 참조시킬 수 있도록 한다.
+    //TODO: 싱글톤 패턴으로 구현하여 플레이어가 자신을 참조시킬 수 있도록 합니다.
 
     private Dictionary<Vector2Int, Room> _rooms = new();
+    private float _doorOffset => _roomPrefab.transform.localScale.x;
 
     // 하드 코딩하여 작성한 맵입니다.
     private RoomType[, ] map =
@@ -98,10 +99,11 @@ public class RoomManager : MonoBehaviour
         Debug.Log(opposite);
 
         Transform targetDoor = nextRoom.GetDoor(opposite);
+        
 
         //TODO: 땅에 끼는 것을 방지하기 위해 targetDoor.up을 사용하고 있는데, 추후 플레이어의 콜라이더를 잘 옮겨
         //수정하면 될 것 같습니다.
-        player.transform.position = (targetDoor.transform.position + targetDoor.forward * 2f + targetDoor.up);
+        player.transform.position = (targetDoor.transform.position + targetDoor.forward * _doorOffset + targetDoor.up);
     }
 
     private Vector2Int GetDirection(DoorDirection direction)

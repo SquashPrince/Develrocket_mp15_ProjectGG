@@ -6,15 +6,14 @@ public class DoorController : MonoBehaviour
     private RoomManager _roomManager;
     private Vector2Int _roomPosition;
     private DoorDirection _direction;
+    private BoxCollider _collider;
 
-    public void Initialize(
-        RoomManager manager,
-        Vector2Int roomPosition,
-        DoorDirection direction)
+    public void Initialize(RoomManager manager, Vector2Int roomPosition, DoorDirection direction)
     {
         _roomManager = manager;
         _roomPosition = roomPosition;
         _direction = direction;
+        _collider = GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other)
