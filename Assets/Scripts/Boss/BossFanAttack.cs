@@ -12,22 +12,8 @@ public class BossFanAttack : BossPattern
     [SerializeField] private Transform _targetTransform;
 
 
-    private void Start()
-    {
-        StartCoroutine(Cooldown());
-    }
 
-    private IEnumerator Cooldown()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(_cooldown);
-
-            _bossControl.AddPattern(FanFire());
-        }
-    }
-
-    public IEnumerator FanFire()
+    protected override IEnumerator PatternRoutine()
     {
         Vector3 targetDirection =
         _targetTransform.position - transform.position;

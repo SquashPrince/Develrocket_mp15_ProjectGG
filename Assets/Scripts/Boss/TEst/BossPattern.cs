@@ -12,6 +12,33 @@ public class BossPattern : MonoBehaviour
     public void Awake()
     {
         _bossControl = GetComponent<BossControl>();
+        Debug.Log(_bossControl == null);
         _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
+
+    private void Start()
+    {
+        StartCoroutine(CoolDown());
+    }
+    
+    public IEnumerator CoolDown()
+    {
+        while (true)
+        {
+            // 쿨타임 기다리기
+            yield return new WaitForSeconds(_cooldown);
+            
+            // 쿨타임이 끝나면 Queue에 패턴 추가
+            Debug.Log(_bossControl == null);
+            
+            _bossControl.AddPattern(PatternRoutine());
+        }
+        
+    }
+
+    protected virtual IEnumerator PatternRoutine()
+    {
+        yield return null;
+    }
+    
 }

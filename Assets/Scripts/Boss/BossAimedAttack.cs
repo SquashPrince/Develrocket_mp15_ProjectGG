@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,23 +10,12 @@ public class BossAimedAttack : BossPattern
     [SerializeField] private int _shotCount = 4;
     [SerializeField] private float _shotDelay = 0.2f;
 
-
-    private void Start()
+    private void OnEnable()
     {
-        StartCoroutine(Cooldown());
+        Debug.Log(_bossControl == null);
     }
 
-    private IEnumerator Cooldown()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(_cooldown);
-
-            _bossControl.AddPattern(AimedBurst());
-        }
-    }
-
-    public IEnumerator AimedBurst()
+    protected override IEnumerator PatternRoutine()
     {
         for (int i = 0; i < _shotCount; i++)
         {

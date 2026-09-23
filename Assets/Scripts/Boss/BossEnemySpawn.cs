@@ -7,22 +7,8 @@ public class BossEnemySpawn : BossPattern
     [SerializeField] private Monster[] _monsters;
     [SerializeField] private GameObject[] _spawnPoints;
     
-    private void Start()
-    {
-        StartCoroutine(Cooldown());
-    }
 
-    private IEnumerator Cooldown()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(_cooldown);
-
-            _bossControl.AddPattern(SpawnMonster());
-        }
-    }
-
-    public IEnumerator SpawnMonster()
+    protected override IEnumerator PatternRoutine()
     {
         for (int i = 0; i < 2; i++)
         {

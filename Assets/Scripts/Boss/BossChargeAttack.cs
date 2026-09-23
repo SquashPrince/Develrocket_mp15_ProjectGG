@@ -10,23 +10,13 @@ public class BossChargeAttack : BossPattern
     [SerializeField] private float _warningTime = 0.5f;
     [SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
-
-    private void Start()
+    
+    private void OnEnable()
     {
-        StartCoroutine(Cooldown());
+        Debug.Log(_bossControl == null);
     }
-
-    private IEnumerator Cooldown()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(_cooldown);
-
-            _bossControl.AddPattern(Charge());
-        }
-    }
-
-    public IEnumerator Charge()
+    
+    protected override IEnumerator PatternRoutine()
     {
         Vector3 direction =
             _player.position - transform.position;

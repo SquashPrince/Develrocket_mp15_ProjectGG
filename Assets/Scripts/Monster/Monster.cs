@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDamagable
 {
     [Header("Monster Status")]
     [SerializeField] private int _maxHealth;
@@ -12,6 +12,9 @@ public class Monster : MonoBehaviour
     [SerializeField] private int _dropGold;
     [SerializeField] private bool _hasDeathEffect;
     [SerializeField] private bool _invincibility = false;
+
+    
+    public GameObject GameObject => gameObject;
 
     // 무적 판정 구현예정
     public bool Invincibility
@@ -77,8 +80,12 @@ public class Monster : MonoBehaviour
         }
     }
 
+
+    // [SerializeField] private Item[] _items =  new Item[2];
+    
     private void Die()
     {
+        
         Debug.Log("몬스터 사망");
         Destroy(gameObject);
     }

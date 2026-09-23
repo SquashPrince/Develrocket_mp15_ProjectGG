@@ -9,26 +9,8 @@ public class BossAttack : BossPattern
     [SerializeField] private int _bulletCount = 30;
     private float _startAngle = 0f;
 
-    private void Start()
-    {
-        StartCoroutine(Cooldown());
-    }
 
-
-    private IEnumerator Cooldown()
-    {
-        while (true)
-        {
-            // 쿨타임 기다리기
-            yield return new WaitForSeconds(_cooldown);
-
-            // 쿨타임이 끝나면 Queue에 패턴 추가
-            _bossControl.AddPattern(RoundFire());
-        }
-    }
-
-
-    public IEnumerator RoundFire()
+    protected override IEnumerator PatternRoutine()
     {
         float angleStep = 360f / _bulletCount;
 

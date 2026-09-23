@@ -12,25 +12,11 @@ public class BossMapAttack : BossPattern
 
     private void Awake()
     {
+        base.Awake();
         _monster = GetComponent<Monster>();
     }
-    
-    private void Start()
-    {
-        StartCoroutine(Cooldown());
-    }
 
-    private IEnumerator Cooldown()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(_cooldown);
-
-            _bossControl.AddPattern(MapAttack());
-        }
-    }
-
-    public IEnumerator MapAttack()
+    protected override IEnumerator PatternRoutine()
     {
         gameObject.transform.position = new Vector3(0, 0, 0);
         _monster.MoveSpeed = 0f;
@@ -51,7 +37,7 @@ public class BossMapAttack : BossPattern
         // 보스 이동속도 원래대로
         _monster.InitSpeed();
     }
-
+    
     [SerializeField] private float minRadius;     // 최소 거리
     [SerializeField] private float maxRadius;    // 최대 거리
 
