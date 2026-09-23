@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossChargeAttack : MonoBehaviour
+public class BossChargeAttack : BossPattern
 {
-    [SerializeField] private Transform _player;
+    // [SerializeField] private Transform _player;
     [SerializeField] private GameObject _chargeWarning;
 
     [SerializeField] private float _warningTime = 0.5f;
     [SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
-
-    [SerializeField] private BossControl _bossControl;
-    [SerializeField] private float _cooldown = 5f;
 
     private void Start()
     {
@@ -27,16 +24,6 @@ public class BossChargeAttack : MonoBehaviour
 
             _bossControl.AddPattern(Charge());
         }
-    }
-
-
-    private void Update()
-    {
-        // 테스트용
-        /*if (Input.GetKeyDown(KeyCode.C))
-        {
-            StartCoroutine(Charge());
-        }*/
     }
 
     public IEnumerator Charge()

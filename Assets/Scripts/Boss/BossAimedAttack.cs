@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossAimedAttack : MonoBehaviour
+public class BossAimedAttack : BossPattern
 {
-    [SerializeField] private Transform _player;
     [SerializeField] private Bullet _bulletPrefab;
 
     [SerializeField] private int _shotCount = 4;
     [SerializeField] private float _shotDelay = 0.2f;
 
-    [SerializeField] private BossControl _bossControl;
-    [SerializeField] private float _cooldown = 5f;
 
     private void Start()
     {
@@ -25,15 +22,6 @@ public class BossAimedAttack : MonoBehaviour
             yield return new WaitForSeconds(_cooldown);
 
             _bossControl.AddPattern(AimedBurst());
-        }
-    }
-
-    private void Update()
-    {
-        // 테스트용
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            StartCoroutine(AimedBurst());
         }
     }
 
