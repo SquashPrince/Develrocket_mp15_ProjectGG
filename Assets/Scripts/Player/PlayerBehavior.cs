@@ -59,7 +59,9 @@ namespace Player
         {
             if (!_hasDetectInteractable) return;
             _targetInteractable = _interactableList[0];
+            
             // _targetInteractable.Interact(_playerValues); TODO: 인터페이스 확인 필요
+
             _targetInteractable = null;
         }
         
