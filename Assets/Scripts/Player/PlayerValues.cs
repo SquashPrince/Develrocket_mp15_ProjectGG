@@ -111,10 +111,8 @@ namespace Player
         private IInteractable _interactable;
         private Transform _weaponTransform;
         private Weapon _Equipweapon;
-        
         private bool _isNewChara = true;
         private bool _hasWeapon => _Equipweapon != null;
-        public bool isDodging;
         
         // 인스턴스 & 변수
         // ==================================================
@@ -171,6 +169,8 @@ namespace Player
         {
             _Equipweapon = weapon;
         }
+
+        
         
     }
 }
