@@ -78,7 +78,7 @@ public class Weapon : Item, IAttackable
     public override void Interact(IInteractor owner)
     {
         if (!CanInteract || owner == null) return;
-        if (!owner.TrySetWeapon(this)) return;
+        // if (!owner.TrySetWeapon(this)) return;
         owner.SetWeapon(this);
         CanInteract = false;
     }
@@ -89,7 +89,6 @@ public class Weapon : Item, IAttackable
     public virtual void SetEquip(Transform equipTR)
     {
         Debug.Log($"{Name} 장착됨");
-
         CanInteract = false;
 
         transform.SetParent(equipTR, false);

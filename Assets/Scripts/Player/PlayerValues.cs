@@ -1,8 +1,10 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 namespace Player
 {
-    public class PlayerValues : MonoBehaviour//, IInteractor TODO:주석 해제후 인터페이스 구현 필요
+    public class PlayerValues : MonoBehaviour, IInteractor
     {
         private const float DefaultHitTime = 0.3f; // 피격무적시간
         private const float DefaultDodgeTime = 0.5f; // 회피무적시간
@@ -14,6 +16,7 @@ namespace Player
         private const int DefaultStartGold = 100; // 시작골드
         private const int DefaultStartGem = 0; // 시작보석
         private const int DefaultShield = 0; // 보호막
+        private const int DefaultMaxShield = 0;
         
         // 상수 (기본값)
         // ============================================================
@@ -26,17 +29,19 @@ namespace Player
         public int BaseGem { get; set; }
         public int BaseHp { get; set; }
         public int BaseShield { get; set; }
+        public int BaseMaxShield { get; set; }
         
         // 프로퍼티 (연산X)
         // ============================================================
         public int rateHitTime; // 무적시간 배율
         public int rateDodgeTime; // 회피무적 배율
         public int rateAttackSpeed; // 공격속도 배율
-        public int rateMoveSpeed; // 이동속도 배율
-        public int rateHpIncrease; // 회복량 배율
+        public int rateMoveSpeed { get; set; } // 이동속도 배율
+        public int rateHpIncrease { get; set; } // 회복량 배율
         public int rateMaxHp; // 최종체력 배율
-        public int rateGainGold; // 골드획득 배율
+        public int rateGainGold { get; set; } // 골드획득 배율
         public int rateGainGem; // 보석획득 배율
+        public float DamageMultiplier { get; set; }
         
         // 변수 (배율)
         // ============================================================
@@ -106,6 +111,23 @@ namespace Player
             }
         }
 
+        public int Shield
+        {
+            get => BaseShield;
+            set
+            {
+                int amount = (value - BaseShield);
+                if (amount >= 0)
+                {
+                    BaseShield = value > BaseMaxShield ? BaseMaxShield : value;
+                }
+                else
+                {
+                    BaseShield = value < 0 ?  0 : value;
+                }
+            }
+        }
+
         // 프로퍼티 (연산O)
         // ============================================================
         private IInteractable _interactable;
@@ -113,6 +135,7 @@ namespace Player
         private Weapon _Equipweapon;
         private bool _isNewChara = true;
         private bool _hasWeapon => _Equipweapon != null;
+        public Transform Transform { get => transform ; }
         
         // 인스턴스 & 변수
         // ==================================================
@@ -143,6 +166,7 @@ namespace Player
             BaseDodgeTime = DefaultDodgeTime;
             BaseGold = DefaultStartGold;
             BaseShield = DefaultShield;
+            BaseMaxShield = DefaultMaxShield;
         }
 
         /** 플레이어 데이터 - 배율 초기화 */
@@ -156,6 +180,7 @@ namespace Player
             rateMaxHp = 100;
             rateGainGold = 100;
             rateGainGem = 100;
+            DamageMultiplier = 1f;
         }
         
         /** 신규 캐릭터 함수 */
@@ -164,10 +189,102 @@ namespace Player
             Gem = DefaultStartGem;
             _isNewChara = false;
         }
+        
+        //
+        
+        public Weapon EquippedWeapon
+        {
+            get => _weaponDictionary[_currentSlot];
+        }
+        
+        private static PlayerInputManager PlayerInput => PlayerInputManager.Instance;
+        private PlayerValues _playerValues;
+        private PlayerWeaponEnum _currentSlot;
+        private PlayerWeaponEnum firstSlot = PlayerWeaponEnum.First;
+        private PlayerWeaponEnum secondSlot = PlayerWeaponEnum.Second;
+        private PlayerWeaponEnum thirdSlot = PlayerWeaponEnum.Third;
+    
+    
+        private Dictionary<PlayerWeaponEnum, Weapon> _weaponDictionary = new();
+        
 
         public void SetWeapon(Weapon weapon)
         {
             _Equipweapon = weapon;
+            if (!IsAnyEmptySlot())
+            {
+                DropWeapon();
+            }
+            GetNewWeapon(_Equipweapon);
+        }
+        
+        private PlayerWeaponEnum WhatNextSlot()
+        {
+            if (_weaponDictionary.Count == 0) return firstSlot;
+            int nextSlot = (int)_currentSlot%_weaponDictionary.Count+1;
+            return (PlayerWeaponEnum)nextSlot;
+        }
+
+        // 현재 슬롯에 장착된 무기를 해제하고 
+        public void ChangeToNextWeapon()
+        {
+            _weaponDictionary[_currentSlot].SetUnEquip();
+            _weaponDictionary[WhatNextSlot()].SetEquip(Transform);
+            _currentSlot = WhatNextSlot();
+        }
+
+        // 빈 슬롯이 있으면 True 없으면 False
+        public bool IsAnyEmptySlot()
+        {
+            return _weaponDictionary.Count < 3;
+        }
+
+        /// <summary>
+        /// 이미 소유한 무기면 true, 아니면 false
+        /// </summary>
+        public bool TrySetWeapon(Weapon weapon)
+        {
+            return _weaponDictionary.ContainsValue(weapon);
+        }
+
+        /// <summary>
+        /// 빈 슬롯이 있으면 무기 장착
+        /// </summary>
+        public void GetNewWeapon(Weapon weapon)
+        {
+            if (!_weaponDictionary.ContainsKey(firstSlot))
+            {
+                SetWeaponToSlot(firstSlot, weapon);
+                Debug.Log(1);
+            }
+            else if (!_weaponDictionary.ContainsKey(secondSlot))
+            {
+                SetWeaponToSlot(secondSlot, weapon);
+                
+                Debug.Log(2);
+            }
+            else if (!_weaponDictionary.ContainsKey(thirdSlot))
+            {
+                SetWeaponToSlot(thirdSlot, weapon);
+                
+                Debug.Log(3);
+            }
+            else
+            {
+                
+            }
+        }
+
+        private void SetWeaponToSlot(PlayerWeaponEnum slot, Weapon weapon)
+        {
+            _weaponDictionary.Add(slot,weapon);
+            weapon.SetEquip(Transform);
+        }
+
+        public void DropWeapon()
+        {
+            _weaponDictionary[_currentSlot].SetUnEquip();
+            _weaponDictionary.Remove(_currentSlot);
         }
 
         
