@@ -22,7 +22,7 @@ namespace Player
         public event Action OnReload;
         public event Action OnShot;
         public event Action<Vector3> OnMove;
-        public event Action<Vector3> OnDodge;
+        public event Action OnDodge;
         
         // 이벤트
         // ========================================
@@ -74,7 +74,7 @@ namespace Player
             if (Input.GetKeyDown(_shotKey)) OnShot?.Invoke();
             if (Input.GetKeyDown(_reLoadKey)) OnReload?.Invoke();
             OnMove?.Invoke(GetDirection());
-            if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke(GetDirection());
+            if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke();
         }
 
         

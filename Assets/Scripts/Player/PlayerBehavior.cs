@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Player
@@ -10,8 +11,10 @@ namespace Player
         private List<IInteractable> _interactableList;
         private IInteractable _targetInteractable;
         private bool _hasDetectInteractable => _interactableList.Count > 0;
-        
         private Vector3 _direction;
+
+        private Coroutine _dodging;
+        
         
         // ========================================
         
@@ -81,12 +84,25 @@ namespace Player
 
         private void SetDirection(Vector3 direction)
         {
+            if (_playerValues.isDodging) return;
             _direction = direction;
         }
         
         // 이동
         // ========================================
-        
+
+        private void OnDodge()
+        {
+            StartCoroutine(Dodging());
+
+        }
+        private IEnumerator Dodging()
+        {
+            _playerValues.isDodging = true;
+            yield return new WaitForSeconds(_playerValues.DodgeTime);
+            _playerValues.isDodging = false;
+        }
+        // TODO: 회피 구현 필요
         // 회피
         // ========================================
     
