@@ -62,8 +62,8 @@ namespace Player
             if (!_hasDetectInteractable) return;
             _targetInteractable = _interactableList[0];
             _targetInteractable.Interact(_playerValues);
+            
             _interactableList.RemoveAt(0);
-            Debug.Log(_interactableList[0].Name);
 
             _targetInteractable = null;
         }

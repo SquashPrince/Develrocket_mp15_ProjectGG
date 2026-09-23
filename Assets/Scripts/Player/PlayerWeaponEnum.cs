@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum PlayerWeaponEnum
 {
-    Default,
     First,
     Second,
     Third

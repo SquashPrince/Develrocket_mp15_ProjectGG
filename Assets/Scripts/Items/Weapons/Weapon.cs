@@ -78,7 +78,7 @@ public class Weapon : Item, IAttackable
     public override void Interact(IInteractor owner)
     {
         if (!CanInteract || owner == null) return;
-        // if (!owner.TrySetWeapon(this)) return;
+        if (!owner.TrySetWeapon(this)) return;
         owner.SetWeapon(this);
         CanInteract = false;
     }

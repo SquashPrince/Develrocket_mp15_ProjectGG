@@ -207,21 +207,11 @@ namespace Player
     
         private Dictionary<PlayerWeaponEnum, Weapon> _weaponDictionary = new();
         
-
-        public void SetWeapon(Weapon weapon)
-        {
-            _Equipweapon = weapon;
-            if (!IsAnyEmptySlot())
-            {
-                DropWeapon();
-            }
-            GetNewWeapon(_Equipweapon);
-        }
         
         private PlayerWeaponEnum WhatNextSlot()
         {
             if (_weaponDictionary.Count == 0) return firstSlot;
-            int nextSlot = (int)_currentSlot%_weaponDictionary.Count+1;
+            int nextSlot = ((int)_currentSlot+1)%_weaponDictionary.Count;
             return (PlayerWeaponEnum)nextSlot;
         }
 
@@ -240,50 +230,51 @@ namespace Player
         }
 
         /// <summary>
-        /// 이미 소유한 무기면 true, 아니면 false
+        /// 이미 소유한 무기면 false, 아니면 true
         /// </summary>
         public bool TrySetWeapon(Weapon weapon)
         {
-            return _weaponDictionary.ContainsValue(weapon);
+            return !_weaponDictionary.ContainsValue(weapon);
         }
 
         /// <summary>
         /// 빈 슬롯이 있으면 무기 장착
         /// </summary>
-        public void GetNewWeapon(Weapon weapon)
+        public void SetWeapon(Weapon weapon)
         {
+            Debug.Log("0");
+            PlayerWeaponEnum targetSlot = _currentSlot;
             if (!_weaponDictionary.ContainsKey(firstSlot))
             {
-                SetWeaponToSlot(firstSlot, weapon);
-                Debug.Log(1);
+                targetSlot = firstSlot;
             }
             else if (!_weaponDictionary.ContainsKey(secondSlot))
             {
-                SetWeaponToSlot(secondSlot, weapon);
-                
-                Debug.Log(2);
+                targetSlot = secondSlot;
             }
             else if (!_weaponDictionary.ContainsKey(thirdSlot))
             {
-                SetWeaponToSlot(thirdSlot, weapon);
-                
-                Debug.Log(3);
+                targetSlot = thirdSlot;
             }
             else
             {
-                
+                DropWeapon(_currentSlot);
+                _weaponDictionary[_currentSlot].SetUnEquip();
             }
+            AddWeaponToSlot(targetSlot, weapon);
+            weapon.SetEquip(Transform);
+            _currentSlot = targetSlot;
+            
         }
 
-        private void SetWeaponToSlot(PlayerWeaponEnum slot, Weapon weapon)
+        private void AddWeaponToSlot(PlayerWeaponEnum slot, Weapon weapon)
         {
             _weaponDictionary.Add(slot,weapon);
-            weapon.SetEquip(Transform);
         }
 
-        public void DropWeapon()
+        public void DropWeapon(PlayerWeaponEnum slot)
         {
-            _weaponDictionary[_currentSlot].SetUnEquip();
+            _weaponDictionary[slot].SetUnEquip();
             _weaponDictionary.Remove(_currentSlot);
         }
 
