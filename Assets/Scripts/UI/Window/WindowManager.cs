@@ -14,6 +14,7 @@ public class WindowManager : MonoBehaviour
     /// <summary> 전체 윈도우 </summary>
     [Header("전체 윈도우")]
     [SerializeField] private GameObject[] Windows = new GameObject[System.Enum.GetValues((typeof(EWindowType))).Length];
+    [SerializeField] private Loading Load;
 
     public IWindowable NowWindow { get; private set; }
 
@@ -41,6 +42,11 @@ public class WindowManager : MonoBehaviour
 
         NowWindow = Windows[(int)EWindow].GetComponent<IWindowable>();
         NowWindow.SetActive();
+    }
+
+    public void OpenLoading()
+    {
+        Load.SetActive();
     }
 
     /// <summary> 윈도우 창 뒤로가기 - 모든 윈도우 창 닫고 메인 화면으로 돌아감</summary>

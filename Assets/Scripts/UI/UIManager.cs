@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
         CacheComponents();
     }
 
-
     private void SetSingleton()
     {
         if(_instance != null && _instance != this)
