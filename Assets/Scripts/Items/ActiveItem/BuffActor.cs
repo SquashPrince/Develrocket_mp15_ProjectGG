@@ -1,27 +1,39 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuffActor : MonoBehaviour
 {
-    public void StartBuff(TestPlayerContoller player, float increaseDmgValue, float increaseSpdValue, float time)
+    private Action _removeBuff;
+
+    public void StartBuff(Action applyBuff, Action removeBuff, float time)
     {
-        StartCoroutine(GetBuffRoutine(player, increaseDmgValue, increaseSpdValue, time));
+        StopAllCoroutines();
+        RemoveBuff();
+        if (!isActiveAndEnabled) return;
+        _removeBuff = removeBuff;
+        applyBuff();
+        StartCoroutine(GetBuffRoutine(time));
     }
-    private IEnumerator GetBuffRoutine(TestPlayerContoller player, float increaseDmgValue, float increaseSpdValue, float time)
+
+    private IEnumerator GetBuffRoutine(float time)
     {
-        if (increaseDmgValue != 0)
-            Debug.Log($"{player.gameObject.name}의 공격력을 {increaseDmgValue} 만큼 증가");
-        if (increaseSpdValue != 0)
-            Debug.Log($"{player.gameObject.name}의 이동속도를 {increaseSpdValue} 만큼 증가");
-
-        yield return new WaitForSeconds(time);
-
-        if (increaseDmgValue != 0)
-            Debug.Log($"{player.gameObject.name}의 공격력 원상 복귀");
-        if (increaseSpdValue != 0)
-            Debug.Log($"{player.gameObject.name}의 이동속도 원상 복귀");
-
+        yield return new WaitForSeconds(Mathf.Max(0f, time));
+        RemoveBuff();
         Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        RemoveBuff();
+        Destroy(gameObject);
+    }
+
+    private void RemoveBuff()
+    {
+        Action remove = _removeBuff;
+        _removeBuff = null;
+        remove?.Invoke();
     }
 }

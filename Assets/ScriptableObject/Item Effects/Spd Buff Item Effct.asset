@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e72848c9b76164b4fb9321ccba7646a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fcefabe9980486cb8465c8b22410e25, type: 3}
   m_Name: Spd Buff Item Effct
   m_EditorClassIdentifier: 
-  _dmgAmount: 0
-  _spdAmount: 2
-  _time: 5
   _buffActor: {fileID: 457803087906991765, guid: 10ebb139127d5224eb9d175a6d36beb1, type: 3}

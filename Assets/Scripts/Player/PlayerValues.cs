@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerValues : MonoBehaviour, IInteracter
+    public class PlayerValues : MonoBehaviour//, IInteractor TODO:주석 해제후 인터페이스 구현 필요
     {
         private const float DefaultHitTime = 0.3f; // 피격무적시간
         private const float DefaultDodgeTime = 0.5f; // 회피무적시간

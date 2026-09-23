@@ -11,13 +11,13 @@ public class Item : MonoBehaviour, IInteractable
     public string Info => _info;
 
     /// <summary>
-    /// »óÈ£ÀÛ¿ëÀÌ °¡´ÉÇÑ »óÅÂÀÎÁö È®ÀÎ
+    /// ìƒí˜¸ì‘ìš©ì´ ê°€ëŠ¥í•œ ìƒíƒœì¸ì§€ í™•ì¸
     /// </summary>
     public bool CanInteract = true;
 
     /// <summary>
-    /// °¢ ¾ÆÀÌÅÛ º°·Î ¾ÆÀÌÅÛ ½Àµæ È¿°ú±¸Çö
+    /// ê° ì•„ì´í…œ ë³„ë¡œ ì•„ì´í…œ ìŠµë“ íš¨ê³¼êµ¬í˜„
     /// </summary>
     /// <param name="owner"></param>
-    public virtual void GetItem(IInteracter owner) { }
+    public virtual void Interact(IInteractor owner) { }
 }

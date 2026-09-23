@@ -1,25 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ActiveItem : Item, IActivable
 {
-    [SerializeField] private ItemEffect[] _effects;
-
-    public override void GetItem(IInteracter owner)
+    [System.Serializable]
+    private class EffectData
     {
-        if (!(owner is TestPlayerContoller player)) return;
+        public ItemEffect effect;
+        public float amount;
+        [Min(0f)] public float time;
+    }
 
+    [SerializeField] private EffectData[] _effects = new EffectData[0];
+
+    public override void Interact(IInteractor owner)
+    {
+        if (owner == null || owner.Transform == null) return;
         if (!CanInteract) return;
 
         CanInteract = false;
 
-        foreach (ItemEffect effect in _effects)
+        foreach (EffectData data in _effects)
         {
-            effect.Apply(player);
+            if (data == null || data.effect == null) continue;
+            data.effect.Apply(owner, data.amount, data.time);
         }
 
-        // 일단 회복류 아이템은 삭제로 처리
         Destroy(gameObject);
     }
 }

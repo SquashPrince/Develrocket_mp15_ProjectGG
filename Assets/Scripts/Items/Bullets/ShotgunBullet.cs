@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class ShotgunBullet : GunBullet
@@ -18,7 +20,11 @@ public class ShotgunBullet : GunBullet
             bullet,
             _gauge,
             transform,
-            _bullet => _bullet.SetData(_damage / _gauge, _range, _bulletSpeed)
+            pellet =>
+            {
+                pellet.SetData(_damage / _gauge, _range, _bulletSpeed);
+                pellet.SetDamageSource(() => _damage / _gauge);
+            }
             );
 
         //_bullets = new GunBullet[_gauge];
@@ -59,6 +65,7 @@ public class ShotgunBullet : GunBullet
 
     public override void OnBulletFire()
     {
+        RefreshDamage();
         gameObject.SetActive(true);
         ShotToRadious();
         gameObject.SetActive(false);

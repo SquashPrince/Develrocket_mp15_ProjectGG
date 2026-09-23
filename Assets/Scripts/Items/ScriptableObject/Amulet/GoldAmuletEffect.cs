@@ -3,11 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/AmuletEffect/Gold Amulet")]
 public class GoldAmuletEffect1 : AmuletEffect
 {
-    [SerializeField] private int _amount;
-
-    public override void Apply(IInteracter player)
+    public override void Apply(IInteractor interacter, float amount)
     {
-        // «√∑π¿ÃæÓ ∞ÒµÂ »πµÊ∑Æ ¡ı∞°
-        Debug.Log($"∞ÒµÂ »πµÊ«‚ {_amount} ∏∏≈≠ ¡ı∞°");
+        interacter.rateGainGold += Mathf.RoundToInt(amount);
     }
 }

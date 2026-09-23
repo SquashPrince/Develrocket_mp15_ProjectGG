@@ -3,11 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/AmuletEffect/Speed Amulet")]
 public class SpeedAmuletEffect : AmuletEffect
 {
-    [SerializeField] private float _amount;
-
-    public override void Apply(IInteracter player)
+    public override void Apply(IInteractor interacter, float amount)
     {
-        // 플레이어 이동 속도 증가
-        Debug.Log($"이동속도 {_amount} 증가");
+        interacter.rateMoveSpeed += Mathf.RoundToInt(amount);
     }
 }
