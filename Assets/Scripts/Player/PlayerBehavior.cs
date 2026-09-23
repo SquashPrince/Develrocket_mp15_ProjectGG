@@ -95,12 +95,12 @@ namespace Player
 
     private void OnDodge()
     {
+        _isDodging = true;
         StartCoroutine(Dodging());
     }
 
     private IEnumerator Dodging()
     {
-        _isDodging = true;
         yield return new WaitForSeconds(_playerValues.DodgeTime);
         _isDodging = false;
     }
