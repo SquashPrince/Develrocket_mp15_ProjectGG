@@ -5,12 +5,12 @@ public class RoomManager : MonoBehaviour
 {
     [SerializeField] private Room _roomPrefab;
     [SerializeField] private Transform _roomRoot;
-    [SerializeField] private float _roomSizeOffset = 15f;
 
     //TODO: 싱글톤 패턴으로 구현하여 플레이어가 자신을 참조시킬 수 있도록 합니다.
 
     private Dictionary<Vector2Int, Room> _rooms = new();
     private float _doorOffset => _roomPrefab.transform.localScale.x;
+    private float _roomSizeOffset => _roomPrefab.transform.localScale.x * 15.0f;
 
     // 하드 코딩하여 작성한 맵입니다.
     private RoomType[, ] map =
