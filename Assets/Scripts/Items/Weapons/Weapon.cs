@@ -89,7 +89,6 @@ public class Weapon : Item, IAttackable
     public virtual void SetEquip(Transform equipTR)
     {
         Debug.Log($"{Name} 장착됨");
-
         CanInteract = false;
 
         transform.SetParent(equipTR, false);
