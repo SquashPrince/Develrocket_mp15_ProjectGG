@@ -40,6 +40,7 @@ public class BossAttack : BossPattern
 
     protected override IEnumerator PatternRoutine()
     {
+        Debug.Log("실행");
         float angleStep = 360f / _bulletCount;
 
         for (int i = 0; i < _bulletCount; i++)
