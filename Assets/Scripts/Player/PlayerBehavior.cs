@@ -7,7 +7,7 @@ namespace Player
     {
         private static PlayerInputManager PlayerInput => PlayerInputManager.Instance;
         private PlayerValues _playerValues; 
-        private List<IInteractable> _interactableList;
+        private List<IInteractable> _interactableList = new();
         private IInteractable _targetInteractable;
         private bool _hasDetectInteractable => _interactableList.Count > 0;
         
