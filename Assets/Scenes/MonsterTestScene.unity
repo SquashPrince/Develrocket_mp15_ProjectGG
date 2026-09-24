@@ -175,6 +175,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!65 &4433735
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -952,6 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df32e6a1bda1cf2498ae1f2319411d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sequenceDelay: 0.5
 --- !u!114 &726455311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,6 +974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 2
   _damage: 0
+  _maxtimes: 0
   _bulletPrefab: {fileID: 0}
   _targetLayer:
     serializedVersion: 2
@@ -1002,6 +1011,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!65 &726455314
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1103,6 +1119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 3
   _damage: 0
+  _maxtimes: 0
   _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
   _playertest: {fileID: 0}
   minRadius: 1
@@ -1122,6 +1139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 5
   _damage: 0
+  _maxtimes: 0
   _monsters:
   - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
   - {fileID: 8147969815230407841, guid: b2c6e0fecf1973e40a28aac8de055100, type: 3}
@@ -1146,6 +1164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 5
   _damage: 0
+  _maxtimes: 0
   _bulletPrefab: {fileID: 0}
   _targetLayer:
     serializedVersion: 2
@@ -1166,6 +1185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 0
   _damage: 0
+  _maxtimes: 0
   _chargeWarning: {fileID: 292341361}
   _warningTime: 0.5
   _chargeDistance: 5
@@ -1184,12 +1204,305 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 5
   _damage: 0
+  _maxtimes: 0
   _bulletPrefab: {fileID: 0}
   _targetLayer:
     serializedVersion: 2
     m_Bits: 0
   _shotCount: 4
   _shotDelay: 0.2
+--- !u!1 &726592988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 726593001}
+  - component: {fileID: 726593000}
+  - component: {fileID: 726592999}
+  - component: {fileID: 726592998}
+  - component: {fileID: 726592997}
+  - component: {fileID: 726592996}
+  - component: {fileID: 726592995}
+  - component: {fileID: 726592994}
+  - component: {fileID: 726592993}
+  - component: {fileID: 726592992}
+  - component: {fileID: 726592991}
+  - component: {fileID: 726592990}
+  - component: {fileID: 726592989}
+  m_Layer: 0
+  m_Name: TestBoss2 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &726592989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a8b9983ba3aaa4a9aa73d4a4a074c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 3
+  _damage: 1
+  _maxtimes: 1
+  _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
+  _playertest: {fileID: 560287229}
+  minRadius: 1
+  maxRadius: 5
+  centerPoint: {fileID: 726593001}
+--- !u!114 &726592990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdcc059daa91cd44c9531ab1f8bba773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 5
+  _damage: 1
+  _maxtimes: 3
+  _bulletPrefab: {fileID: 2862554771222924387, guid: 94fe3d6726ecdf741adc44933f9b0bb3, type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  _bulletCount: 10
+  _targetTransform: {fileID: 560287233}
+--- !u!114 &726592991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073642cb3b0fa9b4d9928e6fbff4b3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 5
+  _damage: 1
+  _maxtimes: 1
+  _monsters:
+  - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
+  - {fileID: 8147969815230407841, guid: b2c6e0fecf1973e40a28aac8de055100, type: 3}
+  - {fileID: 4978816407029263250, guid: 7de3f4568b4b3c545b4ce3a537fff46d, type: 3}
+  - {fileID: 1730908178113800268, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+  _spawnPoints:
+  - {fileID: 60290762}
+  - {fileID: 927719544}
+  - {fileID: 1296393808}
+  - {fileID: 951022829}
+--- !u!114 &726592992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd833f6c47ae6cb4ba9d427d711d3710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 10
+  _damage: 1
+  _maxtimes: 1
+  _chargeWarning: {fileID: 1210814159}
+  _warningTime: 0.5
+  _chargeDistance: 5
+  _chargeSpeed: 10
+--- !u!114 &726592993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a1d73bdaabad3b41ab61cde76386f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 2
+  _damage: 1
+  _maxtimes: 5
+  _bulletPrefab: {fileID: 2862554771222924387, guid: 94fe3d6726ecdf741adc44933f9b0bb3, type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  _bulletCount: 30
+--- !u!114 &726592994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41b9e335f76d3440a35bf60cc568e9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 3
+  _damage: 1
+  _maxtimes: 5
+  _bulletPrefab: {fileID: 2862554771222924387, guid: 94fe3d6726ecdf741adc44933f9b0bb3, type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  _shotCount: 4
+  _shotDelay: 0.2
+--- !u!114 &726592995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df32e6a1bda1cf2498ae1f2319411d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sequenceDelay: 0.7
+--- !u!114 &726592996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a13bbbf8f13b0f44092c44a7e842d804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: 726592997}
+--- !u!114 &726592997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHP: 0
+  _moveSpeed: 1
+  _attackCooldown: 1
+  _dropGold: 7
+  _hasDeathEffect: 0
+  _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+  - {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
+  - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
+  - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
+  _gold: 0
+--- !u!65 &726592998
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &726592999
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &726593000
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &726593001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726592988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1210814163}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &927719544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 5
   _damage: 0
+  _maxtimes: 0
   _chargeWarning: {fileID: 93045702}
   _warningTime: 0.5
   _chargeDistance: 5
@@ -1305,6 +1619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df32e6a1bda1cf2498ae1f2319411d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sequenceDelay: 0.5
 --- !u!114 &1036798966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,6 +1651,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!65 &1036798968
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1468,6 +1790,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!114 &1062327949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1582,6 +1911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 3
   _damage: 0
+  _maxtimes: 0
   _bulletPrefab: {fileID: 0}
   _targetLayer:
     serializedVersion: 2
@@ -1601,6 +1931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 5
   _damage: 0
+  _maxtimes: 0
   _bulletPrefab: {fileID: 0}
   _targetLayer:
     serializedVersion: 2
@@ -1621,6 +1952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 0
   _damage: 0
+  _maxtimes: 0
   _chargeWarning: {fileID: 1357729034}
   _warningTime: 0.5
   _chargeDistance: 5
@@ -1639,6 +1971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 5
   _damage: 0
+  _maxtimes: 0
   _bulletPrefab: {fileID: 0}
   _targetLayer:
     serializedVersion: 2
@@ -1659,6 +1992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 10
   _damage: 0
+  _maxtimes: 0
   _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
   _playertest: {fileID: 0}
   minRadius: 1
@@ -1678,6 +2012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 5
   _damage: 0
+  _maxtimes: 0
   _monsters:
   - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
   - {fileID: 8147969815230407841, guid: b2c6e0fecf1973e40a28aac8de055100, type: 3}

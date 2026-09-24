@@ -74,6 +74,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
+  - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
+  - {fileID: 5905034718578240917, guid: c7f3f82d644a12e41b6ef7e54cb3e6c3, type: 3}
+  - {fileID: 3249526340955005061, guid: 1fe87b58a003a0a4d9c6da3d36a557d3, type: 3}
+  _gold: 0
 --- !u!114 &207998579339378749
 MonoBehaviour:
   m_ObjectHideFlags: 0

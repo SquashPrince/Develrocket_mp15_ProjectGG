@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Monster : MonoBehaviour, IDamagable
 {
@@ -58,7 +59,19 @@ public class Monster : MonoBehaviour, IDamagable
     {
         _currentHp = _maxHP;
         _initSpeed = _moveSpeed;
+        Debug.Log($"{_currentHp} / {_maxHP}");
     }
+
+    // ------------ 테스트용
+    [SerializeField] private bool isDead = false;
+    private void Update()
+    {
+        if (isDead)
+        {
+            Die();
+        }
+    }
+    // ------------ 테스트용
 
     public void TakeDamage(int damage)
     {
@@ -85,6 +98,10 @@ public class Monster : MonoBehaviour, IDamagable
     
     private void Die()
     {
+        isDead = true;
+        // 아이템 혹은 골드 드랍
+        ItempDrop();
+        GoldDrop();
         
         Debug.Log("몬스터 사망");
         Destroy(gameObject);
@@ -93,5 +110,32 @@ public class Monster : MonoBehaviour, IDamagable
     public void InitSpeed()
     {
         _moveSpeed = _initSpeed;
+    }
+
+
+    private int ran = 0;
+    [SerializeField] private Item[] _items = new Item[4];
+    public void ItempDrop()
+    {
+        Debug.Log("Itemp Drop");
+        ran = Random.Range(0, 100);
+
+        if (ran < 50)
+        {
+            Debug.Log("아이템 안나옴");
+            return;
+        }
+        
+        ran = Random.Range(0, _items.Length);
+        Instantiate(_items[ran], transform.position, Quaternion.identity);
+        Debug.Log($"아이템 나옴 : {_items[ran].name}");
+        // 아이템 드랍
+    }
+
+    
+    [SerializeField] private float _gold;
+    public void GoldDrop()
+    {
+        Debug.Log($"Gold Drop : {_gold}");
     }
 }

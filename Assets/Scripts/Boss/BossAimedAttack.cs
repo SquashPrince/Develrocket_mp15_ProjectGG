@@ -41,6 +41,7 @@ public class BossAimedAttack : BossPattern
 
     protected override IEnumerator PatternRoutine()
     {
+        Debug.Log(Time.time);
         for (int i = 0; i < _shotCount; i++)
         {
             Vector3 direction =

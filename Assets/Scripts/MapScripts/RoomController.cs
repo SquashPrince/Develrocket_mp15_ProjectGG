@@ -16,10 +16,14 @@ public class RoomController : MonoBehaviour
         GridPosition = gridPosition;
         RoomType = roomType;
 
-        if(roomType == RoomType.START || roomType == RoomType.BASIC)
+        if(roomType == RoomType.START || roomType == RoomType.BASIC || roomType == RoomType.STORE)
         {
             _isClear = true;
             OpenDoor();
+        }
+        else
+        {
+            _isClear = false;
         }
     }
 
