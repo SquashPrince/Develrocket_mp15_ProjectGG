@@ -13,9 +13,9 @@ public class DoorController : MonoBehaviour, IInteractable
     public string Name => name;
     public string Info => "door";
 
-    public void Initialize(RoomManager manager, Vector2Int roomPosition, DoorDirection direction)
+    public void Initialize(RoomManager roomManager, Vector2Int roomPosition, DoorDirection direction)
     {
-        _roomManager = manager;
+        _roomManager = roomManager;
         _roomPosition = roomPosition;
         _direction = direction;
     }
@@ -32,14 +32,14 @@ public class DoorController : MonoBehaviour, IInteractable
 
     public void Interact(IInteractor owner)
     {
-        _roomManager.EnterRoom(_roomPosition, _direction, owner.Transform);
+        // - InputManager에 직접 구독 시켜야 정상 작동하고 있는 것 같아 그렇게 하였습니다.
+        //_roomManager.EnterRoom(_roomPosition, _direction, owner.Transform);
     }
 
     private void Enter()
     {
         if (!_isOpen)
         {
-            Debug.Log("DoorController: 잠긴 문, 개방 불가");
             return;
         }
 
