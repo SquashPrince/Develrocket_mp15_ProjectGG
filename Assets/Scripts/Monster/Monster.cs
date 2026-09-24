@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDamagable
 {
     [Header("Monster Status")]
-    [SerializeField] private int _maxHealth;
+    [SerializeField] private int _maxHP;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _attackCooldown;
     [SerializeField] private int _dropGold;
     [SerializeField] private bool _hasDeathEffect;
     [SerializeField] private bool _invincibility = false;
+
+    
+    public GameObject GameObject => gameObject;
 
     // 무적 판정 구현예정
     public bool Invincibility
@@ -29,10 +32,10 @@ public class Monster : MonoBehaviour
     // 체력이 변경됐을 때 알림
     public event Action<int, int> OnHealthChanged;
 
-    private int _currentHealth;
+    private int _currentHp;
 
-    public int MaxHealth => _maxHealth;
-    public int CurrentHealth => _currentHealth;
+    public int MaxHp => _maxHP;
+    public int CurrentHp => _currentHp;
     public float MoveSpeed
     {
         get
@@ -53,32 +56,36 @@ public class Monster : MonoBehaviour
 
     private void Awake()
     {
-        _currentHealth = _maxHealth;
+        _currentHp = _maxHP;
         _initSpeed = _moveSpeed;
     }
 
     public void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
+        _currentHp -= damage;
 
-        if (_currentHealth < 0)
+        if (_currentHp < 0)
         {
-            _currentHealth = 0;
+            _currentHp = 0;
         }
 
         // 현재 체력, 최대 체력을 구독 전달
-        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+        OnHealthChanged?.Invoke(_currentHp, _maxHP);
 
-        Debug.Log($"몬스터 체력 : {_currentHealth} / {_maxHealth}");
+        Debug.Log($"몬스터 체력 : {_currentHp} / {_maxHP}");
 
-        if (_currentHealth <= 0)
+        if (_currentHp <= 0)
         {
             Die();
         }
     }
 
+
+    // [SerializeField] private Item[] _items =  new Item[2];
+    
     private void Die()
     {
+        
         Debug.Log("몬스터 사망");
         Destroy(gameObject);
     }

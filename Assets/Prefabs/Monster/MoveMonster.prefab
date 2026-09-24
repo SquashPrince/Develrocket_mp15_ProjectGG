@@ -139,6 +139,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monster: {fileID: 4978816407029263250}
   _player: {fileID: 0}
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _bulletPrefab: {fileID: 2862554771222924387, guid: 94fe3d6726ecdf741adc44933f9b0bb3, type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   _shotDelay: 0.2
   isDamaged: 0
