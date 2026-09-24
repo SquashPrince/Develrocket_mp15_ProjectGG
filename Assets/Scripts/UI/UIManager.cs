@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
+
+    public WindowManager Window { get; private set; }
+    public PopUpManager PopUp { get; private set; }
 
     public static UIManager Instance
     {
@@ -22,8 +24,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Awake() => SetSingleton();
-
+    private void Awake()
+    {
+        SetSingleton();
+        CacheComponents();
+    }
 
     private void SetSingleton()
     {
@@ -36,5 +41,11 @@ public class UIManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void CacheComponents()
+    {
+        Window = gameObject.transform.GetChild(0).GetComponent<WindowManager>();
+        PopUp = gameObject.transform.GetChild(1).GetComponent<PopUpManager>();
     }
 }
