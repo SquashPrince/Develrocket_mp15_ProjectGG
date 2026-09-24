@@ -220,36 +220,37 @@ namespace Player
             CurrentWeaponOn();
         }
 
+        /// <summary>
+        /// 무기 장착
+        /// </summary>
+        /// 기본 무기를 장착한 상태에서 바닥 무기와 교체 시도시 고장나는 버그 있음
         public void SetWeapon(Weapon weapon)
         {
-            if (_weaponDictionary.Count < _maxWeaponSlot)
+            if (_weaponDictionary.Count < _maxWeaponSlot) // 빈 무기슬롯이 있으면
             {
-                if (_weaponDictionary.Count == 0)
+                if (_weaponDictionary.Count == 0) // 가진 무기가 없으면
                 {
-                    _currentSlot = _firstSlot;
-                    _currentWeapon = weapon;
-                    _currentWeapon.SetEquip(Transform);
-                    AddDictionary((PlayerWeaponEnum)_weaponDictionary.Count, weapon);
-                    CurrentWeaponOn();
-                    _hasSuccessInteract = true;
+                    _currentSlot = _firstSlot; // 현재 슬롯 = 1번째
+                    _currentWeapon = weapon; // 현재무기 = 집어든 무기
+                    _currentWeapon.SetEquip(Transform); // 현재 무기 장착
+                    AddDictionary(_firstSlot, weapon); // 1번 슬롯에 집어든 무기 추가
+                    _hasSuccessInteract = true; // 상호작용 성공
                     return ;
                 }
-                Debug.Log("2-3");
-                AddDictionary((PlayerWeaponEnum)_weaponDictionary.Count, weapon);
-                weapon.gameObject.SetActive(false);
-                _hasSuccessInteract = true;
+                AddDictionary((PlayerWeaponEnum)_weaponDictionary.Count, weapon); // 딕셔너리 맨 앞쪽 빈 슬롯에 무기 추가
+                weapon.gameObject.SetActive(false); // 무기 오브젝트 비활성화
+                _hasSuccessInteract = true; // 상호작용 성공
                 return;
             }
-            Debug.Log($"{_currentSlot}");
-            if (_isDefaultWeapon) return;
-            _currentWeapon.SetUnEquip();
-            RemoveDictionary(_currentSlot);
+            if (_isDefaultWeapon) return; // 기본무기 들고 있을 시 return
+            _currentWeapon.SetUnEquip(); // 기존 무기 해제
+            RemoveDictionary(_currentSlot); // 현재 슬롯에서 기존무기 해제
             
-            _currentWeapon = weapon;
-            AddDictionary(_currentSlot,_currentWeapon);
-            _currentWeapon.SetEquip(Transform);
-            CurrentWeaponOn();
-            _hasSuccessInteract = true;
+            _currentWeapon = weapon; // // 현재 무기를 집어든 무기로 변경
+            AddDictionary(_currentSlot,_currentWeapon); // 집어든 무기 현재 슬롯에 추가
+            _currentWeapon.SetEquip(Transform); // 현재 무기 장착
+            CurrentWeaponOn(); // 무기 오브젝트 활성화
+            _hasSuccessInteract = true; // 상호작용 성공
         }
 
         private void AddDictionary(PlayerWeaponEnum slot, Weapon weapon)
