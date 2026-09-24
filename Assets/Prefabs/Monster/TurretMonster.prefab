@@ -138,9 +138,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 0
+  _maxHP: 0
   _moveSpeed: 0
   _attackCooldown: 0
   _dropGold: 0
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+  - {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
+  - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
+  - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
+  _gold: 0
