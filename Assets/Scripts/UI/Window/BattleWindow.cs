@@ -5,9 +5,17 @@ using UnityEngine.UI;
 
 public class BattleWindow : MonoBehaviour, IWindowable
 {
-    [SerializeField] private WeaponInven weaponInven;
+    [SerializeField] private Profile _proFile;
+    [SerializeField] private WeaponInven _weaponInven;
 
     public void SetActive()
+    {
+        _proFile.SetData();
+        _weaponInven.SetData();
+        SetUI();
+    }
+
+    private void SetUI()
     {
     }
 
@@ -21,6 +29,6 @@ public class BattleWindow : MonoBehaviour, IWindowable
 
     private void Update()
     {
-        weaponInven.WeaponSwap();
-    }
+        _weaponInven.WeaponSwap();
+    } 
 }

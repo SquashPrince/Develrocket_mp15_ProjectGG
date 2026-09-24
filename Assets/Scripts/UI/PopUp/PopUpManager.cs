@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class PopUpManager : MonoBehaviour
 {
-    [SerializeField] private SettingPopUp Setting;
-    [SerializeField] private AbilityPopUp Ability;
+    public ToastPopUp _toast;
+    [SerializeField] private SettingPopUp _setting;
+    [SerializeField] private AbilityPopUp _ability;
 
     public void Open(EPopUpType ePopUp)
     {
         switch (ePopUp)
         {
             case EPopUpType.Setting:
-                Setting.gameObject.SetActive(true);
-                Setting.SetData();
+                _setting.gameObject.SetActive(true);
+                _setting.SetData();
                 break;
             case EPopUpType.Ability:
                 break;

@@ -87,6 +87,11 @@ public class Loading : MonoBehaviour
             yield return null;
         }
 
+        Bar.fillAmount = asyncOperation.progress;
+        BarText.text = $"{asyncOperation.progress * 100}";
+
+        yield return new WaitForSeconds(1f);
+
         switch (UIManager.Instance.Window.EWindow)
         {
             case EWindowType.Lobby:
@@ -121,5 +126,6 @@ public class Loading : MonoBehaviour
         }
 
         Bar.fillAmount = 0f;
+        LoadObj.SetActive(false);
     }
 }

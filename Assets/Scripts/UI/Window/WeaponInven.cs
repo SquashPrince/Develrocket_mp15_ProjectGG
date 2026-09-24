@@ -13,6 +13,11 @@ public class WeaponInven : MonoBehaviour
     private void Awake()
     {
         CacheComponents();
+    }
+
+    // 최초 1회
+    public void SetData()
+    {
         IsWeaponChange = false;
         swapCoolTime = 0f;
     }
@@ -56,6 +61,7 @@ public class WeaponInven : MonoBehaviour
     {
         rt.rotation = Quaternion.identity;
         // 무기 슬롯 스왑
+        
     }
 
     private void CacheComponents()
