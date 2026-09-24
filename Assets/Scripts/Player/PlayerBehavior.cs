@@ -116,7 +116,8 @@ namespace Player
 
         public void TakeDamage(int damage)
         {
-            if (!_isDodging) _playerValues.Hp -= damage;
+            if (_isDodging) return;
+            _playerValues.Hp -= damage;
         }
         // TODO: 회피 구현 필요
         // 회피
