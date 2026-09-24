@@ -24,6 +24,7 @@ public class RoomController : MonoBehaviour
         else
         {
             _isClear = false;
+            CloseDoor();
         }
     }
 
