@@ -4,6 +4,8 @@ Shader "Custom/Pixelizer"
     {
         _BaseMap("Base Map", 2D) = "white" {}
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
+        [Toggle] _UVRepeatEnabled("UV Repeat Enabled", Float) = 0
+        _UVRepeat("UV Repeat", Vector) = (1, 1, 0, 0)
 
         _ShadeSteps("Shade Steps", Range(1, 8)) = 3
         _AmbientLight("Ambient Light", Range(0, 1)) = 0.2
@@ -69,6 +71,8 @@ Shader "Custom/Pixelizer"
                 CBUFFER_START(UnityPerMaterial)
                 float4 _BaseMap_ST;
                 half4 _BaseColor;
+                float _UVRepeatEnabled;
+                float4 _UVRepeat;
                 float _ShadeSteps;
                 float _AmbientLight;
                 float _ShadowSteps;
@@ -82,6 +86,9 @@ Shader "Custom/Pixelizer"
                 float _OutlineThickness;
                 float _ObjectID;
                 CBUFFER_END
+
+                float4 _AutoUVMin;
+                float4 _AutoUVSize;
 
                 float _PixelizerPixelSize;
                 float4 _PixelizerScreenSize;
@@ -137,7 +144,7 @@ Shader "Custom/Pixelizer"
 
                     output.positionCS = ApplyPixelCameraCorrection(positionInputs.positionCS);
                     output.normalWS = normalInputs.normalWS;
-                    output.uv = TRANSFORM_TEX(input.uv, _BaseMap);
+                    output.uv = input.uv;
                     output.shadowCoord = TransformWorldToShadowCoord(positionInputs.positionWS);
                     output.positionWS = positionInputs.positionWS;
                     output.positionVS = TransformWorldToView(positionInputs.positionWS);
@@ -171,6 +178,28 @@ Shader "Custom/Pixelizer"
                     return (value + 0.5) / 16.0;
                 }
 
+                float2 GetRepeatedAtlasUV(float2 rawUV)
+                {
+                    if (_UVRepeatEnabled < 0.5)
+                        return rawUV * _BaseMap_ST.xy + _BaseMap_ST.zw;
+
+                    float2 uvMin = _AutoUVMin.xy;
+                    float2 uvSize = max(_AutoUVSize.xy, float2(0.000001, 0.000001));
+                    float2 repeatCount = max(_UVRepeat.xy, float2(1.0, 1.0));
+
+                    // Convert the UV rectangle already used by this mesh to local 0..1.
+                    float2 localUV = (rawUV - uvMin) / uvSize;
+
+                    // Repeat only that existing UV rectangle.
+                    localUV = frac(localUV * repeatCount);
+
+                    // Convert back to the same atlas rectangle.
+                    float2 atlasUV = uvMin + localUV * uvSize;
+
+                    // Preserve normal Base Map Tiling/Offset after the automatic repeat.
+                    return atlasUV * _BaseMap_ST.xy + _BaseMap_ST.zw;
+                }
+
                 half3 ApplyColorQuantization(half3 color, float4 positionCS)
                 {
                     float steps = max(2.0, _ColorSteps);
@@ -194,7 +223,8 @@ Shader "Custom/Pixelizer"
                     UNITY_SETUP_INSTANCE_ID(input);
                     MRTOutput output;
 
-                    half4 textureColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
+                    float2 sampleUV = GetRepeatedAtlasUV(input.uv);
+                    half4 textureColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, sampleUV);
                     half3 baseColor = textureColor.rgb * _BaseColor.rgb;
                     float3 normalWS = normalize(input.normalWS);
 
@@ -273,6 +303,8 @@ Shader "Custom/Pixelizer"
                                         CBUFFER_START(UnityPerMaterial)
                                         float4 _BaseMap_ST;
                                         half4 _BaseColor;
+                                        float _UVRepeatEnabled;
+                                        float4 _UVRepeat;
                                         float _ShadeSteps;
                                         float _AmbientLight;
                                         float _ShadowSteps;

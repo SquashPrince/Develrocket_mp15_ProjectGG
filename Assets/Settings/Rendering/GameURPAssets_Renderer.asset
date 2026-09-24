@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    pixelSize: 8
+    pixelSize: 4
     renderPassEvent: 300
     compositeMaterial: {fileID: 2100000, guid: bc7bc04dba182b14fa4ba7f6696c5d02, type: 2}
     pixelSnapEnabled: 1

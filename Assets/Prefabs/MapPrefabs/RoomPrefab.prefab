@@ -792,10 +792,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f6c53245c4eb84eb506d66c246ec27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upDoor: {fileID: 1245447162002143489}
-  _leftDoor: {fileID: 6795724369746593711}
-  _downDoor: {fileID: 1842631455160886849}
-  _rightDoor: {fileID: 4848686709725273332}
+  _upDoor: {fileID: 4238781055724327196}
+  _leftDoor: {fileID: 999398633980365664}
+  _downDoor: {fileID: 8696314512509179464}
+  _rightDoor: {fileID: 2552224758336747237}
 --- !u!1001 &607333303630321025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -918,6 +918,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7116314708630045766, guid: e348e7143b6247b488737e4be26fb038, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 03d8023b7e0d12941bef2ff04779feb6, type: 2}
     - target: {fileID: 9100508158649072905, guid: e348e7143b6247b488737e4be26fb038, type: 3}
       propertyPath: m_Name
       value: Floor
@@ -925,8 +929,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9100508158649072905, guid: e348e7143b6247b488737e4be26fb038, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 800080984648082607}
   m_SourcePrefab: {fileID: 100100000, guid: e348e7143b6247b488737e4be26fb038, type: 3}
+--- !u!1 &5608306121276969769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9100508158649072905, guid: e348e7143b6247b488737e4be26fb038, type: 3}
+  m_PrefabInstance: {fileID: 3719915293532663328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &800080984648082607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5608306121276969769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ceb7968bf2afc44a44c893a30b308c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uvChannel: 0
 --- !u!4 &8875021525469729151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5239272197777735519, guid: e348e7143b6247b488737e4be26fb038, type: 3}
