@@ -168,7 +168,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roomPrefab: {fileID: 7919376478079836373, guid: 1b5c5402a97235648b68573e9b0a9bbd, type: 3}
   _roomRoot: {fileID: 1338204010}
-  _roomSizeOffset: 75
 --- !u!1 &663690885
 GameObject:
   m_ObjectHideFlags: 0
