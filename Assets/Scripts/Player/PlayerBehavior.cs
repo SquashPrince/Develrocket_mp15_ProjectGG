@@ -28,6 +28,7 @@ namespace Player
             PlayerInput.OnInteract += OnInteract;
             PlayerInput.OnMove += OnMove;
             PlayerInput.OnDodge += OnDodge;
+            PlayerInput.OnSwap += OnSwap;
         }
 
         private void OnDisable()
@@ -35,6 +36,7 @@ namespace Player
             PlayerInput.OnInteract -= OnInteract;
             PlayerInput.OnMove -= OnMove;
             PlayerInput.OnDodge -= OnDodge;
+            PlayerInput.OnSwap -= OnSwap;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -45,7 +47,9 @@ namespace Player
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)) return;
+            if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)
+                || !_playerValues._hasSuccessInteract) return;
+            _playerValues._hasSuccessInteract = false;
             _interactableList.Remove(inter);
         }
 
@@ -60,13 +64,19 @@ namespace Player
         private void OnInteract()
         {
             if (!_hasDetectInteractable) return;
-            _targetInteractable = _interactableList[0];
-            _targetInteractable.Interact(_playerValues);
+            Debug.Log($"{_interactableList[0].Name} : 상호작용 시도");
+            _interactableList[0].Interact(_playerValues);
             
             _interactableList.RemoveAt(0);
-
-            _targetInteractable = null;
         }
+        
+        // 무기교체
+        // ========================================
+        private void OnSwap()
+        {
+            _playerValues.SwapNextWeapon();
+        }
+        
 
         // 상호작용
         // ========================================

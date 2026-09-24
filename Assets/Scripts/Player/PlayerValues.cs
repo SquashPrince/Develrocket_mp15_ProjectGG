@@ -133,6 +133,7 @@ namespace Player
         private static PlayerInputManager PlayerInput => PlayerInputManager.Instance;
         private PlayerValues _playerValues;
         public Transform Transform { get => transform; }
+        public bool _hasSuccessInteract;
         private bool _isNewChara = true;
         private bool _isDefaultWeapon => _currentSlot == _firstSlot;
         private int _maxWeaponSlot = 3;
@@ -141,9 +142,10 @@ namespace Player
         private PlayerWeaponEnum _firstSlot;
         private PlayerWeaponEnum _secondSlot;
         private PlayerWeaponEnum _thirdSlot;
-        
+
         private PlayerWeaponEnum _currentSlot;
         private Weapon _currentWeapon;
+        private Collider _weaponCollider;
         private Dictionary<PlayerWeaponEnum, Weapon> _weaponDictionary = new();
         
         // 인스턴스 & 변수
@@ -207,30 +209,81 @@ namespace Player
             return !_weaponDictionary.ContainsValue(weapon);
         }
         
-        private void SwitchNextWeapon()
+        public void SwapNextWeapon()
         {
             if (_weaponDictionary.Count<2) return;
             _currentWeapon.SetUnEquip();
             _currentSlot = (PlayerWeaponEnum)(((int)_currentSlot + 1 )%_weaponDictionary.Count);
+            CurrentWeaponOff();
             _currentWeapon = _weaponDictionary[_currentSlot];
             _currentWeapon.SetEquip(Transform);
-            
+            CurrentWeaponOn();
         }
 
         public void SetWeapon(Weapon weapon)
         {
             if (_weaponDictionary.Count < _maxWeaponSlot)
             {
-                _weaponDictionary.Add((PlayerWeaponEnum)_weaponDictionary.Count, weapon);
+                if (_weaponDictionary.Count == 0)
+                {
+                    _currentSlot = _firstSlot;
+                    _currentWeapon = weapon;
+                    _currentWeapon.SetEquip(Transform);
+                    AddDictionary((PlayerWeaponEnum)_weaponDictionary.Count, weapon);
+                    CurrentWeaponOn();
+                    _hasSuccessInteract = true;
+                    return ;
+                }
+                Debug.Log("2-3");
+                AddDictionary((PlayerWeaponEnum)_weaponDictionary.Count, weapon);
+                weapon.gameObject.SetActive(false);
+                _hasSuccessInteract = true;
                 return;
             }
+            Debug.Log($"{_currentSlot}");
             if (_isDefaultWeapon) return;
             _currentWeapon.SetUnEquip();
-            _weaponDictionary.Remove(_currentSlot);
+            RemoveDictionary(_currentSlot);
             
             _currentWeapon = weapon;
-            _weaponDictionary.Add(_currentSlot,_currentWeapon);
+            AddDictionary(_currentSlot,_currentWeapon);
             _currentWeapon.SetEquip(Transform);
+            CurrentWeaponOn();
+            _hasSuccessInteract = true;
+        }
+
+        private void AddDictionary(PlayerWeaponEnum slot, Weapon weapon)
+        {
+            _weaponDictionary.Add(slot,weapon);
+            WeaponColliderOff();
+        }
+        
+        private void RemoveDictionary(PlayerWeaponEnum slot)
+        {
+            _weaponDictionary.Remove(slot);
+            WeaponColliderOn();
+        }
+        
+
+        private void WeaponColliderOff()
+        {
+            _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
+            _weaponCollider.enabled = false;
+        }
+        private void WeaponColliderOn()
+        {
+            _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
+            _weaponCollider.enabled = true;
+        }
+
+        private void CurrentWeaponOff()
+        {
+            _currentWeapon.gameObject.SetActive(false);
+            
+        }
+        private void CurrentWeaponOn()
+        {
+            _currentWeapon.gameObject.SetActive(true);
         }
     }
 }
