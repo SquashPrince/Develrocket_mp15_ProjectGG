@@ -21,6 +21,10 @@ public class RoomController : MonoBehaviour
             _isClear = true;
             OpenDoor();
         }
+        else
+        {
+            _isClear = false;
+        }
     }
 
     public void OpenDoor()
