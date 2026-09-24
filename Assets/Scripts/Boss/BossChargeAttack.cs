@@ -11,11 +11,6 @@ public class BossChargeAttack : BossPattern
     [SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
     
-    private void OnEnable()
-    {
-        Debug.Log(_bossControl == null);
-    }
-    
     protected override IEnumerator PatternRoutine()
     {
         Vector3 direction =

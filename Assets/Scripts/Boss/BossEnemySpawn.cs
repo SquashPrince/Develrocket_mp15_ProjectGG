@@ -7,7 +7,6 @@ public class BossEnemySpawn : BossPattern
     [SerializeField] private Monster[] _monsters;
     [SerializeField] private GameObject[] _spawnPoints;
     
-
     protected override IEnumerator PatternRoutine()
     {
         for (int i = 0; i < 2; i++)

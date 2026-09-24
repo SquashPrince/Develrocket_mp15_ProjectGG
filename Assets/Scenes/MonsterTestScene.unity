@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHP: 0
   _moveSpeed: 1
   _attackCooldown: 1
   _dropGold: 7
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 560287230}
   - component: {fileID: 560287229}
   - component: {fileID: 560287228}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -941,7 +941,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 2
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 0
+  _bulletPrefab: {fileID: 0}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _bulletCount: 30
 --- !u!114 &726455312
 MonoBehaviour:
@@ -968,7 +972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHP: 0
   _moveSpeed: 1
   _attackCooldown: 1
   _dropGold: 7
@@ -1074,6 +1078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 3
+  _damage: 0
   _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
   _playertest: {fileID: 0}
   minRadius: 1
@@ -1092,6 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
+  _damage: 0
   _monsters:
   - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
   - {fileID: 8147969815230407841, guid: b2c6e0fecf1973e40a28aac8de055100, type: 3}
@@ -1115,7 +1121,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 0
+  _bulletPrefab: {fileID: 0}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _bulletCount: 10
   _targetTransform: {fileID: 560287233}
 --- !u!114 &726455321
@@ -1131,6 +1141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 0
+  _damage: 0
   _chargeWarning: {fileID: 292341361}
   _warningTime: 0.5
   _chargeDistance: 5
@@ -1148,7 +1159,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 0
+  _bulletPrefab: {fileID: 0}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _shotCount: 4
   _shotDelay: 0.2
 --- !u!1 &726592988
@@ -1192,6 +1207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 3
+  _damage: 1
   _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
   _playertest: {fileID: 0}
   minRadius: 1
@@ -1209,8 +1225,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdcc059daa91cd44c9531ab1f8bba773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldown: 2
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _cooldown: 5
+  _damage: 1
+  _bulletPrefab: {fileID: 2862554771222924387, guid: 94fe3d6726ecdf741adc44933f9b0bb3, type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   _bulletCount: 10
   _targetTransform: {fileID: 560287233}
 --- !u!114 &726592991
@@ -1226,6 +1246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 2
+  _damage: 1
   _monsters:
   - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
   - {fileID: 8147969815230407841, guid: b2c6e0fecf1973e40a28aac8de055100, type: 3}
@@ -1249,6 +1270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 10
+  _damage: 1
   _chargeWarning: {fileID: 1210814159}
   _warningTime: 0.5
   _chargeDistance: 5
@@ -1266,7 +1288,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 2
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 1
+  _bulletPrefab: {fileID: 2862554771222924387, guid: 94fe3d6726ecdf741adc44933f9b0bb3, type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   _bulletCount: 30
 --- !u!114 &726592994
 MonoBehaviour:
@@ -1281,7 +1307,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 1
+  _bulletPrefab: {fileID: 2862554771222924387, guid: 94fe3d6726ecdf741adc44933f9b0bb3, type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   _shotCount: 4
   _shotDelay: 0.2
 --- !u!114 &726592995
@@ -1321,7 +1351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHP: 0
   _moveSpeed: 1
   _attackCooldown: 1
   _dropGold: 7
@@ -1512,6 +1542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
+  _damage: 0
   _chargeWarning: {fileID: 93045702}
   _warningTime: 0.5
   _chargeDistance: 5
@@ -1553,7 +1584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHP: 0
   _moveSpeed: 1
   _attackCooldown: 1
   _dropGold: 7
@@ -1685,7 +1716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHP: 0
   _moveSpeed: 1
   _attackCooldown: 1
   _dropGold: 7
@@ -1804,7 +1835,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 3
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 0
+  _bulletPrefab: {fileID: 0}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _bulletCount: 30
 --- !u!114 &1062327955
 MonoBehaviour:
@@ -1819,7 +1854,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 0
+  _bulletPrefab: {fileID: 0}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _shotCount: 4
   _shotDelay: 0.2
 --- !u!114 &1062327956
@@ -1835,6 +1874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 0
+  _damage: 0
   _chargeWarning: {fileID: 1357729034}
   _warningTime: 0.5
   _chargeDistance: 5
@@ -1852,7 +1892,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
-  _bulletPrefab: {fileID: 6925520789281125697, guid: 8192466d4243fde459071e79f2d661b2, type: 3}
+  _damage: 0
+  _bulletPrefab: {fileID: 0}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _bulletCount: 10
   _targetTransform: {fileID: 560287233}
 --- !u!114 &1062327958
@@ -1868,6 +1912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 10
+  _damage: 0
   _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
   _playertest: {fileID: 0}
   minRadius: 1
@@ -1886,6 +1931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 5
+  _damage: 0
   _monsters:
   - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
   - {fileID: 8147969815230407841, guid: b2c6e0fecf1973e40a28aac8de055100, type: 3}

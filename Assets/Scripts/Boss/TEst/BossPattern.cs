@@ -7,16 +7,18 @@ public class BossPattern : MonoBehaviour
 {
     protected BossControl _bossControl; 
     [SerializeField] protected float _cooldown;
+    [SerializeField] protected int _damage;
+    
     protected Transform _player;
 
     public void Awake()
     {
         _bossControl = GetComponent<BossControl>();
-        Debug.Log(_bossControl == null);
+        //Debug.Log(_bossControl == null);
         _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void Start()
+    public void Start()
     {
         StartCoroutine(CoolDown());
     }
@@ -29,7 +31,7 @@ public class BossPattern : MonoBehaviour
             yield return new WaitForSeconds(_cooldown);
             
             // 쿨타임이 끝나면 Queue에 패턴 추가
-            Debug.Log(_bossControl == null);
+            //Debug.Log(_bossControl == null);
             
             _bossControl.AddPattern(PatternRoutine());
         }

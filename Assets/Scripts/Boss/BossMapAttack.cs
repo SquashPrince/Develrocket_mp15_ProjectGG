@@ -15,7 +15,7 @@ public class BossMapAttack : BossPattern
         base.Awake();
         _monster = GetComponent<Monster>();
     }
-
+    
     protected override IEnumerator PatternRoutine()
     {
         gameObject.transform.position = new Vector3(0, 0, 0);
