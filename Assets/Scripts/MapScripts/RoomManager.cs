@@ -18,12 +18,19 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private RoomController _roomPrefab;
+    [SerializeField] private StartRoom _startRoomPrefab;
+    [SerializeField] private BasicRoom _basicRoomPrefab;
+    [SerializeField] private BattleRoom _battleRoomPrefab;
+
+    [SerializeField] private TreasureRoom _treasureRoomPrefab;
+    [SerializeField] private StoreRoom _storeRoomPrefab;
+    [SerializeField] private BossRoom _bossRoomPrefab;
+
     [SerializeField] private Transform _roomRoot;
 
-    private Dictionary<Vector2Int, RoomController> _rooms = new();
-    private float _doorOffset => _roomPrefab.transform.localScale.x;
-    private float _roomSizeOffset => _roomPrefab.transform.localScale.x * 15.0f;
+    private Dictionary<Vector2Int, RoomBase> _rooms = new();
+    private float _doorOffset => _startRoomPrefab.transform.localScale.x;
+    private float _roomSizeOffset => _startRoomPrefab.transform.localScale.x * 15.0f;
 
     private RoomType[, ] map =
     {
@@ -66,7 +73,16 @@ public class RoomManager : MonoBehaviour
     {
         Vector3 worldPosition = GetWorldPosition(grid);
 
-        RoomController room = Instantiate(_roomPrefab, worldPosition, _roomRoot.rotation, _roomRoot);
+        RoomBase room = roomType switch
+        {
+            RoomType.START => room = Instantiate(_startRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.BASIC => room = Instantiate(_basicRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.BATTLE => room = Instantiate(_battleRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.STORE => room = Instantiate(_storeRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.TREASURE => room = Instantiate(_treasureRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.BOSS => room = Instantiate(_bossRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            _ => null
+        };
 
         room.Initialize(grid, roomType);
 
@@ -75,10 +91,10 @@ public class RoomManager : MonoBehaviour
 
     private void SetupDoors()
     {
-        foreach (KeyValuePair<Vector2Int, RoomController> roomData in _rooms)
+        foreach (KeyValuePair<Vector2Int, RoomBase> roomData in _rooms)
         {
             Vector2Int position = roomData.Key;
-            RoomController room = roomData.Value;
+            RoomBase room = roomData.Value;
 
             SetupDoor(room, position, DoorDirection.UP, Vector2Int.up);
             SetupDoor(room, position, DoorDirection.RIGHT, Vector2Int.right);
@@ -88,7 +104,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void SetupDoor(RoomController room, Vector2Int grid, DoorDirection direction, Vector2Int offset)
+    private void SetupDoor(RoomBase room, Vector2Int grid, DoorDirection direction, Vector2Int offset)
     {
         Vector2Int nearRoom = grid + offset;
 
@@ -107,7 +123,7 @@ public class RoomManager : MonoBehaviour
         Vector2Int nextGrid = currentGrid + GetDirection(direction);
         Debug.Log(nextGrid);
 
-        if (!_rooms.TryGetValue(nextGrid, out RoomController nextRoom)) return;
+        if (!_rooms.TryGetValue(nextGrid, out RoomBase nextRoom)) return;
 
         DoorDirection opposite = GetOpposite(direction);
         Debug.Log(opposite);

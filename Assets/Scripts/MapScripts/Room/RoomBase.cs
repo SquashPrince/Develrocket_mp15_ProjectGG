@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class RoomController : MonoBehaviour
+public abstract class RoomBase: MonoBehaviour
 {
-    [SerializeField] private DoorController _upDoor;
-    [SerializeField] private DoorController _leftDoor;
-    [SerializeField] private DoorController _downDoor;
-    [SerializeField] private DoorController _rightDoor;
+    [SerializeField] protected DoorController _upDoor;
+    [SerializeField] protected DoorController _leftDoor;
+    [SerializeField] protected DoorController _downDoor;
+    [SerializeField] protected DoorController _rightDoor;
     
     public Vector2Int GridPosition { get; private set; }
     public RoomType RoomType { get; private set; }
-    private bool _isClear;
+    protected bool _isClear;
 
     public void Initialize(Vector2Int gridPosition ,RoomType roomType)
     {
@@ -44,6 +44,11 @@ public class RoomController : MonoBehaviour
         _downDoor.Close();
         _leftDoor.Close();
         _rightDoor.Close();
+    }
+
+    public virtual void CheckClear()
+    {
+        //TODO: 방 마다 다른 클리어 조건 판단 로직 수행할 것
     }
 
     public void SetDoor(DoorDirection direction, bool active)
