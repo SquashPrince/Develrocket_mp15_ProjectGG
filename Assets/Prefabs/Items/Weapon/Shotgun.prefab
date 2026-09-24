@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6111243818042483355}
   - component: {fileID: 5905034718578240917}
+  - component: {fileID: -5551048666510784764}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -87,6 +88,27 @@ MonoBehaviour:
   _attackRange: 50
   _bulletSpeed: 25
   _reloadDelay: 2
+--- !u!65 &-5551048666510784764
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8251059267318148791}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.25, y: 0.25, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8983222941695236383
 GameObject:
   m_ObjectHideFlags: 0

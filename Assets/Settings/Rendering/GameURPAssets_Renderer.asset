@@ -58,7 +58,7 @@ MonoBehaviour:
   m_DepthPrimingMode: 0
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
-  m_IntermediateTextureMode: 1
+  m_IntermediateTextureMode: 0
 --- !u!114 &514173050600614715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,4 +74,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     pixelSize: 8
+    renderPassEvent: 300
     compositeMaterial: {fileID: 2100000, guid: bc7bc04dba182b14fa4ba7f6696c5d02, type: 2}
+    pixelSnapEnabled: 1
+    pixelSnapReferenceDistance: 10
