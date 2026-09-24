@@ -175,6 +175,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!65 &4433735
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -978,6 +985,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!65 &726455314
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1201,7 +1215,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726592988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68a8b9983ba3aaa4a9aa73d4a4a074c4, type: 3}
   m_Name: 
@@ -1209,7 +1223,7 @@ MonoBehaviour:
   _cooldown: 3
   _damage: 1
   _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
-  _playertest: {fileID: 0}
+  _playertest: {fileID: 560287229}
   minRadius: 1
   maxRadius: 5
   centerPoint: {fileID: 726593001}
@@ -1220,7 +1234,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726592988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdcc059daa91cd44c9531ab1f8bba773, type: 3}
   m_Name: 
@@ -1245,7 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073642cb3b0fa9b4d9928e6fbff4b3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldown: 2
+  _cooldown: 5
   _damage: 1
   _monsters:
   - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
@@ -1264,7 +1278,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726592988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd833f6c47ae6cb4ba9d427d711d3710, type: 3}
   m_Name: 
@@ -1282,7 +1296,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726592988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a1d73bdaabad3b41ab61cde76386f71, type: 3}
   m_Name: 
@@ -1301,7 +1315,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726592988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e41b9e335f76d3440a35bf60cc568e9f, type: 3}
   m_Name: 
@@ -1357,6 +1371,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
+  - {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
+  - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
+  - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
+  _gold: 0
 --- !u!65 &726592998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1590,6 +1611,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!65 &1036798968
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1722,6 +1750,13 @@ MonoBehaviour:
   _dropGold: 7
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _gold: 0
 --- !u!114 &1062327949
 MonoBehaviour:
   m_ObjectHideFlags: 0
