@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4460993015462633674}
   - component: {fileID: 6744266172686893555}
+  - component: {fileID: 3325718880547637121}
   m_Layer: 0
   m_Name: AutoPistol
   m_TagString: Untagged
@@ -140,6 +141,27 @@ MonoBehaviour:
   _attackRange: 50
   _bulletSpeed: 25
   _reloadDelay: 0
+--- !u!65 &3325718880547637121
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2444193468766263166}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.25, y: 0.25, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2889429467953320106
 GameObject:
   m_ObjectHideFlags: 0
