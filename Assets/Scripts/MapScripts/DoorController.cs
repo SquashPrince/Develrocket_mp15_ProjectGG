@@ -32,7 +32,7 @@ public class DoorController : MonoBehaviour, IInteractable
 
     public void Interact(IInteractor owner)
     {
-        //_roomManager.EnterRoom(_roomPosition, _direction, owner.Transform);
+        _roomManager.EnterRoom(_roomPosition, _direction, owner.Transform);
     }
 
     private void Enter()
