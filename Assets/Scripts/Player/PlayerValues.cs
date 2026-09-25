@@ -275,13 +275,13 @@ namespace Player
 
         private void WeaponColliderOff()
         {
-            _weaponCollider.enabled = false;
             _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
+            _weaponCollider.enabled = false;
         }
         private void WeaponColliderOn()
         {
-            _weaponCollider.enabled = true;
             _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
+            _weaponCollider.enabled = true;
         }
 
         private void CurrentWeaponOff()
