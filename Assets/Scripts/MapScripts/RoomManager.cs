@@ -182,9 +182,14 @@ public class RoomManager : MonoBehaviour
         Transform targetDoor = nextRoom.GetDoor(opposite);
         
         target.position = (targetDoor.transform.position + targetDoor.forward * _doorOffset + targetDoor.up);
-        
         _currentRoom.OnExit();
         _currentRoom = nextRoom;
+
+        if (_currentRoom.RoomType == RoomType.BOSS)
+        {
+            //TODO: 페이드 인 페이드 아웃..?
+        }
+
         _currentRoom.OnEnter();
     }
 
