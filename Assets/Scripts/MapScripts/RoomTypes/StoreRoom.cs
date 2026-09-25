@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StoreRoom : RoomBase
 {
+    [SerializeField] List<Item> _itemPrefabList;
+    [SerializeField] Transform[] _itemSpawnPoints;
     public override void OnEnter()
     {
         base.OnEnter();
@@ -18,5 +20,13 @@ public class StoreRoom : RoomBase
     public override void OnExit()
     {
         base.OnExit();
+    }
+
+    private void SpawnItems()
+    {
+        for(int i = 0; i < _itemSpawnPoints.Length; i++)
+        {
+
+        }
     }
 }
