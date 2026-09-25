@@ -176,6 +176,7 @@ MonoBehaviour:
   _hasDeathEffect: 0
   _invincibility: 0
   isDead: 0
+  _turretMonster: {fileID: 0}
   _items:
   - {fileID: 0}
   - {fileID: 0}
@@ -1134,6 +1135,7 @@ MonoBehaviour:
   _hasDeathEffect: 0
   _invincibility: 0
   isDead: 0
+  _turretMonster: {fileID: 0}
   _items:
   - {fileID: 0}
   - {fileID: 0}
@@ -1360,7 +1362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &726592989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1532,6 +1534,7 @@ MonoBehaviour:
   _hasDeathEffect: 0
   _invincibility: 0
   isDead: 0
+  _turretMonster: {fileID: 0}
   _items:
   - {fileID: 5198550064771035509, guid: 6b663bd44a2bc114bae3a7a855e8fd97, type: 3}
   - {fileID: 496406992465410259, guid: ae4308f545dafbe4d9c5bc1df1dc70c5, type: 3}
@@ -1773,6 +1776,7 @@ MonoBehaviour:
   _hasDeathEffect: 0
   _invincibility: 0
   isDead: 0
+  _turretMonster: {fileID: 0}
   _items:
   - {fileID: 0}
   - {fileID: 0}
@@ -1912,6 +1916,7 @@ MonoBehaviour:
   _hasDeathEffect: 0
   _invincibility: 0
   isDead: 0
+  _turretMonster: {fileID: 0}
   _items:
   - {fileID: 0}
   - {fileID: 0}
@@ -2280,6 +2285,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357729034}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1441102406 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1851908445895605764, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+  m_PrefabInstance: {fileID: 1618695231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b4e0e7e47a59841a2649ba2c7152ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1502057459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2468,6 +2484,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1001 &1618695231
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 179877456668105074, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_Name
+      value: TurretMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 179877456668105074, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730908178113800268, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: _turretMonster
+      value: 
+      objectReference: {fileID: 1441102406}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193774525783998046, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
 --- !u!4 &63057708434296203
 Transform:
   m_ObjectHideFlags: 0
@@ -2802,6 +2883,7 @@ MonoBehaviour:
   _hasDeathEffect: 0
   _invincibility: 0
   isDead: 0
+  _turretMonster: {fileID: 0}
   _items:
   - {fileID: 0}
   - {fileID: 0}
@@ -4979,3 +5061,4 @@ SceneRoots:
   - {fileID: 1502057459}
   - {fileID: 436862900}
   - {fileID: 661734539}
+  - {fileID: 1618695231}

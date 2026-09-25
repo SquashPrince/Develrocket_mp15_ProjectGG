@@ -16,6 +16,10 @@ public class BossMapAttack : BossPattern
     {
         base.Awake();
         _monster = GetComponent<Monster>();
+        if (_playertest == null)
+        {
+            _playertest = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTest>();
+        }
     }
     
     protected override IEnumerator PatternRoutine()

@@ -42,6 +42,10 @@ public class BossFanAttack : BossPattern
 
     protected override IEnumerator PatternRoutine()
     {
+        if (_targetTransform == null)
+        {
+            _targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
         Vector3 targetDirection =
         _targetTransform.position - transform.position;
 

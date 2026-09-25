@@ -22,10 +22,15 @@ public class BossMovement : MonoBehaviour
     private void MoveToPlayer()
     {
         transform.LookAt(_player.position);
-        Vector3 direction =
-            (_player.position - transform.position).normalized;
+        float distance = Vector3.Distance(transform.transform.position, _player.transform.position);
+        if (distance > 5)
+        {
+            Vector3 direction =
+                (_player.position - transform.position).normalized;
 
-        transform.position +=
-            direction * _monster.MoveSpeed * Time.deltaTime;
+            transform.position +=
+                direction * _monster.MoveSpeed * Time.deltaTime;
+        }
+        
     }
 }

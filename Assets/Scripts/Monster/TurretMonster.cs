@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -122,7 +123,29 @@ public class TurretMonster : MonoBehaviour
         }
     }
 
+    public void Dead()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            float angle = 90 * i;
 
+            float x = Mathf.Cos(angle * Mathf.Deg2Rad);
+            float z = Mathf.Sin(angle * Mathf.Deg2Rad);
+
+            Vector3 direction = new Vector3(x, 0f, z);
+
+            FireBullet(direction);
+        }
+        
+    }
+    
+    private void FireBullet(Vector3 direction)
+    {
+        GunBullet bullet = _bulletPool.Pop();
+
+        bullet.transform.position = transform.position;
+        bullet.transform.forward = direction;
+    }
 
     private void CacheComponents()
     {
