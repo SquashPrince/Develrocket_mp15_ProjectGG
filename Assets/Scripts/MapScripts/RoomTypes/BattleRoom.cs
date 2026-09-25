@@ -22,11 +22,6 @@ public class BattleRoom : RoomBase
         if (_isClear) OpenDoor();
     }
 
-    private void OnDisable()
-    {
-        OnExit();
-    }
-
     public override void OnEnter()
     {
         base.OnEnter();
