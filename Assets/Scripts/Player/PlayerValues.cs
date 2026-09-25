@@ -9,7 +9,7 @@ namespace Player
         private const float DefaultHitTime = 0.3f; // 피격무적시간
         private const float DefaultDodgeTime = 0.5f; // 회피무적시간
         private const float DefaultAttackSpeed = 0.5f; // 공격속도
-        private const float DefaultMinAttackSpeed = 0.1f; // 최소공격속도
+        private const float DefaultMinAttackSpeed = 0.05f; // 최소공격속도
         private const int DefaultMoveSpeed = 5; // 이동속도
         private const int DefaultMinMoveSpeed = 1; // 최소이동속도
         private const int DefaultMaxHp = 10; // 최대HP
@@ -20,6 +20,7 @@ namespace Player
         
         // 상수 (기본값)
         // ============================================================
+        public float DodgeCoolDown {  get; set; }
         public float BaseHitTime { get; set; }
         public float BaseDodgeTime { get; set; }
         public float BaseAttackSpeed { get; set; }
@@ -144,6 +145,7 @@ namespace Player
         private PlayerWeaponEnum _firstSlot;
         private PlayerWeaponEnum _secondSlot;
         private PlayerWeaponEnum _thirdSlot;
+        private PlayerTalent _playerTalent;
 
         
         private PlayerWeaponEnum _currentSlot;
@@ -155,10 +157,14 @@ namespace Player
         // ==================================================
         private void Start()
         {
-            SetDefault(); 
+            SetDefault();
         }
 
-        private void Awake() => _itemSlot = GetComponent<PlayerItemSlot>();
+        private void Awake()
+        {
+            _itemSlot = GetComponent<PlayerItemSlot>();
+            _playerTalent = GetComponent<PlayerTalent>();
+        }
         // 이벤트 함수
         // ==================================================
         
@@ -168,7 +174,7 @@ namespace Player
             SetToStartValues();
             SetToStartRate();
             if (_isNewChara) SetNewChara();
-            // 델리게이트로 특성 불러오기
+            else _playerTalent.TalentsLoad();
         }
         
         /** 플레이어 데이터 - 값 초기화 */
@@ -197,6 +203,7 @@ namespace Player
             rateGainGold = 100;
             rateGainGem = 100;
             DamageMultiplier = 1f;
+            DodgeCoolDown = 2f;
         }
         
         /** 신규 캐릭터 함수 */
@@ -243,7 +250,6 @@ namespace Player
                 _hasSuccessInteract = true; // 상호작용 성공
                 return;
             }
-            // if (_isDefaultWeapon) return; // 기본무기 들고 있을 시 return
             _currentWeapon.SetUnEquip(); // 기존 무기 해제
             RemoveDictionary(_currentSlot); // 현재 슬롯에서 기존무기 해제
             

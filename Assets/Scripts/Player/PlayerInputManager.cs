@@ -78,7 +78,7 @@ namespace Player
         private void ReadInput()
         {
             if (Input.GetKeyDown(_interactKey)) OnInteract?.Invoke();
-            if (Input.GetKeyDown(_shotKey)) OnShot?.Invoke();
+            if (Input.GetKey(_shotKey)) OnShot?.Invoke();
             OnMove?.Invoke(GetDirection());
             if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke();
             if (Input.GetKeyDown(_swapKey)) OnSwap?.Invoke();
