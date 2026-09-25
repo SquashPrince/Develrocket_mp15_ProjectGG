@@ -18,6 +18,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    //TODO: 구조 설명 후 룸 컨트롤러는 추후 지울 예정입니다.
     [SerializeField] private RoomController _roomPrefab;
 
     [SerializeField] private BasicRoom _basicRoomPrefab;
