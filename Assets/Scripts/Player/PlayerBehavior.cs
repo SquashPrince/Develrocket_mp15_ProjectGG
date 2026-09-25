@@ -11,6 +11,7 @@ namespace Player
         private PlayerValues _playerValues;
         private List<IInteractable> _interactableList = new();
         private IInteractable _targetInteractable;
+        private PlayerItemSlot _playerItemSlot;
         private Camera _camera;
         private Vector3 _direction;
         private Vector3 _cursorPosition;
@@ -62,6 +63,7 @@ namespace Player
         private void CacheComponents()
         {
             _playerValues = GetComponent<PlayerValues>();
+            _playerItemSlot =  GetComponent<PlayerItemSlot>();
             _camera = Camera.main;
         }
 

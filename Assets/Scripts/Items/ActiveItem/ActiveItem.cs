@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ActiveItem : Item, IActivable
 {
+    public PlayerItemEnum targetSlot;
     [System.Serializable]
     private class EffectData
     {
@@ -17,8 +18,21 @@ public class ActiveItem : Item, IActivable
         if (owner == null || owner.Transform == null) return;
         if (!CanInteract) return;
 
+        // 주석 해제 필요
+         if (!owner.CanInteractItem(targetSlot)) return;
+         owner.SetItem(this, targetSlot);
+            
+         transform.SetParent(owner.Transform);
+         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+         transform.localScale = Vector3.zero;
+         
         CanInteract = false;
 
+        // Destroy(gameObject);
+    }
+
+    public override void Use(IInteractor owner)
+    {
         foreach (EffectData data in _effects)
         {
             if (data == null || data.effect == null) continue;
