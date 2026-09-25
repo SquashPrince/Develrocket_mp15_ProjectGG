@@ -42,6 +42,8 @@ public class BossFanAttack : BossPattern
 
     protected override IEnumerator PatternRoutine()
     {
+        _animator.SetTrigger("StartFanAttack");
+        
         if (_targetTransform == null)
         {
             _targetTransform = GameObject.FindGameObjectWithTag("Player").transform;

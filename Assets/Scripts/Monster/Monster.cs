@@ -14,8 +14,11 @@ public class Monster : MonoBehaviour, IDamagable
     [SerializeField] private bool _hasDeathEffect;
     [SerializeField] private bool _invincibility = false;
 
-    
+    // bool 값으로 아이템 하나만 떨어뜨리도록
+    // 지금 총알에서 충돌 여러번 일어나서 3개씩 떨어뜨리는거 같음
     public GameObject GameObject => gameObject;
+    
+    //private Animator _animator;
 
     // 무적 판정 구현예정
     public bool Invincibility
@@ -59,11 +62,12 @@ public class Monster : MonoBehaviour, IDamagable
     {
         _currentHp = _maxHP;
         _initSpeed = _moveSpeed;
+        //_animator = GetComponentInChildren<Animator>();
         Debug.Log($"{_currentHp} / {_maxHP}");
     }
 
     // ------------ 테스트용
-    [SerializeField] private bool isDead = false;
+    [SerializeField] public bool isDead = false;
     private void Update()
     {
         if (isDead)
@@ -100,6 +104,7 @@ public class Monster : MonoBehaviour, IDamagable
     [SerializeField] private TurretMonster _turretMonster;
     private void Die()
     {
+        //_animator.SetBool("isDead", true);
         if (_turretMonster != null)
         {
             _turretMonster.Dead();
@@ -143,5 +148,11 @@ public class Monster : MonoBehaviour, IDamagable
     public void GoldDrop()
     {
         Debug.Log($"Gold Drop : {_gold}");
+    }
+
+    public void DieTest()
+    {
+        Destroy(gameObject);
+        Debug.Log("제발 로그 뜨고 죽어줘 끝남");
     }
 }

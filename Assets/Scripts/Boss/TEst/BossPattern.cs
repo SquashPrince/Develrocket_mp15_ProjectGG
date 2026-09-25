@@ -11,12 +11,14 @@ public class BossPattern : MonoBehaviour
     public int _maxtimes;
     
     protected Transform _player;
+    protected Animator _animator; 
 
     public void Awake()
     {
         _bossControl = GetComponent<BossControl>();
         //Debug.Log(_bossControl == null);
         _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _animator = GetComponentInChildren<Animator>();
     }
 
     public void Start()
