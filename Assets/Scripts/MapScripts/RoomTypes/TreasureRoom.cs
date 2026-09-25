@@ -15,16 +15,12 @@ public class TreasureRoom : RoomBase
         if(_isEntered) RotateItem();
     }
 
-    private void OnDisable()
-    {
-        OnExit();
-    }
-
     public override void OnEnter()
     {
         base.OnEnter();
         SpawnTreasure();
         _isClear = true;
+        enabled = true;
     }
 
     public override void OnRunning()
@@ -35,7 +31,7 @@ public class TreasureRoom : RoomBase
     public override void OnExit()
     {
         base.OnExit();
-        
+        enabled = false;
         if(_treasure != null) _treasure.gameObject.SetActive(false);
     }
 
