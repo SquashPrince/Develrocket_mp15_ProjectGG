@@ -26,7 +26,7 @@ public class PassiveItem : Item, IPassivable
     private void SetOffGameObject()
     {
         if (_model == null) return;
-
+        GetComponent<Collider>().enabled = false;
         _model.SetActive(false);
     }
 }

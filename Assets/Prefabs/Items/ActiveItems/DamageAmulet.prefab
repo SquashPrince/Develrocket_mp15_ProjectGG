@@ -73,7 +73,8 @@ MonoBehaviour:
   _info: "\uACF5\uACA9\uB825\uC744 \uC601\uAD6C\uC801\uC73C\uB85C \uC99D\uAC00 \uC2DC\uCF1C\uC8FC\uB294
     \uBD80"
   CanInteract: 1
-  _amount: 0
+  _amount: 10
+  _model: {fileID: 0}
   _effects:
   - {fileID: 11400000, guid: 074e09ceac5b4f441bae39a3a591c8ae, type: 2}
 --- !u!1001 &599946736297251109

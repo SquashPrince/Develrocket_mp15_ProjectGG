@@ -70,13 +70,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: "\uC2E0\uC18D\uC758 \uCEA1\uC290"
-  _info: "5\uCD08 \uB3D9\uC548 \uC774\uB3D9\uC18D\uB3C4\uB97C \uC99D\uAC00\uC2DC\uD0A4\uB294
+  _info: "10\uCD08 \uB3D9\uC548 \uC774\uB3D9\uC18D\uB3C4\uB97C \uC99D\uAC00\uC2DC\uD0A4\uB294
     \uCEA1\uC290"
   CanInteract: 1
+  targetSlot: 2
   _effects:
   - effect: {fileID: 11400000, guid: 2705b9d4217766b4e9f9a4aa8bfba7bb, type: 2}
-    amount: 2
-    time: 5
+    amount: 1.5
+    time: 10
+  _model: {fileID: 0}
 --- !u!1001 &5581101525579573634
 PrefabInstance:
   m_ObjectHideFlags: 0

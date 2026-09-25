@@ -73,7 +73,8 @@ MonoBehaviour:
   _info: "\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC744 \uC601\uAD6C\uC801\uC73C\uB85C \uC99D\uAC00
     \uC2DC\uCF1C\uC8FC\uB294 \uBD80"
   CanInteract: 1
-  _amount: 0
+  _amount: 10
+  _model: {fileID: 265171665649239048}
   _effects:
   - {fileID: 11400000, guid: 06342aafb055bf44590c27753f634850, type: 2}
 --- !u!1001 &2067999780416345869
@@ -189,6 +190,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61c7dcd8337158a468821e9b631f2689, type: 3}
+--- !u!1 &265171665649239048 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2241973402649285381, guid: 61c7dcd8337158a468821e9b631f2689, type: 3}
+  m_PrefabInstance: {fileID: 2067999780416345869}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &641134666420969138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1465576719795128767, guid: 61c7dcd8337158a468821e9b631f2689, type: 3}

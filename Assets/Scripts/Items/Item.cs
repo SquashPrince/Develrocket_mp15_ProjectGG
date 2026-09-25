@@ -22,4 +22,8 @@ public class Item : MonoBehaviour, IInteractable
     public virtual void Interact(IInteractor owner) { }
     
     public virtual void Use(IInteractor owner) { }
+    public virtual void Use(IInteractor owner)
+    {
+        Interact(owner);
+    }
 }

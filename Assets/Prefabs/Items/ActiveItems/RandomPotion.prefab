@@ -73,10 +73,12 @@ MonoBehaviour:
   _info: "50% \uD655\uB960\uB85C \uCCB4\uB825\uC744 \uD68C\uBCF5\uD558\uAC70\uB098
     \uAC10\uC18C\uC2DC\uD0B4"
   CanInteract: 1
+  targetSlot: 2
   _effects:
   - effect: {fileID: 11400000, guid: b1902b6ac1232be44bc085e2dc330a87, type: 2}
-    amount: 1
+    amount: 2
     time: 0
+  _model: {fileID: 0}
 --- !u!1001 &6819826762075367253
 PrefabInstance:
   m_ObjectHideFlags: 0

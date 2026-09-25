@@ -72,10 +72,12 @@ MonoBehaviour:
   _name: "\uBB34\uD6A8\uD654 \uCEA1\uC290"
   _info: "\uBB34\uD6A8\uD654 1\uD68C"
   CanInteract: 1
+  targetSlot: 2
   _effects:
   - effect: {fileID: 11400000, guid: fe85525493ffe0147b7fee814f1fb7d2, type: 2}
     amount: 1
     time: 0
+  _model: {fileID: 0}
 --- !u!1001 &3608540575977815545
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -72,7 +72,8 @@ MonoBehaviour:
   _name: "\uC624\uC0C9 \uBD80\uC801"
   _info: "\uB2A5\uB825\uCE58 \uC99D\uAC00 \uC544\uC774\uD15C"
   CanInteract: 1
-  _amount: 0
+  _amount: 5
+  _model: {fileID: 5785102860928143245}
   _effects:
   - {fileID: 11400000, guid: f2d1ab5704a9a8842a62b576930e4342, type: 2}
   - {fileID: 11400000, guid: 074e09ceac5b4f441bae39a3a591c8ae, type: 2}
@@ -188,6 +189,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a73eca55382651c449497eca9a2be0be, type: 3}
+--- !u!1 &5785102860928143245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3664100224609117633, guid: a73eca55382651c449497eca9a2be0be, type: 3}
+  m_PrefabInstance: {fileID: 7102651442539178572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6558086350703662391 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4148570695115292539, guid: a73eca55382651c449497eca9a2be0be, type: 3}

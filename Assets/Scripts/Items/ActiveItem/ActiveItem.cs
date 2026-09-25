@@ -20,12 +20,16 @@ public class ActiveItem : Item, IActivable
         if (!CanInteract) return;
 
         // 주석 해제 필요
+        Debug.Log(1);
          if (!owner.CanInteractItem(targetSlot)) return;
+        Debug.Log(2);
          owner.SetItem(this, targetSlot);
+        Debug.Log(3);
             
          transform.SetParent(owner.Transform);
          transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
          transform.localScale = Vector3.zero;
+        Debug.Log(4);
          
         CanInteract = false;
 
