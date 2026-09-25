@@ -9,7 +9,6 @@ namespace Player
         
         private const string AXIS_HORIZONTAL = "Horizontal";
         private const string AXIS_VERTICAL = "Vertical";
-        [SerializeField] private PlayerValues _playerValues;
         
         private KeyCode _interactKey = KeyCode.E; // 상호작용
         private KeyCode _dodgeKey = KeyCode.Space; // 회피
@@ -24,8 +23,7 @@ namespace Player
         // ========================================
         
         public event Action OnInteract;
-        public event Action OnReload;
-        public event Action<Weapon> OnClick;
+        public event Action OnShot;
         public event Action OnDodge;
         public event Action OnSwap;
         public event Action<Vector3> OnMove;
@@ -72,7 +70,6 @@ namespace Player
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
             }
-            _playerValues = GetComponent<PlayerValues>();
         }
         
         // ========================================
@@ -81,8 +78,7 @@ namespace Player
         private void ReadInput()
         {
             if (Input.GetKeyDown(_interactKey)) OnInteract?.Invoke();
-            if (Input.GetKeyDown(_shotKey)) OnClick?.Invoke(_playerValues.EquippedWeapon);
-            if (Input.GetKeyDown(_reLoadKey)) OnReload?.Invoke();
+            if (Input.GetKeyDown(_shotKey)) OnShot?.Invoke();
             OnMove?.Invoke(GetDirection());
             if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke();
             if (Input.GetKeyDown(_swapKey)) OnSwap?.Invoke();
