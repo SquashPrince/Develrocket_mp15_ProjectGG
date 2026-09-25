@@ -11,6 +11,7 @@ public class ActiveItem : Item, IActivable
     }
 
     [SerializeField] private EffectData[] _effects = new EffectData[0];
+    [SerializeField] private GameObject _model;
 
     public override void Interact(IInteractor owner)
     {
@@ -26,5 +27,12 @@ public class ActiveItem : Item, IActivable
         }
 
         Destroy(gameObject);
+    }
+
+    private void SetOffGameObject()
+    {
+        if (_model == null) return;
+
+        _model.SetActive(false);
     }
 }
