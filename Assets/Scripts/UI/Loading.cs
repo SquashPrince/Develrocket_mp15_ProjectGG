@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,15 +8,22 @@ using UnityEngine.UI;
 
 public class Loading : MonoBehaviour
 {
-    [SerializeField] private GameObject LoadObj;
-    [SerializeField] private Image Bg;
-    [SerializeField] private GameObject LoadingBar;
-    [SerializeField] private Image Bar;
-    [SerializeField] private TextMeshProUGUI BarText;
+    [SerializeField] private GameObject _loadObj;
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private GameObject _loadingBar;
+    [SerializeField] private Image _bar;
+    [SerializeField] private TextMeshProUGUI _barText;
+
+    private readonly List<Func<IEnumerator>> _actions = new();
+
+    public void AddAction(Func<IEnumerator> action)
+    {
+        _actions.Add(action);
+    }
 
     public void SetActive()
     {
-        LoadObj.SetActive(true);
+        _loadObj.SetActive(true);
         StartCoroutine(LoadingOn());
     }
 
@@ -27,82 +35,47 @@ public class Loading : MonoBehaviour
         {
             alpha += Time.deltaTime;
 
-            Bg.color = new Color(Bg.color.r, Bg.color.g, Bg.color.b, alpha);
+            _canvasGroup.alpha = alpha;
 
             yield return null;
 
             if(alpha > 1f)
             {
-                Bg.color = new Color(Bg.color.r, Bg.color.g, Bg.color.b, alpha);
+                _canvasGroup.alpha = 1f;
                 break;
             }
         }
 
-        LoadingBar.SetActive(true);
-        Bar.fillAmount = 1f;
-        LoadScene();
+        _loadingBar.SetActive(true);
+        _bar.fillAmount = 1f;
+
+        yield return null;
+
+        LoadWindow();
     }
 
-    private void LoadScene()
+    private void LoadWindow()
     {
-        string str = string.Empty;
-
-        switch (UIManager.Instance.Window.EWindow)
-        {
-            case EWindowType.Lobby:
-                str = "UI_Test_Battle";
-                break;
-            case EWindowType.Battle:
-                str = "UI_Test";
-                break;
-        }
-
-        StartCoroutine(LoadingAsync(str));
+        StartCoroutine(LoadingWindow());
     }
 
-    private IEnumerator LoadingAsync(string name)
+    private IEnumerator LoadingWindow()
     {
-        //로딩이 완료되는대로 씬을 활성화할것인지
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(name);
-        asyncOperation.allowSceneActivation = false;
-
-        float time = 0f;
-
-        //isDone는 로딩이 완료되었는지 확인하는 변수
-        while (!asyncOperation.isDone)
-        {
-            //시간을 더해줌
-            time += Time.deltaTime;
-            //로딩이 얼마나 완료되었는지 0~1의 값으로 보여줌
-
-            Bar.fillAmount = asyncOperation.progress;
-            BarText.text = $"{asyncOperation.progress * 100}";
-
-            //이건 로딩이 너무 빠르면 시간 제한 두는것이 좋다. 무거운 씬 로딩할땐 시간 체크하는 부분은 생략가능
-            //3초 기다림(변동가능)
-            if (time > 3)
-            { 
-                asyncOperation.allowSceneActivation = true; //씬 활성화
-            }
-            yield return null;
-        }
-
-        Bar.fillAmount = asyncOperation.progress;
-        BarText.text = $"{asyncOperation.progress * 100}";
-
         yield return new WaitForSeconds(1f);
 
-        switch (UIManager.Instance.Window.EWindow)
+        if (!UIManager.Instance.Window.WindowCompare())
         {
-            case EWindowType.Lobby:
-                UIManager.Instance.Window.Open(EWindowType.Battle);
-                break;
-            case EWindowType.Battle:
-                UIManager.Instance.Window.Open(EWindowType.Lobby);
-                break;
+            switch (UIManager.Instance.Window.EWindow)
+            {
+                case EWindowType.Lobby:
+                    UIManager.Instance.Window.Open(EWindowType.Battle);
+                    break;
+                case EWindowType.Battle:
+                    UIManager.Instance.Window.Open(EWindowType.Lobby);
+                    break;
+            }
         }
-
-        LoadingBar.SetActive(false);
+        _loadingBar.SetActive(false);
         StartCoroutine(LoadingEnd());
     }
 
@@ -114,18 +87,27 @@ public class Loading : MonoBehaviour
         {
             alpha -= Time.deltaTime;
 
-            Bg.color = new Color(Bg.color.r, Bg.color.g, Bg.color.b, alpha);
+            _canvasGroup.alpha = alpha;
 
             yield return null;
 
             if (alpha < 0f)
             {
-                Bg.color = new Color(Bg.color.r, Bg.color.g, Bg.color.b, alpha);
+                _canvasGroup.alpha = 0;
                 break;
             }
         }
 
-        Bar.fillAmount = 0f;
-        LoadObj.SetActive(false);
+        _bar.fillAmount = 0f;
+        _loadObj.SetActive(false);
+
+        foreach (var action in _actions)
+        {
+            yield return action();
+        }
+
+        _actions.Clear();
+
+        yield return null;
     }
 }

@@ -23,6 +23,13 @@ public class BattleWindow : MonoBehaviour, IWindowable
     {
     }
 
+
+    /// <summary> 던전 나가기 버튼 </summary>
+    public void DengonExit()
+    {
+        UIManager.Instance.PopUp.Open(EPopUpType.BattleExit);
+    }
+
     public void BackBtn()
     {
     }
