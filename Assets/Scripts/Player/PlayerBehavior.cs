@@ -146,6 +146,7 @@ namespace Player
 
         private void OnShot()
         {
+            if (_playerValues.EquippedWeapon == null) return;
             _playerValues.EquippedWeapon.Fire(_playerValues.DodgeTime);
         }
         // 발사
