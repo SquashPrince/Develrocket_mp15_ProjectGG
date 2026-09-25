@@ -8,10 +8,11 @@ public class BossRoom : RoomBase
     [SerializeField] private Transform _bossSpawnPoint;
     private GameObject _bossObject;
     private Monster _currentBoss;
+    private bool _isEntered;
 
     private void Update()
     {
-        OnRunning();
+        if (_isEntered) OnRunning();
     }
 
     private void OnDisable()
@@ -22,6 +23,7 @@ public class BossRoom : RoomBase
     public override void OnEnter()
     {
         base.OnEnter();
+        _isEntered = true;
         SpawnBoss();
     }
 
@@ -35,6 +37,7 @@ public class BossRoom : RoomBase
     public override void OnExit()
     {
         base.OnExit();
+        _isEntered = false;
     }
 
     private void SpawnBoss()
