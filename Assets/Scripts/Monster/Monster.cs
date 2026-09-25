@@ -70,11 +70,13 @@ public class Monster : MonoBehaviour, IDamagable
         {
             Die();
         }
+        
     }
     // ------------ 테스트용
 
     public void TakeDamage(int damage)
     {
+        Debug.Log($"데미지 받음 : {damage}");
         _currentHp -= damage;
 
         if (_currentHp < 0)
@@ -85,7 +87,7 @@ public class Monster : MonoBehaviour, IDamagable
         // 현재 체력, 최대 체력을 구독 전달
         OnHealthChanged?.Invoke(_currentHp, _maxHP);
 
-        Debug.Log($"몬스터 체력 : {_currentHp} / {_maxHP}");
+        // Debug.Log($"몬스터 체력 : {_currentHp} / {_maxHP}");
 
         if (_currentHp <= 0)
         {
@@ -95,9 +97,13 @@ public class Monster : MonoBehaviour, IDamagable
 
 
     // [SerializeField] private Item[] _items =  new Item[2];
-    
+    [SerializeField] private TurretMonster _turretMonster;
     private void Die()
     {
+        if (_turretMonster != null)
+        {
+            _turretMonster.Dead();
+        }
         isDead = true;
         // 아이템 혹은 골드 드랍
         ItempDrop();

@@ -22,6 +22,15 @@ public class MoveMonster : MonoBehaviour
     private bool _isPlayerInSight = false;
     private bool _isShooting = false;
 
+    public bool IsplayerInsight
+    {
+        get{ return _isPlayerInSight; }
+        set
+        {
+            _isPlayerInSight = value;
+        }
+    }
+
 
     private void Awake()
     {
@@ -69,14 +78,22 @@ public class MoveMonster : MonoBehaviour
 
     private void MoveToPlayer()
     {
+        transform.LookAt(_player.position);
         Vector3 direction =
         _player.position - transform.position;
 
         direction.y = 0f;
         direction.Normalize();
 
-        transform.position +=
-            direction * _monster.MoveSpeed * Time.deltaTime;
+        float distance = Vector3.Distance(transform.transform.position, _player.transform.position);
+
+        if (distance > 5)
+        {
+            transform.position +=
+                direction * _monster.MoveSpeed * Time.deltaTime;    
+        }
+        
+        
     }
 
     public IEnumerator AimedBurst()

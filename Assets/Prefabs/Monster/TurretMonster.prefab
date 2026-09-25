@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5355909714353932349}
   - component: {fileID: 1851908445895605764}
   - component: {fileID: 1730908178113800268}
-  m_Layer: 0
+  - component: {fileID: 1622777048374874351}
+  m_Layer: 7
   m_Name: TurretMonster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,12 +88,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 0
+  _maxHP: 10
   _moveSpeed: 0
   _attackCooldown: 0
   _dropGold: 0
   _hasDeathEffect: 0
   _invincibility: 0
+  isDead: 0
+  _turretMonster: {fileID: 1851908445895605764}
+  _items:
+  - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
+  - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
+  - {fileID: 5905034718578240917, guid: c7f3f82d644a12e41b6ef7e54cb3e6c3, type: 3}
+  - {fileID: 3249526340955005061, guid: 1fe87b58a003a0a4d9c6da3d36a557d3, type: 3}
+  _gold: 0
+--- !u!65 &1622777048374874351
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179877456668105074}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 3, z: 2}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &7216471133543714500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,9 +131,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7193774525783998046}
     m_Modifications:
+    - target: {fileID: 110800, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 115800, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 143350, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 145246, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 155950, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 186884, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 187918, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
       propertyPath: m_Name
       value: Tower Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 187918, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 411524, guid: 77a599bd67f72e24999e1d5d60f433d0, type: 3}
       propertyPath: m_LocalScale.x

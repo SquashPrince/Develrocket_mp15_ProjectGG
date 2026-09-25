@@ -5,6 +5,8 @@ using UnityEngine;
 public class BombMonster : MonoBehaviour
 {
     [SerializeField] private Transform _player;
+    
+    // 나중에 Player 스크립트중에 TakeDamage있는 스크립트로 변경
     [SerializeField] private PlayerTest _playerMovment;              // 테스트
 
     // 테스트
@@ -57,6 +59,7 @@ public class BombMonster : MonoBehaviour
 
     public IEnumerator Charge()
     {
+        transform.LookAt(_player.position);
         // 테스트 잘 작동하는 듯 나중에 다 수정
         /*Vector2 direction = (_playertest.gameObject.transform.position - transform.position).normalized;*/
 

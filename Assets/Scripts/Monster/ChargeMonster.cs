@@ -38,6 +38,7 @@ public class ChargeMonster : MonoBehaviour
 
     public IEnumerator Charge()
     {
+        transform.LookAt(_player.position);
         Vector3 direction =
             _player.position - transform.position;
 

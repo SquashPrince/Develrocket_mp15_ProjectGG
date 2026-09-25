@@ -42,10 +42,10 @@ public class BossControl : MonoBehaviour
                 // 현재 패턴이 끝날 때까지 기다림
                 
                 // value(반복 가능한 횟수) 최대를 5라고 가정
-                Debug.Log($"value : {value}");
+                //Debug.Log($"value : {value}");
                 // 1, 2, 3, 4, 5 까지 나옴
                 ran = UnityEngine.Random.Range(1, value + 1); 
-                Debug.Log($"ran :  {ran}");
+                //Debug.Log($"ran :  {ran}");
 
 
                 if (ran < 2)
