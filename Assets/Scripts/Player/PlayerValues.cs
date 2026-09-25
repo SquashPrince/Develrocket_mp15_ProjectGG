@@ -50,6 +50,7 @@ namespace Player
             get => BaseHp;
             set
             {
+                Debug.Log(value);
                 int amount = (value - BaseHp);
                 int hp = amount > 0
                     ? BaseHp + (amount * rateHpIncrease)/100
@@ -57,6 +58,7 @@ namespace Player
                 if (hp > MaxHp) BaseHp = MaxHp;
                 else if (hp < 0) BaseHp = 0;
                 else BaseHp = hp;
+                Debug.Log(BaseHp);
             }
         }
         public int MaxHp => (BaseMaxHp * rateMaxHp)/100;
@@ -131,18 +133,20 @@ namespace Player
         // 프로퍼티 (연산O)
         // ============================================================
         private static PlayerInputManager PlayerInput => PlayerInputManager.Instance;
-        private PlayerValues _playerValues;
-        public Transform Transform { get => transform; }
+        private PlayerItemSlot _itemSlot;
+        public Transform Transform { get => _bodyTransform; }
         public bool _hasSuccessInteract;
         private bool _isNewChara = true;
         private bool _isDefaultWeapon => _currentSlot == _firstSlot;
         private int _maxWeaponSlot = 3;
+        [SerializeField] private Transform _bodyTransform;
         public Weapon EquippedWeapon => _currentWeapon;
 
         private PlayerWeaponEnum _firstSlot;
         private PlayerWeaponEnum _secondSlot;
         private PlayerWeaponEnum _thirdSlot;
 
+        
         private PlayerWeaponEnum _currentSlot;
         private Weapon _currentWeapon;
         private Collider _weaponCollider;
@@ -154,6 +158,8 @@ namespace Player
         {
             SetDefault(); 
         }
+
+        private void Awake() => _itemSlot = GetComponent<PlayerItemSlot>();
         // 이벤트 함수
         // ==================================================
         
@@ -206,7 +212,7 @@ namespace Player
         /// </summary>
         public bool TrySetWeapon(Weapon weapon)
         {
-            return !_weaponDictionary.ContainsValue(weapon);
+            return (!_weaponDictionary.ContainsValue(weapon));
         }
         
         public void SwapNextWeapon()
@@ -219,11 +225,7 @@ namespace Player
             _currentWeapon.SetEquip(Transform);
             CurrentWeaponOn();
         }
-
-        /// <summary>
-        /// 무기 장착
-        /// </summary>
-        /// 기본 무기를 장착한 상태에서 바닥 무기와 교체 시도시 고장나는 버그 있음
+        
         public void SetWeapon(Weapon weapon)
         {
             if (_weaponDictionary.Count < _maxWeaponSlot) // 빈 무기슬롯이 있으면
@@ -285,6 +287,17 @@ namespace Player
         private void CurrentWeaponOn()
         {
             _currentWeapon.gameObject.SetActive(true);
+        }
+        
+        public void SetItem(Item item, PlayerItemEnum slot)
+        {
+            _itemSlot.SetItem(item, slot);
+        }
+
+        public bool CanInteractItem(PlayerItemEnum targetslot)
+        
+        {
+            return _itemSlot.CanInteract(targetslot);
         }
     }
 }

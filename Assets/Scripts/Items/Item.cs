@@ -20,4 +20,6 @@ public class Item : MonoBehaviour, IInteractable
     /// </summary>
     /// <param name="owner"></param>
     public virtual void Interact(IInteractor owner) { }
+    
+    public virtual void Use(IInteractor owner) { }
 }

@@ -18,6 +18,8 @@ public interface IInteractor
 
     bool TrySetWeapon(Weapon weapon);
     void SetWeapon(Weapon weapon) { }
+    bool CanInteractItem(PlayerItemEnum targetSlot);
+    void SetItem(Item item, PlayerItemEnum targetSlot);
 
     int Hp { get; set; }
     int BaseShield { get; set; }

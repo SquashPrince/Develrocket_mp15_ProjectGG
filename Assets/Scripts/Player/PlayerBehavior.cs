@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections;
+using System;
 using UnityEngine;
 
 namespace Player
@@ -10,17 +11,22 @@ namespace Player
         private PlayerValues _playerValues;
         private List<IInteractable> _interactableList = new();
         private IInteractable _targetInteractable;
+        private PlayerItemSlot _playerItemSlot;
+        private Camera _camera;
         private Vector3 _direction;
+        private Vector3 _cursorPosition;
         private bool _hasDetectInteractable => _interactableList.Count > 0;
         public GameObject GameObject => gameObject;
         private Coroutine _dodging;
         private bool _isDodging;
+        private LayerMask _groundLayerMask;
         // ========================================
         private void Awake() => CacheComponents();
 
         private void Update()
         {
             PlayerMove();
+            PlayerCursor();
         }
 
         private void OnEnable()
@@ -57,6 +63,8 @@ namespace Player
         private void CacheComponents()
         {
             _playerValues = GetComponent<PlayerValues>();
+            _playerItemSlot =  GetComponent<PlayerItemSlot>();
+            _camera = Camera.main;
         }
 
         // ========================================
@@ -121,5 +129,19 @@ namespace Player
         }
         // 회피
         // ========================================
+
+        private void PlayerCursor()
+        {
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            if (!Physics.Raycast(ray, out RaycastHit hit/*, 50f, _groundLayerMask*/)) return;
+            Vector3 targetPosition = hit.point;
+            targetPosition.y = _playerValues.Transform.position.y;
+            _playerValues.Transform.LookAt(targetPosition);
+        }
+        
+        // 마우스 포인터
+        // ========================================
+        
+        
     }
 }

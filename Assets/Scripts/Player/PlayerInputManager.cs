@@ -9,22 +9,29 @@ namespace Player
         
         private const string AXIS_HORIZONTAL = "Horizontal";
         private const string AXIS_VERTICAL = "Vertical";
+        [SerializeField] private PlayerValues _playerValues;
         
         private KeyCode _interactKey = KeyCode.E; // 상호작용
         private KeyCode _dodgeKey = KeyCode.Space; // 회피
         private KeyCode _reLoadKey = KeyCode.R; // 장전
         private KeyCode _shotKey = KeyCode.Mouse0; // 발사
         private KeyCode _swapKey = KeyCode.Tab; // 무기교체
+        private KeyCode _Item1Key = KeyCode.Alpha1;
+        private KeyCode _Item2Key = KeyCode.Alpha2;
+        private KeyCode _Item3Key = KeyCode.Alpha3;
         
         // 필드
         // ========================================
         
         public event Action OnInteract;
         public event Action OnReload;
-        public event Action OnShot;
+        public event Action<Weapon> OnClick;
         public event Action OnDodge;
         public event Action OnSwap;
         public event Action<Vector3> OnMove;
+        public event Action OnItem1;
+        public event Action OnItem2;
+        public event Action OnItem3;
         
         // 이벤트
         // ========================================
@@ -65,6 +72,7 @@ namespace Player
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
             }
+            _playerValues = GetComponent<PlayerValues>();
         }
         
         // ========================================
@@ -73,11 +81,14 @@ namespace Player
         private void ReadInput()
         {
             if (Input.GetKeyDown(_interactKey)) OnInteract?.Invoke();
-            if (Input.GetKeyDown(_shotKey)) OnShot?.Invoke();
+            if (Input.GetKeyDown(_shotKey)) OnClick?.Invoke(_playerValues.EquippedWeapon);
             if (Input.GetKeyDown(_reLoadKey)) OnReload?.Invoke();
             OnMove?.Invoke(GetDirection());
             if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke();
             if (Input.GetKeyDown(_swapKey)) OnSwap?.Invoke();
+            if (Input.GetKeyDown(_Item1Key)) OnItem1?.Invoke();
+            if (Input.GetKeyDown(_Item2Key)) OnItem2?.Invoke();
+            if (Input.GetKeyDown(_Item3Key)) OnItem3?.Invoke();
         }
 
         
