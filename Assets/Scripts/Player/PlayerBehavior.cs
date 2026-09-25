@@ -18,6 +18,7 @@ namespace Player
         public GameObject GameObject => gameObject;
         private Coroutine _dodging;
         private bool _isDodging;
+        private bool _isDodgeCooldown;
         private LayerMask _groundLayerMask;
         // ========================================
         private void Awake() => CacheComponents();
@@ -95,7 +96,7 @@ namespace Player
 
         private void PlayerMove()
         {
-            int dodgeRange = _isDodging ? _playerValues.MoveSpeed * 2 : _playerValues.MoveSpeed;
+            int dodgeRange = _isDodging ? _playerValues.MoveSpeed * 3 : _playerValues.MoveSpeed;
             transform.position += _direction * (dodgeRange * Time.deltaTime);
         }
 
@@ -111,7 +112,9 @@ namespace Player
 
         private void OnDodge()
         {
+            if (_isDodgeCooldown) return;
             _isDodging = true;
+            _isDodgeCooldown = true;
             StartCoroutine(Dodging());
         }
 
@@ -119,6 +122,8 @@ namespace Player
         {
             yield return new WaitForSeconds(_playerValues.DodgeTime);
             _isDodging = false;
+            yield return new WaitForSeconds(_playerValues.DodgeCoolDown-_playerValues.DodgeTime);
+            _isDodgeCooldown = false;
         }
 
         public void TakeDamage(int damage)

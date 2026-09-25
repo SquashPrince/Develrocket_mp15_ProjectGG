@@ -9,7 +9,7 @@ namespace Player
         private const float DefaultHitTime = 0.3f; // 피격무적시간
         private const float DefaultDodgeTime = 0.5f; // 회피무적시간
         private const float DefaultAttackSpeed = 0.5f; // 공격속도
-        private const float DefaultMinAttackSpeed = 0.1f; // 최소공격속도
+        private const float DefaultMinAttackSpeed = 0.05f; // 최소공격속도
         private const int DefaultMoveSpeed = 5; // 이동속도
         private const int DefaultMinMoveSpeed = 1; // 최소이동속도
         private const int DefaultMaxHp = 10; // 최대HP
@@ -20,6 +20,7 @@ namespace Player
         
         // 상수 (기본값)
         // ============================================================
+        public float DodgeCoolDown {  get; set; }
         public float BaseHitTime { get; set; }
         public float BaseDodgeTime { get; set; }
         public float BaseAttackSpeed { get; set; }
@@ -197,6 +198,7 @@ namespace Player
             rateGainGold = 100;
             rateGainGem = 100;
             DamageMultiplier = 1f;
+            DodgeCoolDown = 2f;
         }
         
         /** 신규 캐릭터 함수 */
