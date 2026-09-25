@@ -3,6 +3,7 @@ using UnityEngine;
 public class PassiveItem : Item, IPassivable
 {
     [SerializeField] private float _amount;
+    [SerializeField] private GameObject _model;
     [SerializeField] private AmuletEffect[] _effects;
 
     public override void Interact(IInteractor owner)
@@ -16,6 +17,16 @@ public class PassiveItem : Item, IPassivable
         {
             if (effect != null) effect.Apply(owner, _amount);
         }
+
+        SetOffGameObject();
+
         // TODO: PlayerBehavior에서 획득했거나 상호작용할 수 없는 아이템을 대상 목록에서 제거.
+    }
+
+    private void SetOffGameObject()
+    {
+        if (_model == null) return;
+
+        _model.SetActive(false);
     }
 }
