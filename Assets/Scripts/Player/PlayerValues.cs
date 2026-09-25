@@ -137,7 +137,6 @@ namespace Player
         public Transform Transform { get => _bodyTransform; }
         public bool _hasSuccessInteract;
         private bool _isNewChara = true;
-        private bool _isDefaultWeapon => _currentSlot == _firstSlot;
         private int _maxWeaponSlot = 3;
         [SerializeField] private Transform _bodyTransform;
         public Weapon EquippedWeapon => _currentWeapon;

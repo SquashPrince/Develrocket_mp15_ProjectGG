@@ -11,7 +11,6 @@ namespace Player
         private PlayerValues _playerValues;
         private List<IInteractable> _interactableList = new();
         private IInteractable _targetInteractable;
-        private PlayerItemSlot _playerItemSlot;
         private Camera _camera;
         private Vector3 _direction;
         private Vector3 _cursorPosition;
@@ -35,6 +34,7 @@ namespace Player
             PlayerInput.OnMove += OnMove;
             PlayerInput.OnDodge += OnDodge;
             PlayerInput.OnSwap += OnSwap;
+            PlayerInput.OnShot += OnShot;
         }
 
         private void OnDisable()
@@ -43,6 +43,7 @@ namespace Player
             PlayerInput.OnMove -= OnMove;
             PlayerInput.OnDodge -= OnDodge;
             PlayerInput.OnSwap -= OnSwap;
+            PlayerInput.OnShot -= OnShot;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -63,7 +64,6 @@ namespace Player
         private void CacheComponents()
         {
             _playerValues = GetComponent<PlayerValues>();
-            _playerItemSlot =  GetComponent<PlayerItemSlot>();
             _camera = Camera.main;
         }
 
@@ -133,13 +133,22 @@ namespace Player
         private void PlayerCursor()
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (!Physics.Raycast(ray, out RaycastHit hit/*, 50f, _groundLayerMask*/)) return;
-            Vector3 targetPosition = hit.point;
-            targetPosition.y = _playerValues.Transform.position.y;
-            _playerValues.Transform.LookAt(targetPosition);
+            Plane plane = new Plane(Vector3.up, Vector3.zero);
+            if (plane.Raycast(ray, out float rayLength))
+            {
+                Vector3 targetPosition = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
+            }
         }
-        
+
         // 마우스 포인터
+        // ========================================
+
+        private void OnShot()
+        {
+            _playerValues.EquippedWeapon.Fire(_playerValues.DodgeTime);
+        }
+        // 발사
         // ========================================
         
         
