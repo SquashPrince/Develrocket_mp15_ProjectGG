@@ -132,11 +132,12 @@ namespace Player
         // ============================================================
         private static PlayerInputManager PlayerInput => PlayerInputManager.Instance;
         private PlayerValues _playerValues;
-        public Transform Transform { get => transform; }
+        public Transform Transform { get => _bodyTransform; }
         public bool _hasSuccessInteract;
         private bool _isNewChara = true;
         private bool _isDefaultWeapon => _currentSlot == _firstSlot;
         private int _maxWeaponSlot = 3;
+        [SerializeField] private Transform _bodyTransform;
         public Weapon EquippedWeapon => _currentWeapon;
 
         private PlayerWeaponEnum _firstSlot;
@@ -206,7 +207,7 @@ namespace Player
         /// </summary>
         public bool TrySetWeapon(Weapon weapon)
         {
-            return !_weaponDictionary.ContainsValue(weapon);
+            return (!_weaponDictionary.ContainsValue(weapon));
         }
         
         public void SwapNextWeapon()
