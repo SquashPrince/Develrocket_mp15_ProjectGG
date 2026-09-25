@@ -167,6 +167,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _roomPrefab: {fileID: 7919376478079836373, guid: 1b5c5402a97235648b68573e9b0a9bbd, type: 3}
+  _basicRoomPrefab: {fileID: -8608497331319455929, guid: b642d9761045b0a4192a410b0fd0f62c, type: 3}
+  _battleRoomPrefab: {fileID: 4332245863540980860, guid: 05b88d9482cf09b439f84f87e571e18b, type: 3}
+  _storeRoomPrefab: {fileID: 7669844675570071363, guid: c3cd2822f21c5c34e89b1dab6056d4af, type: 3}
+  _treasureRoomPrefab: {fileID: 8791300338781830861, guid: 646956edd58936f48bc3058fccd52997, type: 3}
+  _bossRoomPrefab: {fileID: 6301921472594222700, guid: afb3264abec2a9a4a97d9f2e8695896d, type: 3}
   _roomRoot: {fileID: 1338204010}
 --- !u!1 &663690885
 GameObject:
@@ -301,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1359727009}
   - component: {fileID: 1359727008}
+  - component: {fileID: 1359727010}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -385,6 +391,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1359727010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359727007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

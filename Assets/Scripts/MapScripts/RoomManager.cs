@@ -18,7 +18,14 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private RoomBase _roomPrefab;
+    [SerializeField] private RoomController _roomPrefab;
+
+    [SerializeField] private BasicRoom _basicRoomPrefab;
+    [SerializeField] private BattleRoom _battleRoomPrefab;
+    [SerializeField] private StoreRoom _storeRoomPrefab;
+    [SerializeField] private TreasureRoom _treasureRoomPrefab;
+    [SerializeField] private BossRoom _bossRoomPrefab;
+
     [SerializeField] private Transform _roomRoot;
 
     
@@ -70,7 +77,16 @@ public class RoomManager : MonoBehaviour
     {
         Vector3 worldPosition = GetWorldPosition(grid);
 
-        RoomBase room = Instantiate(_roomPrefab, worldPosition, _roomRoot.rotation, _roomRoot);
+        RoomBase room = roomType switch
+        {
+            RoomType.START => Instantiate(_basicRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.BASIC => Instantiate(_basicRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.BATTLE => Instantiate(_battleRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.STORE => Instantiate(_storeRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.TREASURE => Instantiate(_treasureRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            RoomType.BOSS => Instantiate(_bossRoomPrefab, worldPosition, _roomRoot.rotation, _roomRoot),
+            _ => null
+        };
 
         room.Initialize(grid, roomType);
 
