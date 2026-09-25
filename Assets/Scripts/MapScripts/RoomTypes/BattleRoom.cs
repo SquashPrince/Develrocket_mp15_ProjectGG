@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class BattleRoom : RoomBase
@@ -10,7 +11,7 @@ public class BattleRoom : RoomBase
     [SerializeField] private List<Monster> _monsterPrefabList;
     [SerializeField] private List<Transform> _monsterSpawnPoints;
 
-    private List<Monster> _currentMonsters;
+    private List<Monster> _currentMonsters = new();
     private int _currentMonsterCount;
     private bool _isEntered;
     private bool _isEliminated => _currentMonsterCount <= 0;
@@ -18,6 +19,7 @@ public class BattleRoom : RoomBase
     private void Update()
     {
         if(_isEntered) OnRunning();
+        if (_isClear) OpenDoor();
     }
 
     private void OnDisable()
@@ -28,8 +30,12 @@ public class BattleRoom : RoomBase
     public override void OnEnter()
     {
         base.OnEnter();
+
+        if (_isClear) return;
+
         SpawnMonster();
         enabled = true;
+        _isEntered = true;
     }
 
     public override void OnRunning()
@@ -46,21 +52,30 @@ public class BattleRoom : RoomBase
 
     private void SpawnMonster()
     {
-        foreach(Transform point in _monsterSpawnPoints)
+        foreach (Transform point in _monsterSpawnPoints)
         {
             _currentMonsters.Add(Instantiate(_monsterPrefabList[0], point.position, point.rotation));
         }
         _currentMonsterCount = _currentMonsters.Count;
+        Debug.Log($"현재 몬스터 수: {_currentMonsterCount}");
     }
 
     private void CheckClear()
     {
-        if (_currentMonsters.Contains(null))
+        foreach(Monster monster in _currentMonsters)
         {
-            _currentMonsterCount -= _currentMonsters.FindAll(null).Count;
-            _currentMonsters.RemoveAll(null);
+            if(monster == null)
+            {
+                _currentMonsters.Remove(monster);
+                _currentMonsterCount--;
+                Debug.Log($"현재 몬스터 수: {_currentMonsterCount}");
+            }
         }
 
-        if(_isEliminated) _isClear = true;
+        if (_isEliminated)
+        {
+            Debug.Log("모든 몬스터 처치 완료.");
+            _isClear = true;
+        }
     }
 }

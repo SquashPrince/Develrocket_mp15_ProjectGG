@@ -1,4 +1,3 @@
-using Player;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +19,8 @@ public class RoomManager : MonoBehaviour
 
     //TODO: 구조 설명 후 룸 컨트롤러는 추후 지울 예정입니다.
     [SerializeField] private RoomController _roomPrefab;
+
+    [SerializeField] private Transform _playerTransform;
 
     [SerializeField] private BasicRoom _basicRoomPrefab;
     [SerializeField] private BattleRoom _battleRoomPrefab;
@@ -72,6 +73,7 @@ public class RoomManager : MonoBehaviour
 
         SetupDoors();
         _currentRoom.OnEnter();
+        _playerTransform.position = _currentRoom.transform.position;
     }
 
     private void CreateRoom(Vector2Int grid, RoomType roomType)
@@ -125,7 +127,7 @@ public class RoomManager : MonoBehaviour
         door.Initialize(this, grid, direction);
     }
 
-    public void EnterRoom(Vector2Int currentGrid, DoorDirection direction, Transform player)
+    public void EnterRoom(Vector2Int currentGrid, DoorDirection direction, Transform target)
     {
         Vector2Int nextGrid = currentGrid + GetDirection(direction);
         Debug.Log(nextGrid);
@@ -137,7 +139,7 @@ public class RoomManager : MonoBehaviour
 
         Transform targetDoor = nextRoom.GetDoor(opposite);
         
-        player.transform.position = (targetDoor.transform.position + targetDoor.forward * _doorOffset + targetDoor.up);
+        target.position = (targetDoor.transform.position + targetDoor.forward * _doorOffset + targetDoor.up);
         
         _currentRoom.OnExit();
         _currentRoom = nextRoom;

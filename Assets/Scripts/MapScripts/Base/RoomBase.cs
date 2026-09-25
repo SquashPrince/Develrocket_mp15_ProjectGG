@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class RoomBase : MonoBehaviour
@@ -16,7 +17,7 @@ public abstract class RoomBase : MonoBehaviour
         GridPosition = gridPosition;
         RoomType = roomType;
 
-        if (roomType == RoomType.START || roomType == RoomType.BASIC || roomType == RoomType.STORE)
+        if (roomType == RoomType.START || roomType == RoomType.BASIC || roomType == RoomType.STORE || roomType == RoomType.TREASURE)
         {
             _isClear = true;
             OpenDoor();
