@@ -958,6 +958,9 @@ MonoBehaviour:
   _rightDoor: {fileID: 2552224758336747237}
   _monsterPrefabList:
   - {fileID: 361153835205937212, guid: 3182917196fdb8245b804084c8ba8a81, type: 3}
+  - {fileID: 8147969815230407841, guid: b2c6e0fecf1973e40a28aac8de055100, type: 3}
+  - {fileID: 4978816407029263250, guid: 7de3f4568b4b3c545b4ce3a537fff46d, type: 3}
+  - {fileID: 1730908178113800268, guid: 5ac8b17cfff888347858f00a5921f2de, type: 3}
   _monsterSpawnPoints:
   - {fileID: 1986238890725984641}
   - {fileID: 4889863713504584791}
