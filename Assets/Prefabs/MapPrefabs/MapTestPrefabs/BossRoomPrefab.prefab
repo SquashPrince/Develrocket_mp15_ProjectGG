@@ -544,6 +544,37 @@ Transform:
   - {fileID: 7343858650583233524}
   m_Father: {fileID: 8105997049170448570}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5922002064395055951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6769590471628092260}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6769590471628092260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5922002064395055951}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8105997049170448570}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6507208993801379695
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,6 +951,7 @@ Transform:
   - {fileID: 1741022826530173964}
   - {fileID: 1429124678446013744}
   - {fileID: 4908205946992383668}
+  - {fileID: 6769590471628092260}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6301921472594222700
@@ -938,6 +970,8 @@ MonoBehaviour:
   _leftDoor: {fileID: 999398633980365664}
   _downDoor: {fileID: 8696314512509179464}
   _rightDoor: {fileID: 2552224758336747237}
+  _bossPrefab: {fileID: 2475763451174780210, guid: a173761e75e282f4abe6943220d3875c, type: 3}
+  _bossSpawnPoint: {fileID: 6769590471628092260}
 --- !u!1 &8666934398034378849
 GameObject:
   m_ObjectHideFlags: 0
