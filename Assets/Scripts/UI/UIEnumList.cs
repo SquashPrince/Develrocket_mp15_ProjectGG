@@ -7,7 +7,8 @@ public enum EWindowType
 public enum EPopUpType
 {
     Setting,
-    Ability
+    Ability,
+    BattleExit
 }
 
 public enum ECurrencyType

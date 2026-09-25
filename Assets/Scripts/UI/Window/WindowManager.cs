@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,6 +11,8 @@ public class WindowManager : MonoBehaviour
     /// <summary> 현재 윈도우 창 </summary>
     [Header("현재 윈도우 창")]
     public EWindowType EWindow;
+    [Header("다음 윈도우 창")]
+    public EWindowType NextEWindow;
 
     /// <summary> 전체 윈도우 </summary>
     [Header("전체 윈도우")]
@@ -42,6 +45,16 @@ public class WindowManager : MonoBehaviour
 
         NowWindow = Windows[(int)EWindow].GetComponent<IWindowable>();
         NowWindow.SetActive();
+    }
+
+    public bool WindowCompare()
+    {
+        return EWindow == NextEWindow;
+    }
+
+    public void LoadingAddAction(Func<IEnumerator> action)
+    {
+        Load.AddAction(action);
     }
 
     public void OpenLoading()

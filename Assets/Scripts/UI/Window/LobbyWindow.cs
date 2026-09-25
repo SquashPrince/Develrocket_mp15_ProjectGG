@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,9 +39,9 @@ public class LobbyWindow : MonoBehaviour, IWindowable
     /// <summary> 던전 시작 버튼 </summary>
     public void DengonBtn()
     {
+        UIManager.Instance.Window.NextEWindow = EWindowType.Battle;
         UIManager.Instance.Window.OpenLoading();
     }
-
 
     public void BackBtn()
     {
