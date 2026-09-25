@@ -48,7 +48,7 @@ public class GunBullet : PoolObject, IPoolable
         float moveDistance = move.magnitude;
 
         if (moveDistance > 0f &&
-            Physics.SphereCast(currentPosition, _radius, transform.forward, out RaycastHit hit, moveDistance, detctTarget, QueryTriggerInteraction.Ignore))
+            Physics.SphereCast(currentPosition, _radius, transform.forward, out RaycastHit hit, moveDistance, detctTarget))
         {
             transform.position = hit.point;
             DetectTaraget(hit);

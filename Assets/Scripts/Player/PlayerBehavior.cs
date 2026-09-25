@@ -54,8 +54,7 @@ namespace Player
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)
-                || !_playerValues._hasSuccessInteract) return;
+            if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)) return;
             _playerValues._hasSuccessInteract = false;
             _interactableList.Remove(inter);
         }

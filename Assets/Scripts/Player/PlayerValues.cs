@@ -256,26 +256,26 @@ namespace Player
 
         private void AddDictionary(PlayerWeaponEnum slot, Weapon weapon)
         {
-            _weaponDictionary.Add(slot,weapon);
             WeaponColliderOff();
+            _weaponDictionary.Add(slot,weapon);
         }
         
         private void RemoveDictionary(PlayerWeaponEnum slot)
         {
-            _weaponDictionary.Remove(slot);
             WeaponColliderOn();
+            _weaponDictionary.Remove(slot);
         }
         
 
         private void WeaponColliderOff()
         {
-            _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
             _weaponCollider.enabled = false;
+            _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
         }
         private void WeaponColliderOn()
         {
-            _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
             _weaponCollider.enabled = true;
+            _weaponCollider = _currentWeapon.gameObject.GetComponentInChildren<Collider>();
         }
 
         private void CurrentWeaponOff()

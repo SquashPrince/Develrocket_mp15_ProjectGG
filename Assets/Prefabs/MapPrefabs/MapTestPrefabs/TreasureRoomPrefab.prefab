@@ -1162,7 +1162,7 @@ MonoBehaviour:
   _downDoor: {fileID: 8696314512509179464}
   _rightDoor: {fileID: 2552224758336747237}
   _treasureSpawnPoint: {fileID: 5150490507545414903}
-  _itemPrefab: {fileID: 5905034718578240917, guid: c7f3f82d644a12e41b6ef7e54cb3e6c3, type: 3}
+  _itemPrefab: {fileID: 1378856840205769743, guid: cb5c1af6789e65c4d9ade7c84f25f636, type: 3}
   _rotateSpeed: 15
 --- !u!1 &8353670430055789097
 GameObject:
