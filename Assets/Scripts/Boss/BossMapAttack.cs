@@ -11,6 +11,7 @@ public class BossMapAttack : BossPattern
 
     private GameObject newSafeZone;
     private Monster _monster;
+    [SerializeField] private Transform _attacklocation;
 
     private void Awake()
     {
@@ -24,7 +25,8 @@ public class BossMapAttack : BossPattern
     
     protected override IEnumerator PatternRoutine()
     {
-        gameObject.transform.position = new Vector3(0, 0, 0);
+        _animator.SetTrigger("StartMapAttack");
+        gameObject.transform.position = _attacklocation.position;
         _monster.MoveSpeed = 0f;
 
         StartCoroutine(SpawnSafeZone());

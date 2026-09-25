@@ -40,6 +40,8 @@ public class BossAttack : BossPattern
 
     protected override IEnumerator PatternRoutine()
     {
+        _animator.SetTrigger("StartFanAttack");
+        
         Debug.Log("실행");
         float angleStep = 360f / _bulletCount;
 

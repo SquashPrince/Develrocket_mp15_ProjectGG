@@ -9,6 +9,7 @@ public class BossEnemySpawn : BossPattern
     
     protected override IEnumerator PatternRoutine()
     {
+        _animator.SetTrigger("StartMapAttack");
         for (int i = 0; i < 2; i++)
         {
             int randommosnterindex = Random.Range(0, _monsters.Length);
