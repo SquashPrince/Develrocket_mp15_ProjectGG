@@ -754,7 +754,7 @@ GameObject:
   - component: {fileID: 8105997049170448570}
   - component: {fileID: 7919376478079836373}
   m_Layer: 0
-  m_Name: RoomPrefab
+  m_Name: BossRoomPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
