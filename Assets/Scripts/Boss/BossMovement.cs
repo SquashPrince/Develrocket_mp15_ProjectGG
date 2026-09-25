@@ -21,6 +21,7 @@ public class BossMovement : MonoBehaviour
 
     private void MoveToPlayer()
     {
+        transform.LookAt(_player.position);
         Vector3 direction =
             (_player.position - transform.position).normalized;
 

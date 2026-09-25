@@ -5,6 +5,8 @@ using UnityEngine;
 public class BossMapAttack : BossPattern
 {
     [SerializeField] private GameObject _safeZonePrafab;
+    
+    // 나중에 PlayerScript중에 TakeDamage있는 걸로 변경
     [SerializeField] private PlayerTest _playertest;
 
     private GameObject newSafeZone;

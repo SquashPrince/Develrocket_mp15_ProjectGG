@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _playerMovment: {fileID: 0}
-  _chargeWarning: {fileID: 0}
+  _chargeWarning: {fileID: 1105627839215741099}
   _warningTime: 0.5
   _chargeDistance: 5
   _chargeSpeed: 10

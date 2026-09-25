@@ -70,6 +70,7 @@ public class Monster : MonoBehaviour, IDamagable
         {
             Die();
         }
+        
     }
     // ------------ 테스트용
 
