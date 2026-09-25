@@ -243,7 +243,6 @@ namespace Player
                 _hasSuccessInteract = true; // 상호작용 성공
                 return;
             }
-            // if (_isDefaultWeapon) return; // 기본무기 들고 있을 시 return
             _currentWeapon.SetUnEquip(); // 기존 무기 해제
             RemoveDictionary(_currentSlot); // 현재 슬롯에서 기존무기 해제
             
