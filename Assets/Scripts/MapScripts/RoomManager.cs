@@ -18,12 +18,15 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private RoomController _roomPrefab;
+    [SerializeField] private RoomBase _roomPrefab;
     [SerializeField] private Transform _roomRoot;
 
-    private Dictionary<Vector2Int, RoomController> _rooms = new();
+    
+    private Dictionary<Vector2Int, RoomBase> _rooms = new();
+
     private float _doorOffset => _roomPrefab.transform.localScale.x;
     private float _roomSizeOffset => _roomPrefab.transform.localScale.x * 15.0f;
+    private RoomBase _currentRoom;
 
     private RoomType[, ] map =
     {
@@ -60,25 +63,28 @@ public class RoomManager : MonoBehaviour
         }
 
         SetupDoors();
+        _currentRoom.OnEnter();
     }
 
     private void CreateRoom(Vector2Int grid, RoomType roomType)
     {
         Vector3 worldPosition = GetWorldPosition(grid);
 
-        RoomController room = Instantiate(_roomPrefab, worldPosition, _roomRoot.rotation, _roomRoot);
+        RoomBase room = Instantiate(_roomPrefab, worldPosition, _roomRoot.rotation, _roomRoot);
 
         room.Initialize(grid, roomType);
+
+        if (roomType == RoomType.START) _currentRoom = room;
 
         _rooms.Add(grid, room);
     }
 
     private void SetupDoors()
     {
-        foreach (KeyValuePair<Vector2Int, RoomController> roomData in _rooms)
+        foreach (KeyValuePair<Vector2Int, RoomBase> roomData in _rooms)
         {
             Vector2Int position = roomData.Key;
-            RoomController room = roomData.Value;
+            RoomBase room = roomData.Value;
 
             SetupDoor(room, position, DoorDirection.UP, Vector2Int.up);
             SetupDoor(room, position, DoorDirection.RIGHT, Vector2Int.right);
@@ -88,7 +94,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void SetupDoor(RoomController room, Vector2Int grid, DoorDirection direction, Vector2Int offset)
+    private void SetupDoor(RoomBase room, Vector2Int grid, DoorDirection direction, Vector2Int offset)
     {
         Vector2Int nearRoom = grid + offset;
 
@@ -107,7 +113,7 @@ public class RoomManager : MonoBehaviour
         Vector2Int nextGrid = currentGrid + GetDirection(direction);
         Debug.Log(nextGrid);
 
-        if (!_rooms.TryGetValue(nextGrid, out RoomController nextRoom)) return;
+        if (!_rooms.TryGetValue(nextGrid, out RoomBase nextRoom)) return;
 
         DoorDirection opposite = GetOpposite(direction);
         Debug.Log(opposite);
@@ -115,6 +121,10 @@ public class RoomManager : MonoBehaviour
         Transform targetDoor = nextRoom.GetDoor(opposite);
         
         player.transform.position = (targetDoor.transform.position + targetDoor.forward * _doorOffset + targetDoor.up);
+        
+        _currentRoom.OnExit();
+        _currentRoom = nextRoom;
+        _currentRoom.OnEnter();
     }
 
     private Vector2Int GetDirection(DoorDirection direction)

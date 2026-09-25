@@ -8,15 +8,11 @@ public class TreasureRoom : RoomBase
     [SerializeField] private Item _itemPrefab;
     [SerializeField] private float _rotateSpeed;
     private Item _treasure;
-
-    private void Start()
-    {
-        OnEnter();
-    }
+    private bool _isEntered;
 
     private void FixedUpdate()
     {
-        RotateItem();
+        if(_isEntered) RotateItem();
     }
 
     private void OnDisable()

@@ -12,16 +12,12 @@ public class BattleRoom : RoomBase
 
     private List<Monster> _currentMonsters;
     private int _currentMonsterCount;
+    private bool _isEntered;
     private bool _isEliminated => _currentMonsterCount <= 0;
-
-    private void Start()
-    {
-        OnEnter();
-    }
 
     private void Update()
     {
-        OnRunning();
+        if(_isEntered) OnRunning();
     }
 
     private void OnDisable()
@@ -33,6 +29,7 @@ public class BattleRoom : RoomBase
     {
         base.OnEnter();
         SpawnMonster();
+        enabled = true;
     }
 
     public override void OnRunning()
@@ -44,6 +41,7 @@ public class BattleRoom : RoomBase
     public override void OnExit()
     {
         base.OnExit();
+        enabled = false;
     }
 
     private void SpawnMonster()
