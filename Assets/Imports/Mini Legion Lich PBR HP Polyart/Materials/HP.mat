@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _EMISSION
-  - _OUTLINEENABLED_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -67,7 +66,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientLight: 0.2
+    - _AmbientLight: 0.5
     - _BumpScale: 1
     - _ColorQuantizationEnabled: 0
     - _ColorSteps: 8
@@ -83,10 +82,10 @@ Material:
     - _Mode: 0
     - _ObjectID: 1
     - _OcclusionStrength: 1
-    - _OutlineEnabled: 1
+    - _OutlineEnabled: 0
     - _OutlineThickness: 1
     - _Parallax: 0.02
-    - _ShadeSteps: 3
+    - _ShadeSteps: 5
     - _ShadowSteps: 2
     - _ShadowStrength: 1
     - _SmoothnessTextureChannel: 0

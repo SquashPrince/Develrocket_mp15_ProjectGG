@@ -57,4 +57,4 @@ MonoBehaviour:
   _tr: {fileID: 0}
   _gauge: 12
   bullet: {fileID: 2862554771222924387, guid: b1b3663410fbb34418568326a8904fc2, type: 3}
-  _fireRadius: 5
+  _fireAngle: 60

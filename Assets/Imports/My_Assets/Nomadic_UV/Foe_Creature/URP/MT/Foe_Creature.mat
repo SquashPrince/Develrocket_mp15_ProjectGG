@@ -16,7 +16,6 @@ Material:
   - _EMISSION
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
-  - _OUTLINEENABLED_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -89,7 +88,7 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _AmbientLight: 0.2
+    - _AmbientLight: 0.5
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -112,12 +111,12 @@ Material:
     - _Metallic: 0
     - _ObjectID: 1
     - _OcclusionStrength: 1
-    - _OutlineEnabled: 1
+    - _OutlineEnabled: 0
     - _OutlineThickness: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ShadeSteps: 3
+    - _ShadeSteps: 5
     - _ShadowSteps: 2
     - _ShadowStrength: 1
     - _Smoothness: 0.676

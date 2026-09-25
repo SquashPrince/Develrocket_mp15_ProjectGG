@@ -13,10 +13,7 @@ public class PlayerTestController : MonoBehaviour, IInteractor
 
     private PlayerValues _values;
     private Rigidbody _body;
-    private Camera _camera;
-    private Camera _previousCamera;
     private bool _previousCameraEnabled;
-    private GameObject _cameraObject;
     private Vector3 _direction;
     private bool _ready;
     private int _maxShield = 3;
@@ -42,7 +39,6 @@ public class PlayerTestController : MonoBehaviour, IInteractor
     {
         // PlayerValues.Start 이후 테스트 체력을 초기화해 기존 초기화 순서의 영향을 피함.
         _values.BaseHp = _values.MaxHp;
-        _camera = Camera.main;
 
         if (_startingWeapon != null) SetWeapon(Instantiate(_startingWeapon));
         _ready = true;
@@ -52,7 +48,6 @@ public class PlayerTestController : MonoBehaviour, IInteractor
     {
         if (!_ready) return;
         _direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical")).normalized;
-        Aim();
         if (Input.GetKeyDown(KeyCode.E)) InteractNearest();
         if (Input.GetMouseButton(0) && EquippedWeapon != null)
             EquippedWeapon.Fire(DamageMultiplier);
@@ -65,25 +60,6 @@ public class PlayerTestController : MonoBehaviour, IInteractor
         // 배율 변화가 작은 경우에도 테스트 이동에 소수 속도를 반영.
         float speed = Mathf.Max(1f, _values.BaseMoveSpeed * rateMoveSpeed / 100f);
         _body.velocity = _direction * speed;
-    }
-
-    private void Aim()
-    {
-        if (_camera == null) return;
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, transform.position);
-        if (!plane.Raycast(ray, out float distance)) return;
-        Vector3 direction = ray.GetPoint(distance) - transform.position;
-        direction.y = 0f;
-        if (direction.sqrMagnitude > 0.001f)
-            transform.rotation = Quaternion.LookRotation(direction);
-    }
-
-    private void LateUpdate() => FollowCamera();
-
-    private void FollowCamera()
-    {
-        _camera.transform.position = transform.position + new Vector3(0f, 12f, -7f);
     }
 
     private void InteractNearest()
@@ -122,20 +98,6 @@ public class PlayerTestController : MonoBehaviour, IInteractor
     private void OnDisable()
     {
         if (_body != null) _body.velocity = Vector3.zero;
-        if (_cameraObject != null) _cameraObject.SetActive(false);
-        if (_previousCamera != null) _previousCamera.enabled = _previousCameraEnabled;
-    }
-
-    private void OnEnable()
-    {
-        if (_cameraObject == null) return;
-        if (_previousCamera != null) _previousCamera.enabled = false;
-        _cameraObject.SetActive(true);
-    }
-
-    private void OnDestroy()
-    {
-        if (_cameraObject != null) Destroy(_cameraObject);
     }
 
     private void OnGUI()

@@ -66,7 +66,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientLight: 0.2
+    - _AmbientLight: 1
     - _BumpScale: 1
     - _ColorQuantizationEnabled: 0
     - _ColorSteps: 8
