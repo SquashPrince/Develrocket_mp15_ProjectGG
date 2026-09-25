@@ -10,12 +10,21 @@ public class BossChargeAttack : BossPattern
     [SerializeField] private float _warningTime = 0.5f;
     [SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
+
+    [SerializeField] private BossMovement _bossMovement;
     
     protected override IEnumerator PatternRoutine()
     {
         Vector3 direction =
             _player.position - transform.position;
+        
+        Transform target = _player.transform;
 
+        // 타겟 플레이어 당시 위치로 바꾸기
+        _bossMovement.SetTargetChange(target);
+        // 타겟 플레이어 당시 위치로 바꾸기
+        
+        
         direction.y = 0f;
 
         float distance = direction.magnitude;
@@ -47,6 +56,8 @@ public class BossChargeAttack : BossPattern
         }
 
         transform.position = targetPosition;
+
+        _bossMovement.canRotate = true;
     }
 
     private void SetWarning(Vector3 direction, float distance)

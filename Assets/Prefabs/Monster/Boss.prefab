@@ -195,7 +195,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1468,6 +1468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _monster: {fileID: 1123507672473371228}
+  canRotate: 1
 --- !u!114 &2490570650895589283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1541,6 +1542,7 @@ MonoBehaviour:
   _warningTime: 0.5
   _chargeDistance: 5
   _chargeSpeed: 10
+  _bossMovement: {fileID: 999488234955632399}
 --- !u!114 &6014105369662620768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2168,7 +2170,7 @@ Animator:
   m_GameObject: {fileID: 7260411510126893381}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f14db21b5e70e3d4ab6f0e158099a341, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1b447a681891ea74894a0ce0bded5a81, type: 2}
+  m_Controller: {fileID: 9100000, guid: c3a28f7787141294b9bd497b63c74e44, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

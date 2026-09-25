@@ -8,6 +8,12 @@ public class BossMovement : MonoBehaviour
     [SerializeField] private Monster _monster;
     //[SerializeField] private Transform _player;
     private Transform _player;
+
+    public Transform Player
+    {
+        get { return _player; }
+        set { _player = value; }
+    }
     
     private void Awake()
     {
@@ -21,7 +27,11 @@ public class BossMovement : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        transform.LookAt(_player.position);
+        /*Vector3 direction1 = _player.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(direction1);*/
+
+        LookPlayer();
+        
         float distance = Vector3.Distance(transform.transform.position, _player.transform.position);
         if (distance > 5)
         {
@@ -33,4 +43,18 @@ public class BossMovement : MonoBehaviour
         }
         
     }
+
+    public bool canRotate = true;
+    private void LookPlayer()
+    {
+        if (!canRotate) return;
+        transform.LookAt(Player.position);
+    }
+
+    public void SetTargetChange(Transform target)
+    {
+        canRotate = false;
+        Player = target;
+    }
+    
 }
