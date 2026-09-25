@@ -145,6 +145,7 @@ namespace Player
         private PlayerWeaponEnum _firstSlot;
         private PlayerWeaponEnum _secondSlot;
         private PlayerWeaponEnum _thirdSlot;
+        private PlayerTalent _playerTalent;
 
         
         private PlayerWeaponEnum _currentSlot;
@@ -156,10 +157,14 @@ namespace Player
         // ==================================================
         private void Start()
         {
-            SetDefault(); 
+            SetDefault();
         }
 
-        private void Awake() => _itemSlot = GetComponent<PlayerItemSlot>();
+        private void Awake()
+        {
+            _itemSlot = GetComponent<PlayerItemSlot>();
+            _playerTalent = GetComponent<PlayerTalent>();
+        }
         // 이벤트 함수
         // ==================================================
         
@@ -169,7 +174,7 @@ namespace Player
             SetToStartValues();
             SetToStartRate();
             if (_isNewChara) SetNewChara();
-            // 델리게이트로 특성 불러오기
+            else _playerTalent.TalentsLoad();
         }
         
         /** 플레이어 데이터 - 값 초기화 */
