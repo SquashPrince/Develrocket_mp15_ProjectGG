@@ -21,7 +21,6 @@ public class Item : MonoBehaviour, IInteractable
     /// <param name="owner"></param>
     public virtual void Interact(IInteractor owner) { }
     
-    public virtual void Use(IInteractor owner) { }
     public virtual void Use(IInteractor owner)
     {
         Interact(owner);
