@@ -10,6 +10,9 @@ public class WeaponInven : MonoBehaviour
     private RectTransform rt;
     private Animator Ani;
 
+    [SerializeField] private WeaponSlot[] _weaponSlot;
+    private bool _isLeft;
+
     private void Awake()
     {
         CacheComponents();
@@ -20,6 +23,7 @@ public class WeaponInven : MonoBehaviour
     {
         IsWeaponChange = false;
         swapCoolTime = 0f;
+        _isLeft = false;
     }
 
     private void Update()
@@ -46,12 +50,14 @@ public class WeaponInven : MonoBehaviour
             {
                 IsWeaponChange = true;
                 Ani.SetTrigger("Left");
+                _isLeft = true;
                 // 휠 위로
             }
             else if (wheelInput < 0f)
             {
                 IsWeaponChange = true;
                 Ani.SetTrigger("Right");
+                _isLeft = false;
                 // 휠 아래로
             }
         }
@@ -59,9 +65,10 @@ public class WeaponInven : MonoBehaviour
 
     public void SwapStop()
     {
-        rt.rotation = Quaternion.identity;
-        // 무기 슬롯 스왑
-        
+        for (int i = 0; i < _weaponSlot.Length; i++)
+        {
+            _weaponSlot[i].Swap(_isLeft);
+        }
     }
 
     private void CacheComponents()
