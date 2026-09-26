@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3077976839869105370
 Transform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &361153835205937212
 MonoBehaviour:
@@ -186,7 +186,7 @@ MonoBehaviour:
   _items:
   - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
   - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
-  - {fileID: 5905034718578240917, guid: c7f3f82d644a12e41b6ef7e54cb3e6c3, type: 3}
+  - {fileID: 0}
   - {fileID: 3249526340955005061, guid: 1fe87b58a003a0a4d9c6da3d36a557d3, type: 3}
   _gold: 0
 --- !u!114 &8990631159749861348
@@ -201,11 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22e0300ad0fb664bb67cbcb0232273d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _playerMovment: {fileID: 0}
   _chargeWarning: {fileID: 1105627839215741099}
   _warningTime: 0.5
-  _chargeDistance: 5
   _chargeSpeed: 10
   _bombDistance: 5
 --- !u!135 &1638390832531957570
@@ -228,7 +225,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 1.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!1001 &6643079857157510379
 PrefabInstance:
   m_ObjectHideFlags: 0

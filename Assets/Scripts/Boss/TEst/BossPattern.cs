@@ -16,14 +16,20 @@ public class BossPattern : MonoBehaviour
     public void Awake()
     {
         _bossControl = GetComponent<BossControl>();
-        //Debug.Log(_bossControl == null);
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
         _animator = GetComponentInChildren<Animator>();
     }
 
     public void Start()
     {
+        StartCoroutine(InitRoutine());
+        //_player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(CoolDown());
+    }
+
+    public IEnumerator InitRoutine()
+    {
+        yield return new WaitUntil(()=> GameManager.Instance.PlayerTransform != null);
+        _player = GameManager.Instance.PlayerTransform;
     }
     
     public IEnumerator CoolDown()

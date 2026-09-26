@@ -1,26 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 public class BossMapAttack : BossPattern
 {
     [SerializeField] private GameObject _safeZonePrafab;
     
     // 나중에 PlayerScript중에 TakeDamage있는 걸로 변경
-    [SerializeField] private PlayerTest _playertest;
+    [SerializeField] private IDamagable _playertest;
 
     private GameObject newSafeZone;
     private Monster _monster;
     [SerializeField] private Transform _attacklocation;
-
+    
     private void Awake()
     {
         base.Awake();
         _monster = GetComponent<Monster>();
-        if (_playertest == null)
-        {
-            _playertest = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTest>();
-        }
+    }
+    
+    public void Start()
+    {
+        base.Start();
+        StartCoroutine(InitRoutine());
+    }
+
+    public IEnumerator InitRoutine()
+    {
+        yield return new WaitUntil(() => GameManager.Instance.PlayerTransform != null);
+        _playertest = GameManager.Instance.PlayerTransform.GetComponent<IDamagable>();
     }
     
     protected override IEnumerator PatternRoutine()
@@ -30,7 +39,10 @@ public class BossMapAttack : BossPattern
         _monster.MoveSpeed = 0f;
 
         StartCoroutine(SpawnSafeZone());
+        
+        
         yield return new WaitForSeconds(3f);
+        
         if (newSafeZone.GetComponent<SafeZone>().IsPlayerInSight == true)
         {
             Debug.Log("안전지대 들어옴");
@@ -38,8 +50,10 @@ public class BossMapAttack : BossPattern
         else
         {
             Debug.Log("안전 지대 아님 데미지 받음");
-            _playertest.TakeDamage(20);
+            _playertest.TakeDamage(_damage);
         }
+        
+        
         Destroy(newSafeZone);
 
         // 보스 이동속도 원래대로

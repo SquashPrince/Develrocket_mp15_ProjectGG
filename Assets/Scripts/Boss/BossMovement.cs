@@ -15,14 +15,25 @@ public class BossMovement : MonoBehaviour
         set { _player = value; }
     }
     
-    private void Awake()
+    private void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        StartCoroutine(InitRoutine());
+    }
+    
+    public IEnumerator InitRoutine()
+    {
+        yield return new WaitUntil(()=> GameManager.Instance !=null && GameManager.Instance.PlayerTransform != null);
+        Player = GameManager.Instance.PlayerTransform;
     }
 
+    private Monster _mon;
     private void Update()
     {
-        MoveToPlayer();
+        if (!_monster.isDead && _player != null)
+        {
+            MoveToPlayer();    
+        }
+        
     }
 
     private void MoveToPlayer()
@@ -47,7 +58,7 @@ public class BossMovement : MonoBehaviour
     public bool canRotate = true;
     private void LookPlayer()
     {
-        if (!canRotate) return;
+        if (!canRotate || _player == null) return;
         transform.LookAt(Player.position);
     }
 

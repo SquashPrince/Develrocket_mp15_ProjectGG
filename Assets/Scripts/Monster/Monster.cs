@@ -18,7 +18,8 @@ public class Monster : MonoBehaviour, IDamagable
     // 지금 총알에서 충돌 여러번 일어나서 3개씩 떨어뜨리는거 같음
     public GameObject GameObject => gameObject;
     
-    //private Animator _animator;
+    private Animator _animator;
+    private BossControl _bossControl;
 
     // 무적 판정 구현예정
     public bool Invincibility
@@ -62,7 +63,8 @@ public class Monster : MonoBehaviour, IDamagable
     {
         _currentHp = _maxHP;
         _initSpeed = _moveSpeed;
-        //_animator = GetComponentInChildren<Animator>();
+        _animator = GetComponentInChildren<Animator>();
+        _bossControl = GetComponent<BossControl>();
         Debug.Log($"{_currentHp} / {_maxHP}");
     }
 
@@ -70,16 +72,18 @@ public class Monster : MonoBehaviour, IDamagable
     [SerializeField] public bool isDead = false;
     private void Update()
     {
-        if (isDead)
+        /*if (isDead)
         {
             Die();
-        }
+        }*/
         
     }
     // ------------ 테스트용
 
     public void TakeDamage(int damage)
     {
+        if (isDead) return;
+        
         Debug.Log($"데미지 받음 : {damage}");
         _currentHp -= damage;
 
@@ -91,30 +95,39 @@ public class Monster : MonoBehaviour, IDamagable
         // 현재 체력, 최대 체력을 구독 전달
         OnHealthChanged?.Invoke(_currentHp, _maxHP);
 
-        // Debug.Log($"몬스터 체력 : {_currentHp} / {_maxHP}");
+         Debug.Log($"몬스터 체력 : {_currentHp} / {_maxHP}");
 
         if (_currentHp <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
 
     // [SerializeField] private Item[] _items =  new Item[2];
     [SerializeField] private TurretMonster _turretMonster;
-    private void Die()
+    private IEnumerator Die()
     {
-        //_animator.SetBool("isDead", true);
+        isDead = true;
+        Debug.Log("몬스터 사망 코루틴 실행");
         if (_turretMonster != null)
         {
             _turretMonster.Dead();
         }
-        isDead = true;
+
+        if (_bossControl != null)
+        {
+            _bossControl.StopPattern();
+            _animator.SetTrigger("IsDead");
+            yield return new WaitForSeconds(1.5f);
+        }
+
+        
         // 아이템 혹은 골드 드랍
         ItempDrop();
         GoldDrop();
         
-        Debug.Log("몬스터 사망");
+        
         Destroy(gameObject);
     }
 

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ChargeMonster : MonoBehaviour
 {
-    [SerializeField] private Transform _player;
+    private Transform _player;
     [SerializeField] private GameObject _chargeWarning;
 
     [SerializeField] private float _warningTime = 0.5f;
-    [SerializeField] private float _chargeDistance = 5f;
+    //[SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
 
     private bool _isCharge = false;
@@ -17,18 +17,28 @@ public class ChargeMonster : MonoBehaviour
     //[SerializeField] private Transform _target;
 
 
-    private void Awake()
+    public void Start()
     {
-        if (_player == null)
-        {
-            _player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
+        StartCoroutine(InitRoutine());
+    }
+    
+    public IEnumerator InitRoutine()
+    {
+        yield return new WaitUntil(()=> GameManager.Instance.PlayerTransform != null);
+        _player = GameManager.Instance.PlayerTransform;
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && _isCharge == false)
+        /*if (other.CompareTag("Player") && _isCharge == false)
+        {
+            _isCharge = true;
+            StartCoroutine(Charge());
+        }
+        */
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _isCharge = true;
             StartCoroutine(Charge());
