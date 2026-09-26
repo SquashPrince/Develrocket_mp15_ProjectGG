@@ -241,15 +241,9 @@ public class RoomManager : MonoBehaviour
         return new Vector3(position.x * _roomSizeOffset, 0, position.y * _roomSizeOffset);
     }
 
-    private void Initialize()
-    {
-        //TODO: 게임 매니저 실제로 사용하게 된다면 그 쪽에서 참조 넘겨줄 수 있도록 하려고 합니다.
-        _playerTransform = GameManager.Instance.PlayerTransform;
-    }
-
     private IEnumerator MapGenerationRoutine()
     {
-        yield return new WaitUntil(() => GameManager.Instance.PlayerTransform != null);
+        yield return new WaitUntil(() => GameManager.Instance.PlayerTransform != null && GameManager.Instance != null);
         _playerTransform = GameManager.Instance.PlayerTransform;
         GenerateMap();
     }
