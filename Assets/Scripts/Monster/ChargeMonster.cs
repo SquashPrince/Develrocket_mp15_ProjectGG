@@ -15,12 +15,33 @@ public class ChargeMonster : MonoBehaviour
     private bool _isCharge = false;
 
 
+    private bool _isPlayerInSight = false;
+    public bool IsplayerInsight
+    {
+        get{ return _isPlayerInSight; }
+        set
+        {
+            _isPlayerInSight = value;
+        }
+    }
+    
     //[SerializeField] private Transform _target;
 
 
     public void Start()
     {
         StartCoroutine(InitRoutine());
+    }
+
+    private void Update()
+    {
+        if (_isPlayerInSight == true &&  _player != null && _isCharge == false)
+        {
+            _isCharge = true;
+            _isPlayerInSight = false;
+            StartCoroutine(Charge());
+        }
+        
     }
     
     public IEnumerator InitRoutine()
@@ -39,11 +60,7 @@ public class ChargeMonster : MonoBehaviour
         }
         */
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && _player != null)
-        {
-            _isCharge = true;
-            StartCoroutine(Charge());
-        }
+        
     }
 
 
@@ -91,6 +108,7 @@ public class ChargeMonster : MonoBehaviour
         Debug.Log("목표 도착");
         _isCharge = false;
         _animator.SetBool("isRun", false);
+        _isPlayerInSight = false;
     }
 
     private void SetWarning(Vector3 direction, float distance)
