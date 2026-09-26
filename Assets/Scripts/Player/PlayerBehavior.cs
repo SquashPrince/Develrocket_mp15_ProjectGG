@@ -90,9 +90,11 @@ namespace Player
         
         // 무기교체
         // ========================================
-        private void OnSwap()
+        private void OnSwap(int direction)
         {
-            _playerValues.SwapNextWeapon();
+            if (direction == 0) return;
+
+            _playerValues.SwapNextWeapon(direction);
         }
         
 

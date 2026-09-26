@@ -52,7 +52,7 @@ public class GunBullet : PoolObject, IPoolable
         float moveDistance = move.magnitude;
         RaycastHit hit = default;
         bool hasHit = moveDistance > 0f &&
-            Physics.SphereCast(currentPosition, _radius, transform.forward, out hit, moveDistance, detctTarget);
+            Physics.SphereCast(currentPosition, _radius, transform.forward, out hit, moveDistance, detctTarget, QueryTriggerInteraction.Ignore);
         // 먼저 부딪힐 대상 뒤에 있는 배리어가 앞쪽 충돌까지 가로채지 않게 한다.
         Vector3 travelEnd = hasHit ? currentPosition + transform.forward * hit.distance : nextPosition;
         if (BulletBarrier.BlocksSegment(currentPosition, travelEnd, gameObject.layer, _radius))
