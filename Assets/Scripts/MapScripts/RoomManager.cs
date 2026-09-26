@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,11 +74,7 @@ public class RoomManager : MonoBehaviour
         }
     };
     private void Awake() => SetSingleton();
-    private void Start()
-    {
-        Initialize();
-        GenerateMap();
-    }
+    private void Start() => StartCoroutine(MapGenerationRoutine());
 
     /// <summary>
     /// 그리드에 적혀있는 규칙대로 방을 생성하는 메서드 입니다. 사실상 방 생성 메서드에 정보를 넘겨주는 역할, 여러 초기화 기능들을 수행하고 있습니다.
@@ -248,6 +245,13 @@ public class RoomManager : MonoBehaviour
     {
         //TODO: 게임 매니저 실제로 사용하게 된다면 그 쪽에서 참조 넘겨줄 수 있도록 하려고 합니다.
         _playerTransform = GameManager.Instance.PlayerTransform;
+    }
+
+    private IEnumerator MapGenerationRoutine()
+    {
+        yield return new WaitUntil(() => GameManager.Instance.PlayerTransform != null);
+        _playerTransform = GameManager.Instance.PlayerTransform;
+        GenerateMap();
     }
 
     private void SetSingleton()
