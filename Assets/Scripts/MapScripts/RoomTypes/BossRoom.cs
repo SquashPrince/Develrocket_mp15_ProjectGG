@@ -6,6 +6,7 @@ public class BossRoom : RoomBase
 {
     [SerializeField] private GameObject _bossPrefab;
     [SerializeField] private Transform _bossSpawnPoint;
+    [SerializeField] private StairController _stair;
     private GameObject _bossObject;
     private Monster _currentBoss;
     private bool _isEntered;
@@ -57,6 +58,6 @@ public class BossRoom : RoomBase
 
     private void CreateStair()
     {
-
+        _stair.Spawn();
     }
 }
