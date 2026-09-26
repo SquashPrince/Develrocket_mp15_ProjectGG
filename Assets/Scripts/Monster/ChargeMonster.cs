@@ -10,6 +10,7 @@ public class ChargeMonster : MonoBehaviour
     [SerializeField] private float _warningTime = 0.5f;
     //[SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
+    private Animator _animator;
 
     private bool _isCharge = false;
 
@@ -48,6 +49,11 @@ public class ChargeMonster : MonoBehaviour
 
     public IEnumerator Charge()
     {
+        if (_animator == null)
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+        _animator.SetBool("isRun", true);
         transform.LookAt(_player.position);
         Vector3 direction =
             _player.position - transform.position;
@@ -84,6 +90,7 @@ public class ChargeMonster : MonoBehaviour
         transform.position = targetPosition;
         Debug.Log("목표 도착");
         _isCharge = false;
+        _animator.SetBool("isRun", false);
     }
 
     private void SetWarning(Vector3 direction, float distance)
