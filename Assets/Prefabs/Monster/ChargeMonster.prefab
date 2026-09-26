@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2640023449498878272
 Transform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8147969815230407841
 MonoBehaviour:
@@ -186,7 +186,7 @@ MonoBehaviour:
   _items:
   - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
   - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
-  - {fileID: 5905034718578240917, guid: c7f3f82d644a12e41b6ef7e54cb3e6c3, type: 3}
+  - {fileID: 0}
   - {fileID: 3249526340955005061, guid: 1fe87b58a003a0a4d9c6da3d36a557d3, type: 3}
   _gold: 0
 --- !u!114 &8226647365239562793
@@ -201,10 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273cb577d357a1d4dbeabc8574fb8eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
   _chargeWarning: {fileID: 4846902470813487163}
   _warningTime: 0.5
-  _chargeDistance: 5
   _chargeSpeed: 10
 --- !u!65 &7779244386734936442
 BoxCollider:
@@ -225,8 +223,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 3, y: 5, z: 3}
+  m_Center: {x: 0, y: 2.5, z: 0.24}
 --- !u!1001 &5328213526556305355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -350,6 +348,18 @@ PrefabInstance:
     - target: {fileID: 8398471354206949593, guid: 999c9df1ae9ff0641a8369f4be6b7ed5, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438283965688241387, guid: 999c9df1ae9ff0641a8369f4be6b7ed5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438283965688241387, guid: 999c9df1ae9ff0641a8369f4be6b7ed5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438283965688241387, guid: 999c9df1ae9ff0641a8369f4be6b7ed5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8438283965688241387, guid: 999c9df1ae9ff0641a8369f4be6b7ed5, type: 3}
       propertyPath: m_LocalPosition.x

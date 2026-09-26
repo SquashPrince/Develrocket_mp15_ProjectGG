@@ -4,51 +4,44 @@ using UnityEngine;
 
 public class BombMonster : MonoBehaviour
 {
-    [SerializeField] private Transform _player;
+    private Transform _player;
     
-    // 나중에 Player 스크립트중에 TakeDamage있는 스크립트로 변경
-    [SerializeField] private PlayerTest _playerMovment;              // 테스트
-
-    // 테스트
-    // [SerializeField] private GameObject _playertest;
-
     [SerializeField] private GameObject _chargeWarning;
 
     [SerializeField] private float _warningTime = 0.5f;
-    [SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
     [SerializeField] private float _bombDistance = 5f;
 
 
     //[SerializeField] private Transform _target;
     private bool isBomb = false;
+    
+    /*
+    private bool _isPlayerInSight = false;
 
-    private void Awake()
+    public bool IsplayerInsight
     {
-        // 테스트 잘 되는듯 나중에 다시 수정
-        /*if (_playertest == null)
+        get{ return _isPlayerInSight; }
+        set
         {
-            _playertest = GameObject.FindGameObjectWithTag("Player");
-        }*/
-
-        if (_player == null)
-        {
-            _player = GameObject.FindGameObjectWithTag("Player").transform;
+            _isPlayerInSight = value;
         }
-        if (_playerMovment == null)         // 테스트
-        {
-            _playerMovment = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTest>();
-        }
-
-        /*if (_target == null)
-        {
-            _target = GameObject.Find("GameObject").transform;
-        }*/
+    }*/
+    
+    public void Start()
+    {
+        StartCoroutine(InitRoutine());
+    }
+    
+    public IEnumerator InitRoutine()
+    {
+        yield return new WaitUntil(()=> GameManager.Instance.PlayerTransform != null);
+        _player = GameManager.Instance.PlayerTransform;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && isBomb == false)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && isBomb == false)
         {
             isBomb = true;
             //_target.position = other.gameObject.transform.position;
@@ -60,8 +53,6 @@ public class BombMonster : MonoBehaviour
     public IEnumerator Charge()
     {
         transform.LookAt(_player.position);
-        // 테스트 잘 작동하는 듯 나중에 다 수정
-        /*Vector2 direction = (_playertest.gameObject.transform.position - transform.position).normalized;*/
 
         Vector3 direction =
             _player.position - transform.position;
@@ -97,18 +88,11 @@ public class BombMonster : MonoBehaviour
 
         transform.position = targetPosition;
 
-        Debug.Log($"폭탄 이동? : {isBomb}");
-        Debug.Log("목표 도착");
+        //Debug.Log($"폭탄 이동? : {isBomb}");
+        //Debug.Log("목표 도착");
         StartCoroutine(Bomb());
-
-        /*if (transform.position == _target.position)
-        {
-            Debug.Log($"폭탄 이동? : {isBomb}");
-            Debug.Log("목표 도착");
-            StartCoroutine(Bomb());
-        }*/
     }
-
+    
     public IEnumerator Bomb()
     {
         // 1초 뒤 폭발
@@ -122,21 +106,34 @@ public class BombMonster : MonoBehaviour
         monsterPosition.y = 0f;
         playerPosition.y = 0f;
 
+        /*
         float distance = Vector3.Distance(monsterPosition, playerPosition);
 
         // 현재위치와 플레이어 위치 비교해서 _bombDistance 보다 거리가 작으면 데미지 입힘
         // 이렇게 했지만 나중에 Circle Collider 넣어서 radius로 해도됨
         if (distance <= _bombDistance)
         {
-            //Debug.Log("1초 기다림 끝 폭탄 터짐: 데미지 받음");
+            Debug.Log("1초 기다림 끝 폭탄 터짐: 데미지 받음");
             // 플레이어한테 데미지 주기 
-            _playerMovment.TakeDamage(10);      // 테스트
+            _playerDamage.TakeDamage(10);      // 테스트
             //Debug.Log($"데미지 받음 거리 :{Vector2.Distance(transform.position, _player.position)}");
         }
         else
         {
-            //Debug.Log("1초 기다림 끝 폭탄 터짐 : 데미지 안받음");
+            Debug.Log("1초 기다림 끝 폭탄 터짐 : 데미지 안받음");
             //Debug.Log($"데미지 안받음 거리 :{Vector2.Distance(transform.position, _player.position)}");
+        }
+        */
+        
+        
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _bombDistance, LayerMask.GetMask("Player"));
+
+        foreach (Collider hit in hitColliders)
+        {
+            if (hit.TryGetComponent<IDamagable>(out IDamagable damageable))
+            {
+                damageable.TakeDamage(10); 
+            }
         }
 
 

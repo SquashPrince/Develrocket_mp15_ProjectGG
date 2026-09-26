@@ -8,7 +8,7 @@ public class BossChargeAttack : BossPattern
     [SerializeField] private GameObject _chargeWarning;
 
     [SerializeField] private float _warningTime = 0.5f;
-    [SerializeField] private float _chargeDistance = 5f;
+    //[SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
 
     [SerializeField] private BossMovement _bossMovement;

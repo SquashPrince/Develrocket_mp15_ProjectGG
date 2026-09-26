@@ -6,7 +6,7 @@ using UnityEngine;
 public class TurretMonster : MonoBehaviour
 {
     [SerializeField] private Monster _monster;
-    [SerializeField] private Transform _player;
+    private Transform _player;
     // --------------- 오브젝트 풀
     //[SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private GunBullet _bulletPrefab;
@@ -26,16 +26,14 @@ public class TurretMonster : MonoBehaviour
 
     private void Awake()
     {
-        CacheComponents();
-        if (_player == null)
-        {
-            _player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
+        
     }
 
     // --------------- 오브젝트 풀
     private void Start()
     {
+        CacheComponents();
+        StartCoroutine(InitRoutine());
         _bulletPool = new ObjectPool<GunBullet>(
             _bulletPrefab,
             10,
@@ -51,6 +49,11 @@ public class TurretMonster : MonoBehaviour
         );
     }
 
+    public IEnumerator InitRoutine()
+    {
+        yield return new WaitUntil(()=> GameManager.Instance.PlayerTransform != null);
+        _player = GameManager.Instance.PlayerTransform;
+    }
 
 // --------------- 오브젝트 풀
 
@@ -98,7 +101,7 @@ public class TurretMonster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _isPlayerInSight = true;
             Debug.Log("Player is in sight");
@@ -112,7 +115,7 @@ public class TurretMonster : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _isPlayerInSight = false;
             Debug.Log("Player is out sight");

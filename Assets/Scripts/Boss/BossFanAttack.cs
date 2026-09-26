@@ -46,7 +46,8 @@ public class BossFanAttack : BossPattern
         
         if (_targetTransform == null)
         {
-            _targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            //_targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            _targetTransform = GameManager.Instance.PlayerTransform;
         }
         Vector3 targetDirection =
         _targetTransform.position - transform.position;
