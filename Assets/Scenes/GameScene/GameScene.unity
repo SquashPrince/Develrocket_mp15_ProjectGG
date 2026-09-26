@@ -6432,6 +6432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponSlot: []
+  _bulletCurMagazine: {fileID: 0}
+  _bulletMaxMagazine: {fileID: 0}
 --- !u!224 &2744349860800306437
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15868,6 +15870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _proFile: {fileID: 0}
   _weaponInven: {fileID: 0}
+  _itemSlot: []
 --- !u!4 &8257376014151550733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5756197397232782282, guid: aabcb79ac817b7641a8046cec1ea8e33, type: 3}
@@ -16476,10 +16479,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EWindow: 0
   NextEWindow: 0
-  Windows:
-  - {fileID: 1873946118799192921}
-  - {fileID: 7683759261079637115}
-  Load: {fileID: 0}
+  _windows:
+  - {fileID: 0}
+  - {fileID: 0}
+  _battleWindow: {fileID: 0}
+  _load: {fileID: 0}
 --- !u!222 &8637956482425246013
 CanvasRenderer:
   m_ObjectHideFlags: 0

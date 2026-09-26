@@ -6,7 +6,6 @@ public enum EWindowType
 
 public enum EPopUpType
 {
-    Setting,
     Ability,
     BattleExit
 }
@@ -14,6 +13,6 @@ public enum EPopUpType
 public enum ECurrencyType
 {
     None = -1,
-    Diamond,
+    Gem,
     Gold
 }

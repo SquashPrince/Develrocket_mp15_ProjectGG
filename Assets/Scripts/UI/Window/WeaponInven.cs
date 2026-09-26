@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class WeaponInven : MonoBehaviour
 {
-    private bool IsWeaponChange;
-    private const float SWAP_COOL_TIME = 1f;
-    private float swapCoolTime;
-    private RectTransform rt;
     private Animator Ani;
 
     [SerializeField] private WeaponSlot[] _weaponSlot;
+    [SerializeField] private TextMeshProUGUI _bulletCurMagazine;
+    [SerializeField] private TextMeshProUGUI _bulletMaxMagazine;
+
     private bool _isLeft;
 
     private void Awake()
@@ -18,49 +19,47 @@ public class WeaponInven : MonoBehaviour
         CacheComponents();
     }
 
-    // 최초 1회
     public void SetData()
-    {
-        IsWeaponChange = false;
-        swapCoolTime = 0f;
-        _isLeft = false;
+    {/*
+        if (GameManager.Instance.PlayerValues.WeaponDictionary.Count == 0) return;
+
+        for (int i = 0; i < _weaponSlot.Length; i++)
+        {
+            for (int j = 0; j < _weaponSlot[i]._weapons.Length; j++)
+            {
+                GameManager.Instance.PlayerValues.WeaponDictionary.TryGetValue((PlayerWeaponEnum)j, out _weaponSlot[i]._weapons[j]);
+            }
+        }*/
+
+        _bulletMaxMagazine.text = $"{GameManager.Instance.PlayerValues.MaxMagazine}";
+        WeaponMagazine();
     }
 
-    private void Update()
+    public void WeaponMagazine(bool isView = true)
     {
-        if (IsWeaponChange)
-        {
-            swapCoolTime += Time.deltaTime;
-
-            if (swapCoolTime >= SWAP_COOL_TIME)
-            {
-                swapCoolTime = 0f;
-                IsWeaponChange = false;
-            }
-        }
+        _bulletCurMagazine.text = isView ? $"{GameManager.Instance.PlayerValues.CurrentMagazine}" : "-";
     }
 
-    public void WeaponSwap()
-    {
-        if (!IsWeaponChange)
-        {
-            float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+    public void TakeWeapon()
+    {/*
+        if (GameManager.Instance.PlayerValues.WeaponDictionary.Count == 0) return;
 
-            if (wheelInput > 0f)
+        for (int i = 0; i < _weaponSlot.Length; i++)
+        {
+            for (int j = 0; j < _weaponSlot[i]._weapons.Length; j++)
             {
-                IsWeaponChange = true;
-                Ani.SetTrigger("Left");
-                _isLeft = true;
-                // 휠 위로
+                GameManager.Instance.PlayerValues.WeaponDictionary.TryGetValue((PlayerWeaponEnum)j, out _weaponSlot[i]._weapons[j]);
             }
-            else if (wheelInput < 0f)
-            {
-                IsWeaponChange = true;
-                Ani.SetTrigger("Right");
-                _isLeft = false;
-                // 휠 아래로
-            }
-        }
+        }*/
+    }
+
+    public void WeaponSwap(bool isLeft)
+    {
+        _isLeft = isLeft;
+        string aniStr = _isLeft ? "Left" : "Right";
+        Ani.SetTrigger(aniStr);
+        _bulletMaxMagazine.text = "-";
+        WeaponMagazine(false);
     }
 
     public void SwapStop()
@@ -69,11 +68,17 @@ public class WeaponInven : MonoBehaviour
         {
             _weaponSlot[i].Swap(_isLeft);
         }
+
+        RefreshWeaponInven();
+    }
+
+    public void RefreshWeaponInven()
+    {
+        SetData();
     }
 
     private void CacheComponents()
     {
-        rt = GetComponent<RectTransform>();
         Ani = GetComponent<Animator>();
     }
 }

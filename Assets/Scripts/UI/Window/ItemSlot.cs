@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-    private int _slotNum;
-    private Item _item;
+    [SerializeField] private int _slotNum;
+    private PlayerItemSlotState _itemState;
     [SerializeField] private Image _itemImg;
     [SerializeField] private TextMeshProUGUI _itemCntTxt;
 
@@ -17,13 +18,12 @@ public class ItemSlot : MonoBehaviour
     [SerializeField] private float _coolDown;
     [SerializeField] private TextMeshProUGUI _coolDownTxt;
 
-    public void SetData(int slotNum, Item item)
+    public void SetData(PlayerItemSlotState itemState)
     {
-        _slotNum = slotNum;
-        _item = item;
+        _itemState = itemState;
         _isUse = true;
         // 쿨타임 정보 받기
-        //_coolDown = _item.
+        _coolDown = _itemState.CooldownDuration;
         _coolDownImg.gameObject.SetActive(false);
         _coolDownTxt.gameObject.SetActive(false);
         SetUI();
@@ -36,90 +36,85 @@ public class ItemSlot : MonoBehaviour
 
     private void SlotInfo()
     {
-        // 아이템 슬롯에 따라 다름
-        switch (_slotNum)
+        // 아이템 없을 시
+        if (_itemState.Item == null)
         {
-            // 회복 물약 (고정)
-            case 0:
-                // 아이템 이미지
-                //_itemImg.sprite = _item.img
-                // 아이템 소지 개수
-                //_itemCntTxt.text = 
-                break;
-            // 탄막 제거 (고정)
-            case 1:
-                // 아이템 이미지
-                //_itemImg.sprite = _item.img
-                // 아이템 소지 개수
-                //_itemCntTxt.text = 
-                break;
-            // 그 외 소모형 아이템 (변경 가능)
-            case 2:
-                if (_item == null)
-                {
-                    // 없다면 비활성화
-                    _itemCntTxt.text = "0";
-                    _itemImg.gameObject.SetActive(false);
-                    _itemCntTxt.gameObject.SetActive(false);
-                }
+            _itemImg.sprite = null;
+            _itemCntTxt.text = "0";
 
-                // 아이템 소지 시
-                // 아이템 이미지
-                //_itemImg.sprite = _item.img
-                // 아이템 소지 개수
-                //_itemCntTxt.text = 
-                // 있으니 활성화
-                _itemImg.gameObject.SetActive(true);
-                _itemCntTxt.gameObject.SetActive(true);
-                break;
+            // 비활성화
+            _itemImg.gameObject.SetActive(false);
+            _itemCntTxt.gameObject.SetActive(false);
+        }
+        else
+        {
+            // 아이템 이미지
+            _itemImg.sprite = _itemState.Icon;
+            // 아이템 소지 개수
+            _itemCntTxt.text = _itemState.Count.ToString();
+
+            _itemImg.gameObject.SetActive(true);
+            _itemCntTxt.gameObject.SetActive(true);
         }
     }
 
     public void UseItem()
     {
         // 아이템이 없으면 사용 불가
-        //if (_item == null)
-        //{
-        //    //UIManager.Instance.PopUp._toast.ToastOn("아이템이 없습니다.");
-        //    UIManager.Instance.PopUp._toast.ToastOn("No Item.");
-        //    return;
-        //}
-
-        // 아이템 소지 개수가 없으면 사용 불가
-        /*
-        if (_item.)
+        if (_itemState.Item == null)
         {
-            UIManager.Instance.PopUp._toast.ToastOn("아이템이 없습니다.");
-            UIManager.Instance.PopUp._toast.ToastOn("아이템이 없습니다.");
+            //UIManager.Instance.PopUp._toast.ToastOn("아이템이 없습니다.");
+            UIManager.Instance.PopUp._toast.ToastOn("No Item.");
             return;
         }
-        */
 
-        // 현재 사용불가
+        // 아이템 소지 개수가 없으면 사용 불가
+        if (_itemState.Count <= 0)
+        {
+            //UIManager.Instance.PopUp._toast.ToastOn("아이템이 없습니다.");
+            UIManager.Instance.PopUp._toast.ToastOn("Enough Item.");
+            return;
+        }
+
+        // 쿨타임 중 이므로 사용 불가
         if (!_isUse)
         {
             //UIManager.Instance.PopUp._toast.ToastOn("아직 사용할 수 없습니다.");
-            UIManager.Instance.PopUp._toast.ToastOn("Use Item CoolDown.");
+            UIManager.Instance.PopUp._toast.ToastOn("Item CoolDown.");
             return;
         }
 
         _isUse = false;
         // 해당 아이템 사용
-        // 플레이어 아이템 사용이랑 연결
+        StartCoroutine(CoolDownCoroutine());
 
         // 사용후 UI 갱신
         ResetUI();
-
-        StartCoroutine(CoolDownCoroutine());
     }
 
     private void ResetUI()
     {
-        //_itemCntTxt.text = 
-        if(_slotNum == 2)
+        _itemState = GameManager.Instance.PlayerValues.ItemSlots.GetSlotState((PlayerItemEnum)_slotNum);
+
+        // 아이템 없을 시
+        if (_itemState.Item == null)
         {
-            // 슬롯 2번의 아이템 개수가 0이라면 아이템 삭제
-            //_item = null;
+            _itemImg.sprite = null;
+            _itemCntTxt.text = "0";
+
+            // 비활성화
+            _itemImg.gameObject.SetActive(false);
+            _itemCntTxt.gameObject.SetActive(false);
+        }
+        else
+        {
+            // 아이템 이미지
+            _itemImg.sprite = _itemState.Icon;
+            // 아이템 소지 개수
+            _itemCntTxt.text = _itemState.Count.ToString();
+
+            _itemImg.gameObject.SetActive(true);
+            _itemCntTxt.gameObject.SetActive(true);
         }
     }
 
