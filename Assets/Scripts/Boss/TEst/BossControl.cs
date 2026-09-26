@@ -34,7 +34,7 @@ public class BossControl : MonoBehaviour
         {
             if (_patternQueue.Count > 0)
             {
-                Debug.Log($"[Dequeue 전] 현재 Queue 개수 : {_patternQueue.Count}");
+                //Debug.Log($"[Dequeue 전] 현재 Queue 개수 : {_patternQueue.Count}");
                 Func<IEnumerator> pattern = _patternQueue.Dequeue();
                 int value = _timeQueue.Dequeue();
                 //Debug.Log($"[Dequeue 후] 패턴 꺼냄 / 현재 Queue 개수 : {_patternQueue.Count}");

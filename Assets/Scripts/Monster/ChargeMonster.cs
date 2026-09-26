@@ -10,16 +10,38 @@ public class ChargeMonster : MonoBehaviour
     [SerializeField] private float _warningTime = 0.5f;
     //[SerializeField] private float _chargeDistance = 5f;
     [SerializeField] private float _chargeSpeed = 10f;
+    private Animator _animator;
 
     private bool _isCharge = false;
 
 
+    private bool _isPlayerInSight = false;
+    public bool IsplayerInsight
+    {
+        get{ return _isPlayerInSight; }
+        set
+        {
+            _isPlayerInSight = value;
+        }
+    }
+    
     //[SerializeField] private Transform _target;
 
 
     public void Start()
     {
         StartCoroutine(InitRoutine());
+    }
+
+    private void Update()
+    {
+        if (_isPlayerInSight == true &&  _player != null && _isCharge == false)
+        {
+            _isCharge = true;
+            _isPlayerInSight = false;
+            StartCoroutine(Charge());
+        }
+        
     }
     
     public IEnumerator InitRoutine()
@@ -38,16 +60,17 @@ public class ChargeMonster : MonoBehaviour
         }
         */
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            _isCharge = true;
-            StartCoroutine(Charge());
-        }
+        
     }
 
 
     public IEnumerator Charge()
     {
+        if (_animator == null)
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+        _animator.SetBool("isRun", true);
         transform.LookAt(_player.position);
         Vector3 direction =
             _player.position - transform.position;
@@ -84,6 +107,8 @@ public class ChargeMonster : MonoBehaviour
         transform.position = targetPosition;
         Debug.Log("목표 도착");
         _isCharge = false;
+        _animator.SetBool("isRun", false);
+        _isPlayerInSight = false;
     }
 
     private void SetWarning(Vector3 direction, float distance)
