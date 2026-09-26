@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,8 +21,6 @@ public class RoomManager : MonoBehaviour
     //TODO: 구조 설명 후 룸 컨트롤러는 추후 지울 예정입니다.
     [SerializeField] private RoomController _roomPrefab;
 
-    [SerializeField] private Transform _playerTransform;
-
     [SerializeField] private BasicRoom _basicRoomPrefab;
     [SerializeField] private BattleRoom _battleRoomPrefab;
     [SerializeField] private StoreRoom _storeRoomPrefab;
@@ -30,6 +29,8 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private Transform _roomRoot;
     [SerializeField] private float _customRoomOffset;
+
+    private Transform _playerTransform;
 
     /// <summary>
     /// 배열에서의 좌표를 Key로, 방에 대한 참조를 Value로 가집니다. KeyValuePair로 접근하시면 됩니다.
@@ -73,7 +74,7 @@ public class RoomManager : MonoBehaviour
         }
     };
     private void Awake() => SetSingleton();
-    private void Start() => GenerateMap();
+    private void Start() => StartCoroutine(MapGenerationRoutine());
 
     /// <summary>
     /// 그리드에 적혀있는 규칙대로 방을 생성하는 메서드 입니다. 사실상 방 생성 메서드에 정보를 넘겨주는 역할, 여러 초기화 기능들을 수행하고 있습니다.
@@ -188,7 +189,9 @@ public class RoomManager : MonoBehaviour
 
         if (_currentRoom.RoomType == RoomType.BOSS)
         {
-            //TODO: 페이드 인 페이드 아웃..?
+            // TODO: 페이드 인 페이드 아웃..? 나중에 통합 이후 테스트 해보고 정상 작동하면 활성화 할 예정입니다.
+            // 당장 필요하다고 판단하지는 않으시는 것 같으셔서 주석처리 해두었습니다.
+            //UIManager.Instance.Window.OpenLoading();
         }
 
         _currentRoom.OnEnter();
@@ -236,6 +239,19 @@ public class RoomManager : MonoBehaviour
     private Vector3 GetWorldPosition(Vector2Int position)
     {
         return new Vector3(position.x * _roomSizeOffset, 0, position.y * _roomSizeOffset);
+    }
+
+    private void Initialize()
+    {
+        //TODO: 게임 매니저 실제로 사용하게 된다면 그 쪽에서 참조 넘겨줄 수 있도록 하려고 합니다.
+        _playerTransform = GameManager.Instance.PlayerTransform;
+    }
+
+    private IEnumerator MapGenerationRoutine()
+    {
+        yield return new WaitUntil(() => GameManager.Instance.PlayerTransform != null);
+        _playerTransform = GameManager.Instance.PlayerTransform;
+        GenerateMap();
     }
 
     private void SetSingleton()
