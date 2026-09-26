@@ -24,7 +24,7 @@ public class CanonBullet : GunBullet
 
     private void ExplosionOverlapSphere()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, _explosionRange, _damagableMask, QueryTriggerInteraction.Ignore);
+        Collider[] cols = Physics.OverlapSphere(transform.position, _explosionRange, _damagableMask);
 
         foreach (Collider col in cols)
         {

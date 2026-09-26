@@ -15,6 +15,10 @@ public class GunBullet : PoolObject, IPoolable
     [SerializeField] protected float _bulletSpeed;
     [SerializeField] private Transform _tr;
 
+    public static readonly HashSet<GunBullet> ActiveBullets = new HashSet<GunBullet>();
+    private void OnEnable() => ActiveBullets.Add(this);
+    private void OnDisable() => ActiveBullets.Remove(this);
+
     private Vector3 _startPos;
     private Func<int> _damageSource;
 
@@ -46,9 +50,17 @@ public class GunBullet : PoolObject, IPoolable
         Vector3 nextPosition = currentPosition + move;
         LayerMask detctTarget = _damagableMask | _destroyMask;
         float moveDistance = move.magnitude;
-
-        if (moveDistance > 0f &&
-            Physics.SphereCast(currentPosition, _radius, transform.forward, out RaycastHit hit, moveDistance, detctTarget))
+        RaycastHit hit = default;
+        bool hasHit = moveDistance > 0f &&
+            Physics.SphereCast(currentPosition, _radius, transform.forward, out hit, moveDistance, detctTarget);
+        // 먼저 부딪힐 대상 뒤에 있는 배리어가 앞쪽 충돌까지 가로채지 않게 한다.
+        Vector3 travelEnd = hasHit ? currentPosition + transform.forward * hit.distance : nextPosition;
+        if (BulletBarrier.BlocksSegment(currentPosition, travelEnd, gameObject.layer, _radius))
+        {
+            ReturnToPool();
+            return;
+        }
+        if (hasHit)
         {
             transform.position = hit.point;
             DetectTaraget(hit);

@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3193125869816663230}
   - component: {fileID: 6268267434552497361}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: CanonBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

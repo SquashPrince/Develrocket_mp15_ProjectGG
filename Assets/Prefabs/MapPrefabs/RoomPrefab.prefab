@@ -921,7 +921,7 @@ PrefabInstance:
     - target: {fileID: 7116314708630045766, guid: e348e7143b6247b488737e4be26fb038, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 03d8023b7e0d12941bef2ff04779feb6, type: 2}
+      objectReference: {fileID: 2100000, guid: f4480ba83f6598644b90593dc24bf9d4, type: 2}
     - target: {fileID: 9100508158649072905, guid: e348e7143b6247b488737e4be26fb038, type: 3}
       propertyPath: m_Name
       value: Floor
@@ -951,7 +951,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ceb7968bf2afc44a44c893a30b308c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uvChannel: 0
+  uvMin: {x: 0.25, y: 0.2}
+  uvMax: {x: 0.5, y: 0.45}
+  repeat: {x: 4, y: 4}
 --- !u!4 &8875021525469729151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5239272197777735519, guid: e348e7143b6247b488737e4be26fb038, type: 3}
