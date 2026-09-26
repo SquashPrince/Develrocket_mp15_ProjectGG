@@ -41,7 +41,7 @@ public class BombMonster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && isBomb == false)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && isBomb == false && _player != null)
         {
             isBomb = true;
             //_target.position = other.gameObject.transform.position;

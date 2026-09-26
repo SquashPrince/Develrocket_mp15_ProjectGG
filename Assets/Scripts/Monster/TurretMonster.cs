@@ -60,7 +60,7 @@ public class TurretMonster : MonoBehaviour
 
     private void Update()
     {
-        if (_isPlayerInSight == true && !_isShooting)
+        if (_isPlayerInSight == true && !_isShooting && _player != null)
         {
             StartCoroutine(AimedBurst());
         }

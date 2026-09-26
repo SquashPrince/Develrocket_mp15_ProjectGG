@@ -1489,7 +1489,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5000594410726889708}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e41b9e335f76d3440a35bf60cc568e9f, type: 3}
   m_Name: 
@@ -1510,7 +1510,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5000594410726889708}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a1d73bdaabad3b41ab61cde76386f71, type: 3}
   m_Name: 
@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5000594410726889708}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd833f6c47ae6cb4ba9d427d711d3710, type: 3}
   m_Name: 
@@ -1549,12 +1549,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5000594410726889708}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073642cb3b0fa9b4d9928e6fbff4b3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldown: 15
+  _cooldown: 3
   _damage: 1
   _maxtimes: 0
   _monsters:
@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5000594410726889708}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdcc059daa91cd44c9531ab1f8bba773, type: 3}
   m_Name: 
@@ -1604,7 +1604,6 @@ MonoBehaviour:
   _damage: 1
   _maxtimes: 0
   _safeZonePrafab: {fileID: 3242440031814422881, guid: c57bb7b6c35107e4db3f3ba5016904d1, type: 3}
-  _playertest: {fileID: 0}
   _attacklocation: {fileID: 5651594936461347490}
   minRadius: 5
   maxRadius: 13

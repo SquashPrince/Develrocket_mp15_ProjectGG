@@ -65,20 +65,17 @@ public class Monster : MonoBehaviour, IDamagable
         _initSpeed = _moveSpeed;
         _animator = GetComponentInChildren<Animator>();
         _bossControl = GetComponent<BossControl>();
-        Debug.Log($"{_currentHp} / {_maxHP}");
     }
 
-    // ------------ 테스트용
     [SerializeField] public bool isDead = false;
-    private void Update()
+
+    private void OnCollisionEnter(Collision collision)
     {
-        /*if (isDead)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Die();
-        }*/
-        
+            collision.gameObject.GetComponent<IDamagable>().TakeDamage(1);
+        }
     }
-    // ------------ 테스트용
 
     public void TakeDamage(int damage)
     {
@@ -104,7 +101,6 @@ public class Monster : MonoBehaviour, IDamagable
     }
 
 
-    // [SerializeField] private Item[] _items =  new Item[2];
     [SerializeField] private TurretMonster _turretMonster;
     private IEnumerator Die()
     {

@@ -38,7 +38,7 @@ public class ChargeMonster : MonoBehaviour
         }
         */
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && _player != null)
         {
             _isCharge = true;
             StartCoroutine(Charge());

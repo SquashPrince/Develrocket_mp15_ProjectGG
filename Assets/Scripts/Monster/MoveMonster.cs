@@ -67,7 +67,7 @@ public class MoveMonster : MonoBehaviour
 
     private void Update()
     {
-        if (isDamaged || _isPlayerInSight)
+        if ((isDamaged || _isPlayerInSight) && _player !=null)
         {
             MoveToPlayer();
             if (!_isShooting)
