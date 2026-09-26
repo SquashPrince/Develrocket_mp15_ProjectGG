@@ -28,9 +28,13 @@ public class BombMonster : MonoBehaviour
         }
     }
     
+    
+    [SerializeField] private ParticleSystem targetEffect;
+    
     public void Start()
     {
         StartCoroutine(InitRoutine());
+        targetEffect = GetComponentInChildren<ParticleSystem>();
     }
 
     private void Update()
@@ -156,6 +160,17 @@ public class BombMonster : MonoBehaviour
             }
         }
 
+        
+        if (targetEffect != null)
+        {
+            targetEffect.Play();
+            Debug.Log("이펙트");
+            //targetEffect.transform.SetParent(null);
+            //targetEffect.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+        }
+        
+        
 
         Destroy(gameObject);
     }
