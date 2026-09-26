@@ -68,6 +68,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveMonster: {fileID: 207998579339378749}
   _bombMonster: {fileID: 0}
+  _turretMonster: {fileID: 0}
+  _chargeMonster: {fileID: 0}
 --- !u!1 &5541985012934758168
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +320,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 7ed3e345f07e89940ae0c1e00eeb7d1d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9508a4103bf71304a8d93a8bab99869b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

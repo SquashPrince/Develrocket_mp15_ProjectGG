@@ -12,7 +12,7 @@ public class BombMonster : MonoBehaviour
     [SerializeField] private float _warningTime = 0.5f;
     [SerializeField] private float _chargeSpeed = 10f;
     [SerializeField] private float _bombDistance = 5f;
-
+    private Animator _animator;
 
     //[SerializeField] private Transform _target;
     private bool isBomb = false;
@@ -66,6 +66,11 @@ public class BombMonster : MonoBehaviour
 
     public IEnumerator Charge()
     {
+        if (_animator == null)
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+        _animator.SetBool("isRun", true);
         transform.LookAt(_player.position);
 
         Vector3 direction =
@@ -104,6 +109,7 @@ public class BombMonster : MonoBehaviour
 
         //Debug.Log($"폭탄 이동? : {isBomb}");
         //Debug.Log("목표 도착");
+        _animator.SetBool("isRun", false);
         StartCoroutine(Bomb());
     }
     
