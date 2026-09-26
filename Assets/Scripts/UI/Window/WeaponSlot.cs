@@ -7,7 +7,7 @@ public class WeaponSlot : MonoBehaviour
 {
     public Weapon _weapon;
 
-    public Weapon[] _weapons;
+    public Weapon[] _weapons = new Weapon[3];
     [SerializeField] private Image[] _weaponImg;
 
     public void Swap(bool isLeft)

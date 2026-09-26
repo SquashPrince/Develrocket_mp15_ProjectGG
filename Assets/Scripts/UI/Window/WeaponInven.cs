@@ -20,10 +20,16 @@ public class WeaponInven : MonoBehaviour
     }
 
     public void SetData()
-    {
-        for(int i = 0; i < _weaponSlot.Length; i++)
+    {/*
+        if (GameManager.Instance.PlayerValues.WeaponDictionary.Count == 0) return;
+
+        for (int i = 0; i < _weaponSlot.Length; i++)
         {
-        }
+            for (int j = 0; j < _weaponSlot[i]._weapons.Length; j++)
+            {
+                GameManager.Instance.PlayerValues.WeaponDictionary.TryGetValue((PlayerWeaponEnum)j, out _weaponSlot[i]._weapons[j]);
+            }
+        }*/
 
         _bulletMaxMagazine.text = $"{GameManager.Instance.PlayerValues.MaxMagazine}";
         WeaponMagazine();
@@ -32,6 +38,19 @@ public class WeaponInven : MonoBehaviour
     public void WeaponMagazine(bool isView = true)
     {
         _bulletCurMagazine.text = isView ? $"{GameManager.Instance.PlayerValues.CurrentMagazine}" : "-";
+    }
+
+    public void TakeWeapon()
+    {/*
+        if (GameManager.Instance.PlayerValues.WeaponDictionary.Count == 0) return;
+
+        for (int i = 0; i < _weaponSlot.Length; i++)
+        {
+            for (int j = 0; j < _weaponSlot[i]._weapons.Length; j++)
+            {
+                GameManager.Instance.PlayerValues.WeaponDictionary.TryGetValue((PlayerWeaponEnum)j, out _weaponSlot[i]._weapons[j]);
+            }
+        }*/
     }
 
     public void WeaponSwap(bool isLeft)

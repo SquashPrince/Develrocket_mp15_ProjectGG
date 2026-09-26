@@ -63,6 +63,11 @@ public class WindowManager : MonoBehaviour
         _load.AddAction(action);
     }
 
+    public void TakeWeapon()
+    {
+        _battleWindow.TakeWeapon();
+    }
+
     public void GameStartPadOut()
     {
         Open();

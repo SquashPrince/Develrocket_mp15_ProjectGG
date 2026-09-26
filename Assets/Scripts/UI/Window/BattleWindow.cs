@@ -33,6 +33,11 @@ public class BattleWindow : MonoBehaviour, IWindowable
         _itemSlot[(int)itemEnum].UseItem();
     }
 
+    public void TakeWeapon()
+    {
+        _weaponInven.TakeWeapon();
+    }
+
     public void WeaponSwap(bool isLeft)
     {
         _weaponInven.WeaponSwap(isLeft);
@@ -40,6 +45,10 @@ public class BattleWindow : MonoBehaviour, IWindowable
 
     public void ResetUI()
     {
+        for (int i = 0; i < _itemSlot.Length; i++)
+        {
+            _itemSlot[i].SetData(GameManager.Instance.PlayerValues.ItemSlots.GetSlotState((PlayerItemEnum)i));
+        }
     }
 
     /// <summary> 던전 나가기 버튼 </summary>
