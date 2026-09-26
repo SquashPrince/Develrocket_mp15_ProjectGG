@@ -21,6 +21,8 @@ public class MoveMonster : MonoBehaviour
     private SphereCollider _sphereColider;
     private bool _isPlayerInSight = false;
     private bool _isShooting = false;
+    
+    private Animator _animator;
 
     public bool IsplayerInsight
     {
@@ -79,6 +81,11 @@ public class MoveMonster : MonoBehaviour
 
     private void MoveToPlayer()
     {
+        if (_animator == null)
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+        _animator.SetBool("isWalk", true);
         transform.LookAt(_player.position);
         Vector3 direction =
         _player.position - transform.position;
