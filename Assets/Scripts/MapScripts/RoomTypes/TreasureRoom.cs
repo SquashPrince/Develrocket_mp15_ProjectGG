@@ -32,7 +32,8 @@ public class TreasureRoom : RoomBase
     {
         base.OnExit();
         enabled = false;
-        if(_treasure != null) _treasure.gameObject.SetActive(false);
+        
+        //if(_treasure != null) _treasure.gameObject.SetActive(false);
     }
 
     /// <summary>
