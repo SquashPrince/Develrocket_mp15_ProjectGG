@@ -11,7 +11,6 @@ public class Profile : MonoBehaviour
 
 
     // -- 플레이어 체력 --
-
     private int _maxHp;
     private int _hp;
     [SerializeField] private Image[] _hpImg;
@@ -25,7 +24,7 @@ public class Profile : MonoBehaviour
         // 프로필에 나타낼 플레이어 정보
         // 체력
         // 최대 체력 넣기
-        _maxHp = 10;
+        _maxHp = GameManager.Instance.PlayerValues.MaxHp;
         _hp = _maxHp;
 
         SetUI();
@@ -47,11 +46,11 @@ public class Profile : MonoBehaviour
 
         for(int i = 0; i < _hpImg.Length; i++)
         {
-            if (heartCnt < i)
+            if (i < heartCnt)
             {
                 _hpImg[i].sprite = _hpSprite;
             }
-            else if (heartCnt == i)
+            else if (i == heartCnt)
             {
                 _hpImg[i].sprite = isHalf ? _hpHalfSprtie : _hpNoneSprite;
             }

@@ -79,6 +79,12 @@ public class Loading : MonoBehaviour
         StartCoroutine(LoadingEnd());
     }
 
+    public void GameStartPadOut()
+    {
+        _loadObj.SetActive(true);
+        StartCoroutine(LoadingEnd());
+    }
+
     private IEnumerator LoadingEnd()
     {
         float alpha = 1f;

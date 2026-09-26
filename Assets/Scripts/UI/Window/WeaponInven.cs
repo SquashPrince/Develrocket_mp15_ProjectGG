@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class WeaponInven : MonoBehaviour
 {
-    private bool IsWeaponChange;
-    private const float SWAP_COOL_TIME = 1f;
-    private float swapCoolTime;
-    private RectTransform rt;
     private Animator Ani;
 
     [SerializeField] private WeaponSlot[] _weaponSlot;
+    [SerializeField] private TextMeshProUGUI _bulletCurMagazine;
+    [SerializeField] private TextMeshProUGUI _bulletMaxMagazine;
+
     private bool _isLeft;
 
     private void Awake()
@@ -18,49 +19,28 @@ public class WeaponInven : MonoBehaviour
         CacheComponents();
     }
 
-    // 최초 1회
     public void SetData()
     {
-        IsWeaponChange = false;
-        swapCoolTime = 0f;
-        _isLeft = false;
+        for(int i = 0; i < _weaponSlot.Length; i++)
+        {
+        }
+
+        _bulletMaxMagazine.text = $"{GameManager.Instance.PlayerValues.MaxMagazine}";
+        WeaponMagazine();
     }
 
-    private void Update()
+    public void WeaponMagazine(bool isView = true)
     {
-        if (IsWeaponChange)
-        {
-            swapCoolTime += Time.deltaTime;
-
-            if (swapCoolTime >= SWAP_COOL_TIME)
-            {
-                swapCoolTime = 0f;
-                IsWeaponChange = false;
-            }
-        }
+        _bulletCurMagazine.text = isView ? $"{GameManager.Instance.PlayerValues.CurrentMagazine}" : "-";
     }
 
-    public void WeaponSwap()
+    public void WeaponSwap(bool isLeft)
     {
-        if (!IsWeaponChange)
-        {
-            float wheelInput = Input.GetAxis("Mouse ScrollWheel");
-
-            if (wheelInput > 0f)
-            {
-                IsWeaponChange = true;
-                Ani.SetTrigger("Left");
-                _isLeft = true;
-                // 휠 위로
-            }
-            else if (wheelInput < 0f)
-            {
-                IsWeaponChange = true;
-                Ani.SetTrigger("Right");
-                _isLeft = false;
-                // 휠 아래로
-            }
-        }
+        _isLeft = isLeft;
+        string aniStr = _isLeft ? "Left" : "Right";
+        Ani.SetTrigger(aniStr);
+        _bulletMaxMagazine.text = "-";
+        WeaponMagazine(false);
     }
 
     public void SwapStop()
@@ -69,11 +49,17 @@ public class WeaponInven : MonoBehaviour
         {
             _weaponSlot[i].Swap(_isLeft);
         }
+
+        RefreshWeaponInven();
+    }
+
+    public void RefreshWeaponInven()
+    {
+        SetData();
     }
 
     private void CacheComponents()
     {
-        rt = GetComponent<RectTransform>();
         Ani = GetComponent<Animator>();
     }
 }

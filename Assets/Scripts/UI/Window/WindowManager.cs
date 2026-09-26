@@ -13,13 +13,19 @@ public class WindowManager : MonoBehaviour
     public EWindowType EWindow;
     [Header("다음 윈도우 창")]
     public EWindowType NextEWindow;
-
     /// <summary> 전체 윈도우 </summary>
     [Header("전체 윈도우")]
-    [SerializeField] private GameObject[] Windows = new GameObject[System.Enum.GetValues((typeof(EWindowType))).Length];
-    [SerializeField] private Loading Load;
+    [SerializeField] private GameObject[] _windows = new GameObject[System.Enum.GetValues((typeof(EWindowType))).Length];
+
+    [SerializeField] private BattleWindow _battleWindow;
+    [SerializeField] private Loading _load;
 
     public IWindowable NowWindow { get; private set; }
+
+    public void Start()
+    {
+        GameStartPadOut();
+    }
 
     /// <summary> 윈도우 창 열기</summary>
     /// <param name="eWindow"> 창 이름</param>
@@ -35,15 +41,15 @@ public class WindowManager : MonoBehaviour
     private void Open()
     {
         // 전체 창 끄기
-        for (int i = 0; i < Windows.Length; i++)
+        for (int i = 0; i < _windows.Length; i++)
         {
-            Windows[i].SetActive(false);
+            _windows[i].SetActive(false);
         }
 
         // 맞는 창 열기
-        Windows[(int)EWindow].SetActive(true);
+        _windows[(int)EWindow].SetActive(true);
 
-        NowWindow = Windows[(int)EWindow].GetComponent<IWindowable>();
+        NowWindow = _windows[(int)EWindow].GetComponent<IWindowable>();
         NowWindow.SetActive();
     }
 
@@ -54,12 +60,18 @@ public class WindowManager : MonoBehaviour
 
     public void LoadingAddAction(Func<IEnumerator> action)
     {
-        Load.AddAction(action);
+        _load.AddAction(action);
+    }
+
+    public void GameStartPadOut()
+    {
+        Open();
+        _load.GameStartPadOut();
     }
 
     public void OpenLoading()
     {
-        Load.SetActive();
+        _load.SetActive();
     }
 
     /// <summary> 윈도우 창 뒤로가기 - 모든 윈도우 창 닫고 메인 화면으로 돌아감</summary>

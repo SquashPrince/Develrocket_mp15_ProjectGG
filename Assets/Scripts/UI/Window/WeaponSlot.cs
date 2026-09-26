@@ -7,7 +7,7 @@ public class WeaponSlot : MonoBehaviour
 {
     public Weapon _weapon;
 
-    private Weapon[] _weapons;
+    public Weapon[] _weapons;
     [SerializeField] private Image[] _weaponImg;
 
     public void Swap(bool isLeft)
@@ -33,7 +33,7 @@ public class WeaponSlot : MonoBehaviour
         for(int i = 0; i < _weaponImg.Length; i++)
         {
             // 이미지 띄우기
-            //_weaponImg[i].sprite = _weapons[i].
+            _weaponImg[i].sprite = _weapons[i].Icon;
         }
     }
 
@@ -48,7 +48,7 @@ public class WeaponSlot : MonoBehaviour
         for (int i = 0; i < _weaponImg.Length; i++)
         {
             // 이미지 띄우기
-            //_weaponImg[i].sprite = _weapons[i].
+            _weaponImg[i].sprite = _weapons[i].Icon;
         }
     }
 }

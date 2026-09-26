@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,20 +21,6 @@ public class LobbyWindow : MonoBehaviour, IWindowable
 
     public void ResetUI()
     {
-    }
-
-    private void Update()
-    {
-        SettingBtn();
-    }
-
-    /// <summary> 세팅 버튼 </summary>
-    public void SettingBtn()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            UIManager.Instance.PopUp.Open(EPopUpType.Setting);
-        }
     }
 
     /// <summary> 던전 시작 버튼 </summary>
