@@ -101,6 +101,8 @@ namespace Player
 
         private Vector3 GetDirection()
         {
+            if (UIManager.Instance.Window.EWindow == EWindowType.Lobby) return Vector3.zero;
+
             float horizontal = Input.GetAxisRaw(AXIS_HORIZONTAL);
             float vertical = Input.GetAxisRaw(AXIS_VERTICAL);
             return new Vector3(horizontal, 0f, vertical).normalized;
