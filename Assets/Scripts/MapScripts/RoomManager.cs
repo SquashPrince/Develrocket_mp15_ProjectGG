@@ -243,7 +243,7 @@ public class RoomManager : MonoBehaviour
 
     private IEnumerator MapGenerationRoutine()
     {
-        yield return new WaitUntil(() => GameManager.Instance.PlayerTransform != null && GameManager.Instance != null);
+        yield return new WaitUntil(() => GameManager.Instance != null && GameManager.Instance.PlayerTransform != null);
         _playerTransform = GameManager.Instance.PlayerTransform;
         GenerateMap();
     }
