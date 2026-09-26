@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using System;
 
 public class BattleRoom : RoomBase
 {
@@ -9,11 +10,16 @@ public class BattleRoom : RoomBase
     //private List<Item> _dropItems;
 
     [SerializeField] private List<Monster> _monsterPrefabList;
-    [SerializeField] private List<Transform> _monsterSpawnPoints;
+    [SerializeField] private List<GameObject> _spawnInfoList;
+    private Transform[] _monsterSpawnPoints;
 
     private List<Monster> _currentMonsters = new();
     private int _currentMonsterCount;
     private bool _isEntered;
+
+    private System.Random _rand = new System.Random();
+    private int _randSpawnIndex;
+    private int _randMonsterIndex;
     private bool _isEliminated => _currentMonsterCount <= 0;
 
     private void Update()
@@ -28,6 +34,7 @@ public class BattleRoom : RoomBase
 
         if (_isClear) return;
 
+        Initialize();
         SpawnMonster();
         enabled = true;
         _isEntered = true;
@@ -49,7 +56,11 @@ public class BattleRoom : RoomBase
     {
         foreach (Transform point in _monsterSpawnPoints)
         {
-            _currentMonsters.Add(Instantiate(_monsterPrefabList[0], point.position, point.rotation));
+            _randMonsterIndex = _rand.Next(0, _monsterPrefabList.Count);
+
+            if (point == _spawnInfoList[_randSpawnIndex].transform) continue;
+
+            _currentMonsters.Add(Instantiate(_monsterPrefabList[_randMonsterIndex], point.position, point.rotation));
         }
         _currentMonsterCount = _currentMonsters.Count;
         Debug.Log($"현재 몬스터 수: {_currentMonsterCount}");
@@ -72,5 +83,14 @@ public class BattleRoom : RoomBase
             Debug.Log("모든 몬스터 처치 완료.");
             _isClear = true;
         }
+    }
+
+    private void Initialize()
+    {
+        _randSpawnIndex = _rand.Next(0, _spawnInfoList.Count);
+
+        Debug.Log(_spawnInfoList.Count);
+
+        _monsterSpawnPoints = _spawnInfoList[_randSpawnIndex].GetComponentsInChildren<Transform>();
     }
 }
