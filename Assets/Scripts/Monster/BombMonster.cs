@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,6 @@ public class BombMonster : MonoBehaviour
     //[SerializeField] private Transform _target;
     private bool isBomb = false;
     
-    /*
     private bool _isPlayerInSight = false;
 
     public bool IsplayerInsight
@@ -26,13 +26,27 @@ public class BombMonster : MonoBehaviour
         {
             _isPlayerInSight = value;
         }
-    }*/
+    }
     
     public void Start()
     {
         StartCoroutine(InitRoutine());
     }
-    
+
+    private void Update()
+    {
+        if (_isPlayerInSight == true)
+        {
+            _isPlayerInSight = false;
+            if (isBomb == false && _player != null)
+            {
+                isBomb = true;
+                //_target.position = other.gameObject.transform.position;
+                StartCoroutine(Charge());
+            }
+        }
+    }
+
     public IEnumerator InitRoutine()
     {
         yield return new WaitUntil(()=> GameManager.Instance.PlayerTransform != null);
@@ -41,7 +55,7 @@ public class BombMonster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && isBomb == false)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && isBomb == false && _player != null)
         {
             isBomb = true;
             //_target.position = other.gameObject.transform.position;

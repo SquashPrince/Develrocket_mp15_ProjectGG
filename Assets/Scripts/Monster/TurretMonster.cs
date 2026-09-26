@@ -24,6 +24,15 @@ public class TurretMonster : MonoBehaviour
     private SphereCollider _sphereColider;
     private bool _isShooting = false;
 
+    public bool IsplayerInsight
+    {
+        get{ return _isPlayerInSight; }
+        set
+        {
+            _isPlayerInSight = value;
+        }
+    }
+    
     private void Awake()
     {
         
@@ -60,7 +69,7 @@ public class TurretMonster : MonoBehaviour
 
     private void Update()
     {
-        if (_isPlayerInSight == true && !_isShooting)
+        if (_isPlayerInSight == true && !_isShooting && _player != null)
         {
             StartCoroutine(AimedBurst());
         }

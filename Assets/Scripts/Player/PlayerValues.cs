@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Player
 {
@@ -161,6 +162,7 @@ namespace Player
         private PlayerItemSlot _itemSlot;
         public Transform Transform { get => _bodyTransform; }
         public bool _hasSuccessInteract;
+        public bool _canWeaponSwap = true;
         private bool _isNewChara = true;
         private int _maxWeaponSlot = 3;
         [SerializeField] private Transform _bodyTransform;
@@ -200,6 +202,8 @@ namespace Player
         private Weapon _currentWeapon;
         private Collider _weaponCollider;
         private Dictionary<PlayerWeaponEnum, Weapon> _weaponDictionary = new();
+        
+        public Dictionary<PlayerWeaponEnum, Weapon> WeaponDictionary => _weaponDictionary;
         
         // 인스턴스 & 변수
         // ==================================================
@@ -270,17 +274,32 @@ namespace Player
             return (!_weaponDictionary.ContainsValue(weapon));
         }
         
-        public void SwapNextWeapon()
+        public void SwapNextWeapon(int direction)
         {
-            if (_weaponDictionary.Count<2) return;
+            if (_weaponDictionary.Count<2 || !_canWeaponSwap) return;
             _currentWeapon.SetUnEquip();
-            _currentSlot = (PlayerWeaponEnum)(((int)_currentSlot + 1 )%_weaponDictionary.Count);
+
+            int nextSlotNum = (int)_currentSlot + direction;
+            nextSlotNum = nextSlotNum < 0 ? _weaponDictionary.Count - 1 : nextSlotNum;
+
+            _currentSlot = (PlayerWeaponEnum)(nextSlotNum % _weaponDictionary.Count);
             CurrentWeaponOff();
             _currentWeapon = _weaponDictionary[_currentSlot];
             _currentWeapon.SetEquip(_weaponTransform);
             CurrentWeaponOn();
+
+            StartCoroutine(WeaponSwapCoolDownRoutine());
         }
         
+        private IEnumerator WeaponSwapCoolDownRoutine()
+        {
+            _canWeaponSwap = false;
+
+            yield return new WaitForSeconds(1f);
+
+            _canWeaponSwap = true;
+        }
+
         public void SetWeapon(Weapon weapon)
         {
             if (_weaponDictionary.Count < _maxWeaponSlot) // 빈 무기슬롯이 있으면
