@@ -112,7 +112,7 @@ public class BombMonster : MonoBehaviour
     public IEnumerator Bomb()
     {
         // 1초 뒤 폭발
-        Debug.Log("1초 기다림 시작");
+        //Debug.Log("1초 기다림 시작");
         yield return new WaitForSeconds(1f);
 
         Vector3 monsterPosition = transform.position;
@@ -128,14 +128,14 @@ public class BombMonster : MonoBehaviour
         // 이렇게 했지만 나중에 Circle Collider 넣어서 radius로 해도됨
         if (distance <= _bombDistance)
         {
-            Debug.Log("1초 기다림 끝 폭탄 터짐: 데미지 받음");
+            //Debug.Log("1초 기다림 끝 폭탄 터짐: 데미지 받음");
             // 플레이어한테 데미지 주기 
             _playerMovment.TakeDamage(10);      // 테스트
             //Debug.Log($"데미지 받음 거리 :{Vector2.Distance(transform.position, _player.position)}");
         }
         else
         {
-            Debug.Log("1초 기다림 끝 폭탄 터짐 : 데미지 안받음");
+            //Debug.Log("1초 기다림 끝 폭탄 터짐 : 데미지 안받음");
             //Debug.Log($"데미지 안받음 거리 :{Vector2.Distance(transform.position, _player.position)}");
         }
 

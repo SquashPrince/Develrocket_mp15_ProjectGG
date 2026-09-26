@@ -78,4 +78,11 @@ public class BossControl : MonoBehaviour
             }
         }
     }
+
+    public void StopPattern()
+    {
+        StopAllCoroutines();
+        _patternQueue.Clear();
+        _timeQueue.Clear();
+    }
 }

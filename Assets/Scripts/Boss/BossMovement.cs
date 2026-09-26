@@ -20,9 +20,14 @@ public class BossMovement : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    private Monster _mon;
     private void Update()
     {
-        MoveToPlayer();
+        if (!_monster.isDead)
+        {
+            MoveToPlayer();    
+        }
+        
     }
 
     private void MoveToPlayer()
