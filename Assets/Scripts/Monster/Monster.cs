@@ -13,6 +13,8 @@ public class Monster : MonoBehaviour, IDamagable
     [SerializeField] private int _dropGold;
     [SerializeField] private bool _hasDeathEffect;
     [SerializeField] private bool _invincibility = false;
+    //[SerializeField] private ParticleSystem targetEffect;
+    
 
     // bool 값으로 아이템 하나만 떨어뜨리도록
     // 지금 총알에서 충돌 여러번 일어나서 3개씩 떨어뜨리는거 같음
@@ -65,6 +67,7 @@ public class Monster : MonoBehaviour, IDamagable
         _initSpeed = _moveSpeed;
         _animator = GetComponentInChildren<Animator>();
         _bossControl = GetComponent<BossControl>();
+        //targetEffect = GetComponentInChildren<ParticleSystem>();
     }
 
     [SerializeField] public bool isDead = false;
@@ -118,6 +121,14 @@ public class Monster : MonoBehaviour, IDamagable
             yield return new WaitForSeconds(1.5f);
         }
 
+        /*if (targetEffect != null)
+        {
+            Debug.Log("이펙트");
+            targetEffect.transform.SetParent(null);
+            targetEffect.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1f);
+        }
+        Debug.Log(targetEffect == null);*/
         
         // 아이템 혹은 골드 드랍
         ItempDrop();

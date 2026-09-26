@@ -12,7 +12,7 @@ public class BombMonster : MonoBehaviour
     [SerializeField] private float _warningTime = 0.5f;
     [SerializeField] private float _chargeSpeed = 10f;
     [SerializeField] private float _bombDistance = 5f;
-
+    private Animator _animator;
 
     //[SerializeField] private Transform _target;
     private bool isBomb = false;
@@ -28,9 +28,13 @@ public class BombMonster : MonoBehaviour
         }
     }
     
+    
+    [SerializeField] private ParticleSystem targetEffect;
+    
     public void Start()
     {
         StartCoroutine(InitRoutine());
+        targetEffect = GetComponentInChildren<ParticleSystem>();
     }
 
     private void Update()
@@ -66,6 +70,11 @@ public class BombMonster : MonoBehaviour
 
     public IEnumerator Charge()
     {
+        if (_animator == null)
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+        _animator.SetBool("isRun", true);
         transform.LookAt(_player.position);
 
         Vector3 direction =
@@ -104,6 +113,7 @@ public class BombMonster : MonoBehaviour
 
         //Debug.Log($"폭탄 이동? : {isBomb}");
         //Debug.Log("목표 도착");
+        _animator.SetBool("isRun", false);
         StartCoroutine(Bomb());
     }
     
@@ -150,6 +160,17 @@ public class BombMonster : MonoBehaviour
             }
         }
 
+        
+        if (targetEffect != null)
+        {
+            targetEffect.Play();
+            Debug.Log("이펙트");
+            //targetEffect.transform.SetParent(null);
+            //targetEffect.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+        }
+        
+        
 
         Destroy(gameObject);
     }
