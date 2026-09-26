@@ -7,6 +7,8 @@ public class Item : MonoBehaviour, IInteractable
     [SerializeField] private string _name;
     [SerializeField] private string _info;
 
+    [SerializeField] private Sprite _icon;
+    public Sprite Icon => _icon;
     public string Name => _name;
     public string Info => _info;
 

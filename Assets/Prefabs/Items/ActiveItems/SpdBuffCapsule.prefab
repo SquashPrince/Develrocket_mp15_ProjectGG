@@ -72,13 +72,15 @@ MonoBehaviour:
   _name: "\uC2E0\uC18D\uC758 \uCEA1\uC290"
   _info: "10\uCD08 \uB3D9\uC548 \uC774\uB3D9\uC18D\uB3C4\uB97C \uC99D\uAC00\uC2DC\uD0A4\uB294
     \uCEA1\uC290"
+  _icon: {fileID: 0}
   CanInteract: 1
   targetSlot: 2
+  _cooldown: 15
   _effects:
   - effect: {fileID: 11400000, guid: 2705b9d4217766b4e9f9a4aa8bfba7bb, type: 2}
-    amount: 1.5
+    amount: 100
     time: 10
-  _model: {fileID: 0}
+  _model: {fileID: 3113017658126144240}
 --- !u!1001 &5581101525579573634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -191,5 +193,10 @@ PrefabInstance:
 --- !u!4 &2339753861600823370 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7857787365096382920, guid: 19b7e95a091652640b4df605bec6a161, type: 3}
+  m_PrefabInstance: {fileID: 5581101525579573634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3113017658126144240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7370043300670028658, guid: 19b7e95a091652640b4df605bec6a161, type: 3}
   m_PrefabInstance: {fileID: 5581101525579573634}
   m_PrefabAsset: {fileID: 0}

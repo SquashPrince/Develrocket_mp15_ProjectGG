@@ -6,6 +6,9 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
 
+    public static readonly HashSet<Bullet> ActiveBullets = new HashSet<Bullet>();
+    private void OnEnable() => ActiveBullets.Add(this);
+    private void OnDisable() => ActiveBullets.Remove(this);
     private Vector3 _direction;
 
     public void SetDirection(Vector3 direction)
@@ -15,6 +18,13 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(_direction * _speed * Time.deltaTime);
+        Vector3 next = transform.position + transform.TransformDirection(_direction * _speed * Time.deltaTime);
+        if (BulletBarrier.BlocksSegment(transform.position, next, gameObject.layer))
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+            return;
+        }
+        transform.position = next;
     }
 }

@@ -21,6 +21,10 @@ public interface IInteractor
     bool CanInteractItem(PlayerItemEnum targetSlot);
     void SetItem(Item item, PlayerItemEnum targetSlot);
 
+    bool TrySetItem(Item item, PlayerItemEnum targetSlot);
+    int DamageShieldCharges { get; set; }
+    bool TryConsumeDamageShield();
+    int Shield { get; set; }
     int Hp { get; set; }
     int BaseShield { get; set; }
     int BaseMaxHp { get; set; }

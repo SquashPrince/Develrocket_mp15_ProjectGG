@@ -6,17 +6,17 @@ namespace Player
 {
     public class PlayerValues : MonoBehaviour, IInteractor
     {
-        private const float DefaultHitTime = 0.3f; // 피격무적시간
+        private const float DefaultHitTime = 3f; // 피격무적시간
         private const float DefaultDodgeTime = 0.5f; // 회피무적시간
         private const float DefaultAttackSpeed = 0.5f; // 공격속도
         private const float DefaultMinAttackSpeed = 0.05f; // 최소공격속도
         private const int DefaultMoveSpeed = 5; // 이동속도
         private const int DefaultMinMoveSpeed = 1; // 최소이동속도
         private const int DefaultMaxHp = 10; // 최대HP
+        private const int DefaultMaxShield = 10; // 최대HP
         private const int DefaultStartGold = 100; // 시작골드
         private const int DefaultStartGem = 0; // 시작보석
         private const int DefaultShield = 0; // 보호막
-        private const int DefaultMaxShield = 0;
         
         // 상수 (기본값)
         // ============================================================
@@ -29,8 +29,34 @@ namespace Player
         public int BaseGold {get; set;}
         public int BaseGem { get; set; }
         public int BaseHp { get; set; }
-        public int BaseShield { get; set; }
-        public int BaseMaxShield { get; set; }
+        private int _baseShield;
+        public int BaseShield
+        {
+            get => _baseShield;
+            set => _baseShield = Mathf.Clamp(value, 0, Mathf.Max(0, BaseMaxShield));
+        }
+        private int _damageShieldCharges;
+        public int DamageShieldCharges
+        {
+            get => _damageShieldCharges;
+            set => _damageShieldCharges = Mathf.Clamp(value, 0, 1);
+        }
+        public bool TryConsumeDamageShield()
+        {
+            if (DamageShieldCharges == 0) return false;
+            DamageShieldCharges = 0;
+            return true;
+        }
+        private int _baseMaxShield;
+        public int BaseMaxShield
+        {
+            get => _baseMaxShield;
+            set
+            {
+                _baseMaxShield = Mathf.Max(0, value);
+                _baseShield = Mathf.Min(_baseShield, _baseMaxShield);
+            }
+        }
         
         // 프로퍼티 (연산X)
         // ============================================================
@@ -51,7 +77,6 @@ namespace Player
             get => BaseHp;
             set
             {
-                Debug.Log(value);
                 int amount = (value - BaseHp);
                 int hp = amount > 0
                     ? BaseHp + (amount * rateHpIncrease)/100
@@ -59,7 +84,6 @@ namespace Player
                 if (hp > MaxHp) BaseHp = MaxHp;
                 else if (hp < 0) BaseHp = 0;
                 else BaseHp = hp;
-                Debug.Log(BaseHp);
             }
         }
         public int MaxHp => (BaseMaxHp * rateMaxHp)/100;
@@ -140,7 +164,31 @@ namespace Player
         private bool _isNewChara = true;
         private int _maxWeaponSlot = 3;
         [SerializeField] private Transform _bodyTransform;
+        [SerializeField] private Transform _weaponTransform;
         public Weapon EquippedWeapon => _currentWeapon;
+        public PlayerItemSlot ItemSlots => _itemSlot;
+        public int CurrentMagazine => _currentWeapon != null ? _currentWeapon.CurrentMagazine : 0;
+        public int MaxMagazine => _currentWeapon != null ? _currentWeapon.MaxMagazine : 0;
+        // UI는 구독 후 현재 프로퍼티로 최초 표시하고 이후 이벤트로 갱신한다.
+        public event Action<int, int> OnAmmoChanged;
+        private Weapon _lastAmmoWeapon;
+        private int _lastCurrentMagazine = -1;
+        private int _lastMaxMagazine = -1;
+
+        private void LateUpdate()
+        {
+            int current = CurrentMagazine;
+            int maximum = MaxMagazine;
+            if (_lastAmmoWeapon == _currentWeapon && _lastCurrentMagazine == current
+                && _lastMaxMagazine == maximum) return;
+            _lastAmmoWeapon = _currentWeapon;
+            _lastCurrentMagazine = current;
+            _lastMaxMagazine = maximum;
+            OnAmmoChanged?.Invoke(current, maximum);
+        }
+        public bool IsReloading => _currentWeapon != null
+            && _currentWeapon.isActiveAndEnabled && _currentWeapon.IsReloading;
+        public float ReloadProgress => IsReloading ? _currentWeapon.ReloadProgress : 0f;
 
         private PlayerWeaponEnum _firstSlot;
         private PlayerWeaponEnum _secondSlot;
@@ -165,14 +213,15 @@ namespace Player
             _itemSlot = GetComponent<PlayerItemSlot>();
             _playerTalent = GetComponent<PlayerTalent>();
         }
+
         // 이벤트 함수
         // ==================================================
         
         /** 시작시 플레이어 데이터를 초기화 하는 함수 */
         private void SetDefault()
         {
-            SetToStartValues();
             SetToStartRate();
+            SetToStartValues();
             if (_isNewChara) SetNewChara();
             else _playerTalent.TalentsLoad();
         }
@@ -181,6 +230,7 @@ namespace Player
         private void SetToStartValues()
         {
             BaseMaxHp = DefaultMaxHp;
+            BaseMaxShield = DefaultMaxShield;
             BaseHp = MaxHp;
             BaseMoveSpeed = DefaultMoveSpeed;
             BaseAttackSpeed = DefaultAttackSpeed;
@@ -188,7 +238,6 @@ namespace Player
             BaseDodgeTime = DefaultDodgeTime;
             BaseGold = DefaultStartGold;
             BaseShield = DefaultShield;
-            BaseMaxShield = DefaultMaxShield;
         }
 
         /** 플레이어 데이터 - 배율 초기화 */
@@ -228,7 +277,7 @@ namespace Player
             _currentSlot = (PlayerWeaponEnum)(((int)_currentSlot + 1 )%_weaponDictionary.Count);
             CurrentWeaponOff();
             _currentWeapon = _weaponDictionary[_currentSlot];
-            _currentWeapon.SetEquip(Transform);
+            _currentWeapon.SetEquip(_weaponTransform);
             CurrentWeaponOn();
         }
         
@@ -240,7 +289,7 @@ namespace Player
                 {
                     _currentSlot = _firstSlot; // 현재 슬롯 = 1번째
                     _currentWeapon = weapon; // 현재무기 = 집어든 무기
-                    _currentWeapon.SetEquip(Transform); // 현재 무기 장착
+                    _currentWeapon.SetEquip(_weaponTransform); // 현재 무기 장착
                     AddDictionary(_firstSlot, weapon); // 1번 슬롯에 집어든 무기 추가
                     _hasSuccessInteract = true; // 상호작용 성공
                     return ;
@@ -255,7 +304,7 @@ namespace Player
             
             _currentWeapon = weapon; // // 현재 무기를 집어든 무기로 변경
             AddDictionary(_currentSlot,_currentWeapon); // 집어든 무기 현재 슬롯에 추가
-            _currentWeapon.SetEquip(Transform); // 현재 무기 장착
+            _currentWeapon.SetEquip(_weaponTransform); // 현재 무기 장착
             CurrentWeaponOn(); // 무기 오브젝트 활성화
             _hasSuccessInteract = true; // 상호작용 성공
         }
@@ -296,13 +345,18 @@ namespace Player
         
         public void SetItem(Item item, PlayerItemEnum slot)
         {
-            _itemSlot.SetItem(item, slot);
+            TrySetItem(item, slot);
+        }
+
+        public bool TrySetItem(Item item, PlayerItemEnum slot)
+        {
+            return _itemSlot != null && _itemSlot.TrySetItem(item, slot);
         }
 
         public bool CanInteractItem(PlayerItemEnum targetslot)
         
         {
-            return _itemSlot.CanInteract(targetslot);
+            return _itemSlot != null && _itemSlot.CanInteract(targetslot);
         }
     }
 }

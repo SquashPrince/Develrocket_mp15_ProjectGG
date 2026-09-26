@@ -1,18 +1,26 @@
 using UnityEngine;
 
+// 선택적인 쉴드 표시 오브젝트. 실제 차단 상태는 소유자에게 있다.
 public class ShieldActor : MonoBehaviour, IDamagable
 {
     public GameObject GameObject => gameObject;
-
+    private IInteractor _owner;
     public void Initialize(IInteractor owner, float radius)
     {
-        // TODO: 무효화 효과 구현. 전용 프리팹의 콜라이더와 소유자 설정.
-        Debug.Log("무효화 효과 구현 필요: 쉴드 초기화 요청");
+        _owner = owner;
+        if (_owner == null) { Destroy(gameObject); return; }
+        _owner.DamageShieldCharges = 1;
+        if (TryGetComponent<SphereCollider>(out var sphere)) sphere.radius = Mathf.Max(0f, radius);
     }
-
     public void TakeDamage(int damage)
     {
-        // TODO: 피해 1회를 막고 충돌 중지, 피격 무적 발동, 쉴드 제거 순서로 구현.
-        Debug.Log($"무효화 효과 구현 필요: 쉴드 피해 요청 {damage}");
+        if (damage <= 0 || _owner == null || !_owner.TryConsumeDamageShield()) return;
+        foreach (var collider in GetComponentsInChildren<Collider>()) collider.enabled = false;
+        Destroy(gameObject);
+    }
+    private void Update()
+    {
+        if (_owner == null || _owner.Transform == null || _owner.DamageShieldCharges == 0)
+            Destroy(gameObject);
     }
 }

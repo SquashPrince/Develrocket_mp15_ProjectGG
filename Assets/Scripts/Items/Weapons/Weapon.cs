@@ -26,6 +26,14 @@ public class Weapon : Item, IAttackable
     protected int _currentMagazine;
     protected bool _canReload;
 
+    public int CurrentMagazine => _currentMagazine;
+    public int MaxMagazine => _maxMagazine;
+    private float _reloadStartedAt;
+    public bool IsReloading => !CanInteract && !_canReload;
+    public float ReloadProgress => _reloadDelay > 0f
+        ? Mathf.Clamp01((Time.time - _reloadStartedAt) / _reloadDelay)
+        : 1f;
+
     protected virtual void Awake() => CacheComponent();
     private void Start() => InitBullets();
     private void Update()
@@ -66,6 +74,7 @@ public class Weapon : Item, IAttackable
     }
     protected IEnumerator ReloadRoutine()
     {
+        _reloadStartedAt = Time.time;
         _canReload = false;
 
         yield return new WaitForSeconds(_reloadDelay);
@@ -103,6 +112,12 @@ public class Weapon : Item, IAttackable
         Debug.Log($"{Name} 장착해제 됨");
 
         CanInteract = true;
+
+        Vector3 unEquipRot = transform.root.eulerAngles;
+        unEquipRot.z = 0f;
+
+        transform.position = transform.root.position;
+        transform.eulerAngles = unEquipRot;
 
         transform.SetParent(null);
     }
