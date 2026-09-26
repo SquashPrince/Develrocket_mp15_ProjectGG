@@ -5,10 +5,13 @@ using UnityEngine;
 public class TreasureRoom : RoomBase
 {
     [SerializeField] private Transform _treasureSpawnPoint;
-    [SerializeField] private Item _itemPrefab;
+    [SerializeField] private List<Item> _itemPrefabList = new();
     [SerializeField] private float _rotateSpeed;
     private Item _treasure;
     private bool _isEntered;
+
+    private System.Random _rand = new System.Random();
+    private int _randomItemIndex;
 
     private void FixedUpdate()
     {
@@ -47,7 +50,8 @@ public class TreasureRoom : RoomBase
             return;
         }
 
-        _treasure  = Instantiate(_itemPrefab, _treasureSpawnPoint.position, _treasureSpawnPoint.rotation);
+        _randomItemIndex = _rand.Next(0, _itemPrefabList.Count);
+        _treasure  = Instantiate(_itemPrefabList[_randomItemIndex], _treasureSpawnPoint.position, _treasureSpawnPoint.rotation);
     }
 
     private void RotateItem()
