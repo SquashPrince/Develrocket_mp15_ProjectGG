@@ -10,6 +10,7 @@ public class Weapon : Item, IAttackable
     [SerializeField] protected GunBullet _bullet;
     [SerializeField] protected ObjectPool<GunBullet> _gunbullet;
     [SerializeField] protected Transform _muzzle;
+    [SerializeField] protected EWeaponType _EWeaponType;
 
     [SerializeField] protected int _damage;
     [SerializeField] protected int _maxMagazine;
@@ -26,6 +27,7 @@ public class Weapon : Item, IAttackable
     protected int _currentMagazine;
     protected bool _canReload;
 
+    public EWeaponType EWeaponType => _EWeaponType;
     public int CurrentMagazine => _currentMagazine;
     public int MaxMagazine => _maxMagazine;
     private float _reloadStartedAt;
