@@ -29,6 +29,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private BossRoom _bossRoomPrefab;
 
     [SerializeField] private Transform _roomRoot;
+    [SerializeField] private float _customRoomOffset;
 
     /// <summary>
     /// 배열에서의 좌표를 Key로, 방에 대한 참조를 Value로 가집니다. KeyValuePair로 접근하시면 됩니다.
@@ -43,7 +44,7 @@ public class RoomManager : MonoBehaviour
     /// <summary>
     /// 방과 방이 소환될 때 그 사이 크기에 대한 오프셋을 정의하고 있습니다. 뒤의 실수부를 수정하면, 더 크게 방을 띄울 수 있습니다.
     /// </summary>
-    private float _roomSizeOffset => _roomPrefab.transform.localScale.x * 15.0f;
+    private float _roomSizeOffset => _roomPrefab.transform.localScale.x * _customRoomOffset;
 
     /// <summary>
     /// 현재 방에 대한 참조를 가집니다.
