@@ -37,9 +37,9 @@ public class BattleWindow : MonoBehaviour, IWindowable
         _itemSlot[(int)itemEnum].UseItem();
     }
 
-    public void TakeWeapon()
+    public void TakeWeapon(PlayerWeaponEnum weaponEnum, Weapon weapon)
     {
-        _weaponInven.TakeWeapon();
+        _weaponInven.TakeWeapon(weaponEnum, weapon);
     }
 
     public void WeaponSwap(bool isLeft)

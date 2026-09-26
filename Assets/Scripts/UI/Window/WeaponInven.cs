@@ -35,18 +35,18 @@ public class WeaponInven : MonoBehaviour
         _bulletCurMagazine.text = isView ? $"{GameManager.Instance.PlayerValues.CurrentMagazine}" : "-";
     }
 
-    public void TakeWeapon()
+    public void TakeWeapon(PlayerWeaponEnum weaponEnum, Weapon weapon)
     {
         for (int i = 0; i < _weaponSlot.Length; i++)
         {
-            _weaponSlot[i].SetData();
+            _weaponSlot[i].TakeWeapon(weaponEnum, weapon);
         }
     }
 
     public void WeaponSwap(bool isLeft)
     {
         _isLeft = isLeft;
-        string aniStr = _isLeft ? "Left" : "Right";
+        string aniStr = _isLeft ? "Right" : "Left";
         Ani.SetTrigger(aniStr);
         _bulletMaxMagazine.text = "-";
         WeaponMagazine(false);
@@ -58,15 +58,7 @@ public class WeaponInven : MonoBehaviour
         {
             _weaponSlot[i].Swap(_isLeft);
         }
-
-        RefreshWeaponInven();
     }
-
-    public void RefreshWeaponInven()
-    {
-        SetData();
-    }
-
     private void CacheComponents()
     {
         Ani = GetComponent<Animator>();

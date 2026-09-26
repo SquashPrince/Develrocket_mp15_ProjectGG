@@ -279,13 +279,14 @@ namespace Player
             if (_weaponDictionary.Count<2 || !_canWeaponSwap) return;
             _currentWeapon.SetUnEquip();
 
-            int nextSlotNum = (int)_currentSlot + direction;
+            int nextSlotNum = (int)_currentSlot + -direction;
             nextSlotNum = nextSlotNum < 0 ? _weaponDictionary.Count - 1 : nextSlotNum;
 
             _currentSlot = (PlayerWeaponEnum)(nextSlotNum % _weaponDictionary.Count);
             CurrentWeaponOff();
             _currentWeapon = _weaponDictionary[_currentSlot];
             _currentWeapon.SetEquip(_weaponTransform);
+            UIManager.Instance.Window.WeaponSwap(direction < 0);
             CurrentWeaponOn();
 
             StartCoroutine(WeaponSwapCoolDownRoutine());
@@ -310,10 +311,12 @@ namespace Player
                     _currentWeapon = weapon; // 현재무기 = 집어든 무기
                     _currentWeapon.SetEquip(_weaponTransform); // 현재 무기 장착
                     AddDictionary(_firstSlot, weapon); // 1번 슬롯에 집어든 무기 추가
+                    UIManager.Instance.Window.TakeWeapon(_firstSlot, weapon);
                     _hasSuccessInteract = true; // 상호작용 성공
                     return ;
                 }
                 AddDictionary((PlayerWeaponEnum)_weaponDictionary.Count, weapon); // 딕셔너리 맨 앞쪽 빈 슬롯에 무기 추가
+                UIManager.Instance.Window.TakeWeapon((PlayerWeaponEnum)(_weaponDictionary.Count - 1), weapon);
                 weapon.gameObject.SetActive(false); // 무기 오브젝트 비활성화
                 _hasSuccessInteract = true; // 상호작용 성공
                 return;
@@ -323,6 +326,7 @@ namespace Player
             
             _currentWeapon = weapon; // // 현재 무기를 집어든 무기로 변경
             AddDictionary(_currentSlot,_currentWeapon); // 집어든 무기 현재 슬롯에 추가
+            UIManager.Instance.Window.TakeWeapon(_currentSlot, weapon);
             _currentWeapon.SetEquip(_weaponTransform); // 현재 무기 장착
             CurrentWeaponOn(); // 무기 오브젝트 활성화
             _hasSuccessInteract = true; // 상호작용 성공

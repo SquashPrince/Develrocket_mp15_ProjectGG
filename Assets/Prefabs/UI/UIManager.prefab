@@ -530,6 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf197da39b5bf14c8b3f587d35de7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotNum: 2
   _weapon: {fileID: 0}
   _weaponImg:
   - {fileID: 3288859664620904395}
@@ -590,6 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf197da39b5bf14c8b3f587d35de7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotNum: 1
   _weapon: {fileID: 0}
   _weaponImg:
   - {fileID: 2332188805758310945}
@@ -2908,6 +2910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf197da39b5bf14c8b3f587d35de7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotNum: 0
   _weapon: {fileID: 0}
   _weaponImg:
   - {fileID: 6678463390283192571}
@@ -5017,7 +5020,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponSlot:
+  - {fileID: 2473074957328586899}
   - {fileID: 3016918382853475468}
+  - {fileID: 6132620848526248183}
   _bulletCurMagazine: {fileID: 6641095069047567635}
   _bulletMaxMagazine: {fileID: 8101091328725694124}
 --- !u!1 &4105234773388189101
@@ -10697,7 +10702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed5e24512a74a449ac0cbccab52aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slotNum: 0
+  _slotNum: 1
   _itemImg: {fileID: 1128042461614484915}
   _itemCntTxt: {fileID: 3184247498814014783}
   _coolDownImg: {fileID: 2766867755005519504}
@@ -11301,7 +11306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed5e24512a74a449ac0cbccab52aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slotNum: 0
+  _slotNum: 2
   _itemImg: {fileID: 5979689541299005279}
   _itemCntTxt: {fileID: 2608067297464805117}
   _coolDownImg: {fileID: 4564304162182591460}
