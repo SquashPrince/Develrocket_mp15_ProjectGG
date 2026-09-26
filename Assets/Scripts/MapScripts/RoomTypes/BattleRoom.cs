@@ -54,6 +54,7 @@ public class BattleRoom : RoomBase
     {
         foreach (Transform point in _monsterSpawnPoints)
         {
+            if (point == _spawnInfoList[_randSpawnIndex].transform) continue;
             _currentMonsters.Add(Instantiate(_monsterPrefabList[0], point.position, point.rotation));
         }
         _currentMonsterCount = _currentMonsters.Count;
@@ -82,7 +83,7 @@ public class BattleRoom : RoomBase
     private void Initialize()
     {
         System.Random rand = new System.Random();
-        int _randSpawnIndex = rand.Next(0, _spawnInfoList.Count);
+        _randSpawnIndex = rand.Next(0, _spawnInfoList.Count);
 
         Debug.Log(_spawnInfoList.Count);
 
