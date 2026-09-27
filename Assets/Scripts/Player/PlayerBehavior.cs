@@ -14,8 +14,16 @@ namespace Player
         private Camera _camera;
         private Vector3 _direction;
         private Vector3 _cursorPosition;
+        
         private bool _hasDetectInteractable => _interactableList.Count > 0;
 
+        // 아이템 정보 표시용
+        public IInteractable TargetInteractable => _targetInteractable;
+        public Item TargetItem => _targetInteractable as Item;
+        public event Action<IInteractable> OnTargetInteractableChanged;
+
+        private string _itemToastMessage;
+        //
 
         [SerializeField] private Renderer[] _hitRenderers;
         private bool[] _rendererEnabledBeforeHit;
@@ -33,8 +41,11 @@ namespace Player
 
         private void Update()
         {
+            if (GameManager.Instance != null && !GameManager.Instance.CanPlay) return;
             PlayerMove();
             PlayerCursor();
+
+            RefreshInteractTarget();
         }
 
         private void OnEnable()
@@ -53,19 +64,29 @@ namespace Player
             PlayerInput.OnDodge -= OnDodge;
             PlayerInput.OnSwap -= OnSwap;
             PlayerInput.OnShot -= OnShot;
+
+            _interactableList.Clear();
+            RefreshInteractTarget();
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)) return;
-            _interactableList.Add(inter);
+
+            if (!_interactableList.Contains(inter))
+                _interactableList.Add(inter);
+
+            RefreshInteractTarget();
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (!other.gameObject.TryGetComponent<IInteractable>(out IInteractable inter)) return;
+
             _playerValues._hasSuccessInteract = false;
             _interactableList.Remove(inter);
+
+            RefreshInteractTarget();
         }
 
         // ========================================
@@ -79,15 +100,25 @@ namespace Player
 
         private void OnInteract()
         {
+            // 유효하지 않은 아이템 정리 및 표시 대상 갱신
+            RefreshInteractTarget();
+
             if (!_hasDetectInteractable) return;
+
             Debug.Log($"{_interactableList[0].Name} : 상호작용 시도");
-            IInteractable target = _interactableList[0];
+            
+            IInteractable target = _interactableList[0]; 
             target.Interact(_playerValues);
+            
             // 슬롯이 가득 차서 획득하지 못한 아이템은 재시도할 수 있다.
             if (target is Item item && item != null && item.CanInteract) return;
+            
             _interactableList.Remove(target);
+
+            // 획득후 다음 아이템 표시 or 표시 종료
+            RefreshInteractTarget();
         }
-        
+
         // 무기교체
         // ========================================
         private void OnSwap(int direction)
@@ -118,6 +149,80 @@ namespace Player
             if (_isDodging) return;
             _direction = direction;
         }
+
+        // 아이템 정보 출력용
+        // ========================================
+        private void RefreshInteractTarget()
+        {
+            _interactableList.RemoveAll(
+                target => target is not UnityEngine.Object obj ||
+                obj == null ||
+                (target is Item item &&
+                 (!item.CanInteract || !item.gameObject.activeInHierarchy))
+                 );
+
+            IInteractable nextTarget = _interactableList.Count > 0 ? _interactableList[0] : null;
+            
+            if (ReferenceEquals(_targetInteractable, nextTarget)) return;
+
+            _targetInteractable = nextTarget;
+
+            // 디버그용
+            if (_targetInteractable != null)
+            {
+                _itemToastMessage = $"{_targetInteractable.Name}\n{_targetInteractable.Info}";
+                Debug.Log(_itemToastMessage);
+
+            }
+            else
+            {
+                _itemToastMessage = null;
+                Debug.Log("[아이템 정보] 표시 종료");
+            }
+            ///
+
+            OnTargetInteractableChanged?.Invoke(_targetInteractable);
+        }
+
+        // 아이템 정보 출력용 임시 토스트 메세지
+        private void OnGUI()
+        {
+            Item target = TargetItem;
+
+            if (target == null || _camera == null ||
+                string.IsNullOrEmpty(_itemToastMessage)) return;
+
+            // 아이템보다 약간 위의 위치
+            Vector3 worldPosition = target.transform.position + Vector3.up * 1.5f;
+            Vector3 screenPosition = _camera.WorldToScreenPoint(worldPosition);
+
+            // 카메라 뒤에 있으면 표시하지 않음
+            if (screenPosition.z <= 0f)
+                return;
+
+            float width = 300f;
+            float height = 80f;
+
+            // 화면 좌표는 왼쪽 아래 기준,
+            // OnGUI 좌표는 왼쪽 위 기준이므로 Y를 뒤집음
+            Rect rect = new Rect(
+                screenPosition.x - width * 0.5f,
+                Screen.height - screenPosition.y - height - 10f,
+                width,
+                height);
+
+            GUIStyle style = new GUIStyle(GUI.skin.box)
+            {
+                fontSize = 20,
+                alignment = TextAnchor.MiddleCenter,
+                wordWrap = true
+            };
+
+            style.normal.textColor = Color.white;
+
+            GUI.Box(rect, _itemToastMessage, style);
+        }
+
 
         // 이동
         // ========================================

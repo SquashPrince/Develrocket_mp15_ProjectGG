@@ -7,13 +7,13 @@ public class BattleExitPopUp : MonoBehaviour
 {
     public void YesBtn()
     {
-        UIManager.Instance.Window.NextEWindow = EWindowType.Lobby;
-        UIManager.Instance.Window.OpenLoading();
+        GameManager.Instance.ReturnToLobby();
         gameObject.SetActive(false);
     }
 
     public void NoBtn()
     {
+        GameManager.Instance.SetPaused(false);
         gameObject.SetActive(false);
     }
 }   

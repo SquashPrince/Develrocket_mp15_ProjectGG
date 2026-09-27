@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class StairController : MonoBehaviour
 {
+    private PlayerInputManager _input;
+
     private void Start()
     {
         gameObject.SetActive(false);
@@ -16,7 +18,9 @@ public class StairController : MonoBehaviour
     {
         if(other.GetComponent<IInteractor>() != null)
         {
-            PlayerInputManager.Instance.OnInteract += ExitFloor;
+            _input = PlayerInputManager.Instance;
+            _input.OnInteract -= ExitFloor;
+            _input.OnInteract += ExitFloor;
         }
     }
 
@@ -24,13 +28,18 @@ public class StairController : MonoBehaviour
     {
         if(other.GetComponent<IInteractor>()!= null)
         {
-            PlayerInputManager.Instance.OnInteract -= ExitFloor;
+            if (_input != null) _input.OnInteract -= ExitFloor;
         }
+    }
+
+    private void OnDisable()
+    {
+        if (_input != null) _input.OnInteract -= ExitFloor;
     }
 
     private void ExitFloor()
     {
-        UIManager.Instance.Window.NextEWindow = EWindowType.Lobby;
-        UIManager.Instance.Window.OpenLoading();
+        if (GameManager.Instance == null || !GameManager.Instance.CanPlay) return;
+        GameManager.Instance.CompleteGame();
     }
 }

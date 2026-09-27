@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a27c96056c364887602024fede77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 20
+  _maxHP: 250
   _moveSpeed: 1
   _attackCooldown: 1
   _dropGold: 7
@@ -1450,10 +1450,14 @@ MonoBehaviour:
   isDead: 0
   _turretMonster: {fileID: 0}
   _items:
-  - {fileID: 6744266172686893555, guid: 6c1861a9db3018946ad6f8bb6c18898e, type: 3}
+  - {fileID: 2779110614589978133, guid: de9c3311481b28940879788c52681011, type: 3}
+  - {fileID: 1205638660664144630, guid: 5af70856b15981042a6fbbc199b90cbb, type: 3}
+  - {fileID: 6042560153029041929, guid: 6d6b2ccabf2ab844bacfa362fa81c290, type: 3}
+  - {fileID: 1952314252428269485, guid: a328df194cf5ba24dbeadd90b692001e, type: 3}
+  - {fileID: 5069283620304810602, guid: 27e3b8c0c64c82d47b4117928b8799c4, type: 3}
+  - {fileID: 149464711028832961, guid: 35050edc3a701494796d5b3e8fe2b758, type: 3}
   - {fileID: 550634396582469640, guid: 18456b87b0016994882aebdcd55570ed, type: 3}
-  - {fileID: 7387617996012505947, guid: 6f2f5ac498bf7df40a08828632c8a0a7, type: 3}
-  - {fileID: 0}
+  - {fileID: 1378856840205769743, guid: cb5c1af6789e65c4d9ade7c84f25f636, type: 3}
   _gold: 0
 --- !u!114 &999488234955632399
 MonoBehaviour:

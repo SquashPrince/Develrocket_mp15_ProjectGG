@@ -22,4 +22,16 @@ public class PopUpManager : MonoBehaviour
                 break;
         }
     }
+
+    public void Close(EPopUpType ePopUp)
+    {
+        switch (ePopUp)
+        {
+            case EPopUpType.Ability:
+                break;
+            case EPopUpType.BattleExit:
+                _battleExit.gameObject.SetActive(false);
+                break;
+        }
+    }
 }

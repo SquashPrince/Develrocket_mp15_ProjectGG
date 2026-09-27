@@ -78,7 +78,14 @@ namespace Player
         /** 인풋 확인 후 이벤트 알림 */
         private void ReadInput()
         {
+            if (GameManager.Instance != null && !GameManager.Instance.CanPlay)
+            {
+                OnMove?.Invoke(Vector3.zero);
+                return;
+            }
             if (Input.GetKeyDown(_interactKey)) OnInteract?.Invoke();
+            // 계단 상호작용으로 이번 프레임에 크레딧이 열린 경우 나머지 입력 차단.
+            if (GameManager.Instance != null && !GameManager.Instance.CanPlay) return;
             if (Input.GetKey(_shotKey)) OnShot?.Invoke();
             OnMove?.Invoke(GetDirection());
             if (Input.GetKeyDown(_dodgeKey)) OnDodge?.Invoke();

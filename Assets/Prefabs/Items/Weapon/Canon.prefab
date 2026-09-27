@@ -54,7 +54,7 @@ MonoBehaviour:
   _bullet: {fileID: 6268267434552497361, guid: 03e880f9604c2744695a546e5fb0962d, type: 3}
   _muzzle: {fileID: 3946111504645925436}
   _EWeaponType: 1
-  _damage: 5
+  _damage: 30
   _maxMagazine: 3
   _fireTime: 1.5
   _attackRange: 50

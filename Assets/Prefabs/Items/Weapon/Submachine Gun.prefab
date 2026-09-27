@@ -56,7 +56,7 @@ MonoBehaviour:
   _EWeaponType: 4
   _damage: 2
   _maxMagazine: 100
-  _fireTime: 0.3
+  _fireTime: 0.15
   _attackRange: 50
   _bulletSpeed: 25
   _reloadDelay: 1.25

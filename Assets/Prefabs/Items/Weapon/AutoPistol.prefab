@@ -53,9 +53,10 @@ MonoBehaviour:
   CanInteract: 1
   _bullet: {fileID: 2862554771222924387, guid: b1b3663410fbb34418568326a8904fc2, type: 3}
   _muzzle: {fileID: 3946111504645925436}
-  _damage: 1
+  _EWeaponType: 0
+  _damage: 2
   _maxMagazine: 10
-  _fireTime: 0.6
+  _fireTime: 0.5
   _attackRange: 50
   _bulletSpeed: 25
   _reloadDelay: 0
