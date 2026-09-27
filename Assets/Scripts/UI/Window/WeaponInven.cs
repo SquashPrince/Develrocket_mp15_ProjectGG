@@ -12,24 +12,17 @@ public class WeaponInven : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _bulletCurMagazine;
     [SerializeField] private TextMeshProUGUI _bulletMaxMagazine;
 
-    private bool _isLeft;
-
     private void Awake()
     {
         CacheComponents();
     }
 
     public void SetData()
-    {/*
-        if (GameManager.Instance.PlayerValues.WeaponDictionary.Count == 0) return;
-
+    {
         for (int i = 0; i < _weaponSlot.Length; i++)
         {
-            for (int j = 0; j < _weaponSlot[i]._weapons.Length; j++)
-            {
-                GameManager.Instance.PlayerValues.WeaponDictionary.TryGetValue((PlayerWeaponEnum)j, out _weaponSlot[i]._weapons[j]);
-            }
-        }*/
+            _weaponSlot[i].SetData();
+        }
 
         _bulletMaxMagazine.text = $"{GameManager.Instance.PlayerValues.MaxMagazine}";
         WeaponMagazine();
@@ -41,42 +34,33 @@ public class WeaponInven : MonoBehaviour
     }
 
     public void TakeWeapon()
-    {/*
-        if (GameManager.Instance.PlayerValues.WeaponDictionary.Count == 0) return;
-
+    {
         for (int i = 0; i < _weaponSlot.Length; i++)
         {
-            for (int j = 0; j < _weaponSlot[i]._weapons.Length; j++)
-            {
-                GameManager.Instance.PlayerValues.WeaponDictionary.TryGetValue((PlayerWeaponEnum)j, out _weaponSlot[i]._weapons[j]);
-            }
-        }*/
+            _weaponSlot[i].TakeWeapon();
+        }
     }
 
     public void WeaponSwap(bool isLeft)
     {
-        _isLeft = isLeft;
-        string aniStr = _isLeft ? "Left" : "Right";
-        Ani.SetTrigger(aniStr);
+        //string aniStr = _isLeft ? "Right" : "Left";
+        //Ani.SetTrigger(aniStr);
+        for (int i = 0; i < _weaponSlot.Length; i++)
+        {
+            _weaponSlot[i].Swap(isLeft);
+        }
         _bulletMaxMagazine.text = "-";
         WeaponMagazine(false);
     }
 
     public void SwapStop()
     {
+        /*
         for (int i = 0; i < _weaponSlot.Length; i++)
         {
-            _weaponSlot[i].Swap(_isLeft);
-        }
-
-        RefreshWeaponInven();
+            _weaponSlot[i].Swap();
+        }*/
     }
-
-    public void RefreshWeaponInven()
-    {
-        SetData();
-    }
-
     private void CacheComponents()
     {
         Ani = GetComponent<Animator>();

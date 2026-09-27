@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class BattleWindow : MonoBehaviour, IWindowable
 {
     [SerializeField] private Profile _proFile;
+
+    [Header("던전 재화 (골드)")]
+    [SerializeField] private CurrencySlot _gold;
     [SerializeField] private WeaponInven _weaponInven;
     [SerializeField] private ItemSlot[] _itemSlot;
     public ItemSlot[] ItemSlots => _itemSlot;
@@ -14,6 +17,7 @@ public class BattleWindow : MonoBehaviour, IWindowable
     public void SetActive()
     {
         _proFile.SetData();
+        _gold.SetData();
         _weaponInven.SetData();
 
         for(int i = 0; i < _itemSlot.Length; i++)

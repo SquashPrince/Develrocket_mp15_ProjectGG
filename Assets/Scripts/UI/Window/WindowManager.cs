@@ -68,6 +68,11 @@ public class WindowManager : MonoBehaviour
         _battleWindow.TakeWeapon();
     }
 
+    public void WeaponSwap(bool isLeft)
+    {
+        _battleWindow.WeaponSwap(isLeft);
+    }
+
     public void GameStartPadOut()
     {
         Open();
