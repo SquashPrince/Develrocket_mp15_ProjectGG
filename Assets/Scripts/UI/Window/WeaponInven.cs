@@ -12,8 +12,6 @@ public class WeaponInven : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _bulletCurMagazine;
     [SerializeField] private TextMeshProUGUI _bulletMaxMagazine;
 
-    private bool _isLeft;
-
     private void Awake()
     {
         CacheComponents();
@@ -35,29 +33,33 @@ public class WeaponInven : MonoBehaviour
         _bulletCurMagazine.text = isView ? $"{GameManager.Instance.PlayerValues.CurrentMagazine}" : "-";
     }
 
-    public void TakeWeapon(PlayerWeaponEnum weaponEnum, Weapon weapon)
+    public void TakeWeapon()
     {
         for (int i = 0; i < _weaponSlot.Length; i++)
         {
-            _weaponSlot[i].TakeWeapon(weaponEnum, weapon);
+            _weaponSlot[i].TakeWeapon();
         }
     }
 
     public void WeaponSwap(bool isLeft)
     {
-        _isLeft = isLeft;
-        string aniStr = _isLeft ? "Right" : "Left";
-        Ani.SetTrigger(aniStr);
+        //string aniStr = _isLeft ? "Right" : "Left";
+        //Ani.SetTrigger(aniStr);
+        for (int i = 0; i < _weaponSlot.Length; i++)
+        {
+            _weaponSlot[i].Swap(isLeft);
+        }
         _bulletMaxMagazine.text = "-";
         WeaponMagazine(false);
     }
 
     public void SwapStop()
     {
+        /*
         for (int i = 0; i < _weaponSlot.Length; i++)
         {
-            _weaponSlot[i].Swap(_isLeft);
-        }
+            _weaponSlot[i].Swap();
+        }*/
     }
     private void CacheComponents()
     {

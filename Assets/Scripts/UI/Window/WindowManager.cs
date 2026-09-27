@@ -63,9 +63,9 @@ public class WindowManager : MonoBehaviour
         _load.AddAction(action);
     }
 
-    public void TakeWeapon(PlayerWeaponEnum weaponEnum, Weapon weapon)
+    public void TakeWeapon()
     {
-        _battleWindow.TakeWeapon(weaponEnum, weapon);
+        _battleWindow.TakeWeapon();
     }
 
     public void WeaponSwap(bool isLeft)
