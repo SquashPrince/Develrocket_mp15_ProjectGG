@@ -80,4 +80,5 @@ Assets/Scenes/SampleScene.unity
 /Assets/Scenes
 *.json
 
-Assets\Imports
+/Assets/Imports/
+/Assets/Imports.meta
